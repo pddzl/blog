@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>安装 | Pddzl</title>
+    <meta name="description" content="天道酬勤">
+    <link rel="stylesheet" href="/blog/assets/style.abfdc23c.css">
+    <link rel="modulepreload" href="/blog/assets/Home.f66471cd.js">
+    <link rel="modulepreload" href="/blog/assets/app.2478aa21.js">
+    <link rel="modulepreload" href="/blog/assets/docs_cloud-native_kubernetes_install.md.f6da6427.lean.js">
+    <link rel="modulepreload" href="/blog/assets/app.2478aa21.js">
+    <meta name="author" content="pddzl">
+    <meta name="keywords" content="docker, k8s, vue, golang">
+    <link rel="icon" type="image/svg+xml" href="/logo.svg">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="keywords" content="pddzl">
+    <link rel="icon" href="/favicon.ico">
+    <meta name="twitter:title" content="安装 | Pddzl">
+    <meta property="og:title" content="安装 | Pddzl">
+  </head>
+  <body>
+    <div id="app"><!--[--><div class="theme"><header class="nav-bar" data-v-730adb3c><div class="sidebar-button" data-v-730adb3c><svg class="icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z" class></path></svg></div><a class="nav-bar-title" href="/blog/" aria-label="Pddzl, back to home" data-v-730adb3c data-v-3e3fd8b1><img class="logo" src="/blog/sheep.png" alt="Logo" data-v-3e3fd8b1> Pddzl</a><div class="flex-grow" data-v-730adb3c></div><div class="nav" data-v-730adb3c><nav class="nav-links" data-v-730adb3c data-v-1e870408><!--[--><div class="item" data-v-1e870408><div class="nav-dropdown-link" data-v-1e870408 data-v-312de885><button class="button" data-v-312de885><span class="button-text" data-v-312de885>Linux</span><span class="right button-arrow" data-v-312de885></span></button><ul class="dialog" data-v-312de885><!--[--><li class="dialog-item" data-v-312de885><div class="nav-dropdown-link-item" data-v-312de885 data-v-7b16fcd4><a class="item" href="/blog/docs/linux/shell" data-v-7b16fcd4><span class="arrow" data-v-7b16fcd4></span><span class="text" data-v-7b16fcd4>Shell</span><span class="icon" data-v-7b16fcd4><!----></span></a></div></li><li class="dialog-item" data-v-312de885><div class="nav-dropdown-link-item" data-v-312de885 data-v-7b16fcd4><a class="item" href="/blog/docs/linux/awk" data-v-7b16fcd4><span class="arrow" data-v-7b16fcd4></span><span class="text" data-v-7b16fcd4>Awk</span><span class="icon" data-v-7b16fcd4><!----></span></a></div></li><!--]--></ul></div></div><div class="item" data-v-1e870408><div class="nav-dropdown-link" data-v-1e870408 data-v-312de885><button class="button" data-v-312de885><span class="button-text" data-v-312de885>前端</span><span class="right button-arrow" data-v-312de885></span></button><ul class="dialog" data-v-312de885><!--[--><li class="dialog-item" data-v-312de885><div class="nav-dropdown-link-item" data-v-312de885 data-v-7b16fcd4><a class="item" href="/blog/docs/frontend/css" data-v-7b16fcd4><span class="arrow" data-v-7b16fcd4></span><span class="text" data-v-7b16fcd4>CSS</span><span class="icon" data-v-7b16fcd4><!----></span></a></div></li><li class="dialog-item" data-v-312de885><div class="nav-dropdown-link-item" data-v-312de885 data-v-7b16fcd4><a class="item" href="/blog/docs/frontend/vue" data-v-7b16fcd4><span class="arrow" data-v-7b16fcd4></span><span class="text" data-v-7b16fcd4>Vue</span><span class="icon" data-v-7b16fcd4><!----></span></a></div></li><li class="dialog-item" data-v-312de885><div class="nav-dropdown-link-item" data-v-312de885 data-v-7b16fcd4><a class="item" href="/blog/docs/frontend/vite" data-v-7b16fcd4><span class="arrow" data-v-7b16fcd4></span><span class="text" data-v-7b16fcd4>Vite</span><span class="icon" data-v-7b16fcd4><!----></span></a></div></li><!--]--></ul></div></div><div class="item" data-v-1e870408><div class="nav-dropdown-link" data-v-1e870408 data-v-312de885><button class="button" data-v-312de885><span class="button-text" data-v-312de885>Golang</span><span class="right button-arrow" data-v-312de885></span></button><ul class="dialog" data-v-312de885><!--[--><li class="dialog-item" data-v-312de885><div class="nav-dropdown-link-item" data-v-312de885 data-v-7b16fcd4><a class="item" href="/blog/docs/golang/base/README" data-v-7b16fcd4><span class="arrow" data-v-7b16fcd4></span><span class="text" data-v-7b16fcd4>Golang</span><span class="icon" data-v-7b16fcd4><!----></span></a></div></li><li class="dialog-item" data-v-312de885><div class="nav-dropdown-link-item" data-v-312de885 data-v-7b16fcd4><a class="item" href="/blog/docs/golang/gin" data-v-7b16fcd4><span class="arrow" data-v-7b16fcd4></span><span class="text" data-v-7b16fcd4>Gin</span><span class="icon" data-v-7b16fcd4><!----></span></a></div></li><li class="dialog-item" data-v-312de885><div class="nav-dropdown-link-item" data-v-312de885 data-v-7b16fcd4><a class="item" href="/blog/docs/golang/gorm" data-v-7b16fcd4><span class="arrow" data-v-7b16fcd4></span><span class="text" data-v-7b16fcd4>Gorm</span><span class="icon" data-v-7b16fcd4><!----></span></a></div></li><!--]--></ul></div></div><div class="item" data-v-1e870408><div class="nav-dropdown-link" data-v-1e870408 data-v-312de885><button class="button" data-v-312de885><span class="button-text" data-v-312de885>云原生</span><span class="right button-arrow" data-v-312de885></span></button><ul class="dialog" data-v-312de885><!--[--><li class="dialog-item" data-v-312de885><div class="nav-dropdown-link-item" data-v-312de885 data-v-7b16fcd4><a class="item" href="/blog/docs/cloud-native/docker" data-v-7b16fcd4><span class="arrow" data-v-7b16fcd4></span><span class="text" data-v-7b16fcd4>Docker</span><span class="icon" data-v-7b16fcd4><!----></span></a></div></li><li class="dialog-item" data-v-312de885><div class="nav-dropdown-link-item" data-v-312de885 data-v-7b16fcd4><a class="item" href="/blog/docs/cloud-native/kubernetes/README" data-v-7b16fcd4><span class="arrow" data-v-7b16fcd4></span><span class="text" data-v-7b16fcd4>Kubernetes</span><span class="icon" data-v-7b16fcd4><!----></span></a></div></li><!--]--></ul></div></div><!--]--><!----><!-- <div v-if="repo" class="item">
+      <NavLink :item="repo" />
+    </div> --></nav></div><div class="nav-icons" data-v-730adb3c><div class="item" data-v-730adb3c><button class="nav-btn" aria-label="Toggle Theme" data-v-730adb3c><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1.2em" height="1.2em" preserveaspectratio="xMidYMid meet" viewbox="0 0 24 24" style="display:none;"><path d="M10 7a7 7 0 0 0 12 4.9v.1c0 5.523-4.477 10-10 10S2 17.523 2 12S6.477 2 12 2h.1A6.979 6.979 0 0 0 10 7zm-6 5a8 8 0 0 0 15.062 3.762A9 9 0 0 1 8.238 4.938A7.999 7.999 0 0 0 4 12z" fill="currentColor"></path></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1.2em" height="1.2em" preserveaspectratio="xMidYMid meet" viewbox="0 0 24 24" style=""><path d="M12 18a6 6 0 1 1 0-12a6 6 0 0 1 0 12zm0-2a4 4 0 1 0 0-8a4 4 0 0 0 0 8zM11 1h2v3h-2V1zm0 19h2v3h-2v-3zM3.515 4.929l1.414-1.414L7.05 5.636L5.636 7.05L3.515 4.93zM16.95 18.364l1.414-1.414l2.121 2.121l-1.414 1.414l-2.121-2.121zm2.121-14.85l1.414 1.415l-2.121 2.121l-1.414-1.414l2.121-2.121zM5.636 16.95l1.414 1.414l-2.121 2.121l-1.414-1.414l2.121-2.121zM23 11v2h-3v-2h3zM4 11v2H1v-2h3z" fill="currentColor"></path></svg></button></div><div class="item" data-v-730adb3c><a class="nav-btn" href="https://github.com/pddzl/kubeops" target="_blank" aria-label="View GitHub Repo" data-v-730adb3c><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1.2em" height="1.2em" preserveaspectratio="xMidYMid meet" viewbox="0 0 24 24" data-v-730adb3c><path d="M5.883 18.653c-.3-.2-.558-.455-.86-.816a50.32 50.32 0 0 1-.466-.579c-.463-.575-.755-.84-1.057-.949a1 1 0 0 1 .676-1.883c.752.27 1.261.735 1.947 1.588c-.094-.117.34.427.433.539c.19.227.33.365.44.438c.204.137.587.196 1.15.14c.023-.382.094-.753.202-1.095C5.38 15.31 3.7 13.396 3.7 9.64c0-1.24.37-2.356 1.058-3.292c-.218-.894-.185-1.975.302-3.192a1 1 0 0 1 .63-.582c.081-.024.127-.035.208-.047c.803-.123 1.937.17 3.415 1.096A11.731 11.731 0 0 1 12 3.315c.912 0 1.818.104 2.684.308c1.477-.933 2.613-1.226 3.422-1.096c.085.013.157.03.218.05a1 1 0 0 1 .616.58c.487 1.216.52 2.297.302 3.19c.691.936 1.058 2.045 1.058 3.293c0 3.757-1.674 5.665-4.642 6.392c.125.415.19.879.19 1.38a300.492 300.492 0 0 1-.012 2.716a1 1 0 0 1-.019 1.958c-1.139.228-1.983-.532-1.983-1.525l.002-.446l.005-.705c.005-.708.007-1.338.007-1.998c0-.697-.183-1.152-.425-1.36c-.661-.57-.326-1.655.54-1.752c2.967-.333 4.337-1.482 4.337-4.66c0-.955-.312-1.744-.913-2.404a1 1 0 0 1-.19-1.045c.166-.414.237-.957.096-1.614l-.01.003c-.491.139-1.11.44-1.858.949a1 1 0 0 1-.833.135A9.626 9.626 0 0 0 12 5.315c-.89 0-1.772.119-2.592.35a1 1 0 0 1-.83-.134c-.752-.507-1.374-.807-1.868-.947c-.144.653-.073 1.194.092 1.607a1 1 0 0 1-.189 1.045C6.016 7.89 5.7 8.694 5.7 9.64c0 3.172 1.371 4.328 4.322 4.66c.865.097 1.201 1.177.544 1.748c-.192.168-.429.732-.429 1.364v3.15c0 .986-.835 1.725-1.96 1.528a1 1 0 0 1-.04-1.962v-.99c-.91.061-1.662-.088-2.254-.485z" fill="currentColor"></path></svg></a></div></div><!--[--><!--]--></header><!--[--><aside class="sidebar" data-v-4668b452><nav class="nav-links nav" data-v-4668b452 data-v-1e870408><!--[--><div class="item" data-v-1e870408><div class="nav-dropdown-link" data-v-1e870408 data-v-312de885><button class="button" data-v-312de885><span class="button-text" data-v-312de885>Linux</span><span class="right button-arrow" data-v-312de885></span></button><ul class="dialog" data-v-312de885><!--[--><li class="dialog-item" data-v-312de885><div class="nav-dropdown-link-item" data-v-312de885 data-v-7b16fcd4><a class="item" href="/blog/docs/linux/shell" data-v-7b16fcd4><span class="arrow" data-v-7b16fcd4></span><span class="text" data-v-7b16fcd4>Shell</span><span class="icon" data-v-7b16fcd4><!----></span></a></div></li><li class="dialog-item" data-v-312de885><div class="nav-dropdown-link-item" data-v-312de885 data-v-7b16fcd4><a class="item" href="/blog/docs/linux/awk" data-v-7b16fcd4><span class="arrow" data-v-7b16fcd4></span><span class="text" data-v-7b16fcd4>Awk</span><span class="icon" data-v-7b16fcd4><!----></span></a></div></li><!--]--></ul></div></div><div class="item" data-v-1e870408><div class="nav-dropdown-link" data-v-1e870408 data-v-312de885><button class="button" data-v-312de885><span class="button-text" data-v-312de885>前端</span><span class="right button-arrow" data-v-312de885></span></button><ul class="dialog" data-v-312de885><!--[--><li class="dialog-item" data-v-312de885><div class="nav-dropdown-link-item" data-v-312de885 data-v-7b16fcd4><a class="item" href="/blog/docs/frontend/css" data-v-7b16fcd4><span class="arrow" data-v-7b16fcd4></span><span class="text" data-v-7b16fcd4>CSS</span><span class="icon" data-v-7b16fcd4><!----></span></a></div></li><li class="dialog-item" data-v-312de885><div class="nav-dropdown-link-item" data-v-312de885 data-v-7b16fcd4><a class="item" href="/blog/docs/frontend/vue" data-v-7b16fcd4><span class="arrow" data-v-7b16fcd4></span><span class="text" data-v-7b16fcd4>Vue</span><span class="icon" data-v-7b16fcd4><!----></span></a></div></li><li class="dialog-item" data-v-312de885><div class="nav-dropdown-link-item" data-v-312de885 data-v-7b16fcd4><a class="item" href="/blog/docs/frontend/vite" data-v-7b16fcd4><span class="arrow" data-v-7b16fcd4></span><span class="text" data-v-7b16fcd4>Vite</span><span class="icon" data-v-7b16fcd4><!----></span></a></div></li><!--]--></ul></div></div><div class="item" data-v-1e870408><div class="nav-dropdown-link" data-v-1e870408 data-v-312de885><button class="button" data-v-312de885><span class="button-text" data-v-312de885>Golang</span><span class="right button-arrow" data-v-312de885></span></button><ul class="dialog" data-v-312de885><!--[--><li class="dialog-item" data-v-312de885><div class="nav-dropdown-link-item" data-v-312de885 data-v-7b16fcd4><a class="item" href="/blog/docs/golang/base/README" data-v-7b16fcd4><span class="arrow" data-v-7b16fcd4></span><span class="text" data-v-7b16fcd4>Golang</span><span class="icon" data-v-7b16fcd4><!----></span></a></div></li><li class="dialog-item" data-v-312de885><div class="nav-dropdown-link-item" data-v-312de885 data-v-7b16fcd4><a class="item" href="/blog/docs/golang/gin" data-v-7b16fcd4><span class="arrow" data-v-7b16fcd4></span><span class="text" data-v-7b16fcd4>Gin</span><span class="icon" data-v-7b16fcd4><!----></span></a></div></li><li class="dialog-item" data-v-312de885><div class="nav-dropdown-link-item" data-v-312de885 data-v-7b16fcd4><a class="item" href="/blog/docs/golang/gorm" data-v-7b16fcd4><span class="arrow" data-v-7b16fcd4></span><span class="text" data-v-7b16fcd4>Gorm</span><span class="icon" data-v-7b16fcd4><!----></span></a></div></li><!--]--></ul></div></div><div class="item" data-v-1e870408><div class="nav-dropdown-link" data-v-1e870408 data-v-312de885><button class="button" data-v-312de885><span class="button-text" data-v-312de885>云原生</span><span class="right button-arrow" data-v-312de885></span></button><ul class="dialog" data-v-312de885><!--[--><li class="dialog-item" data-v-312de885><div class="nav-dropdown-link-item" data-v-312de885 data-v-7b16fcd4><a class="item" href="/blog/docs/cloud-native/docker" data-v-7b16fcd4><span class="arrow" data-v-7b16fcd4></span><span class="text" data-v-7b16fcd4>Docker</span><span class="icon" data-v-7b16fcd4><!----></span></a></div></li><li class="dialog-item" data-v-312de885><div class="nav-dropdown-link-item" data-v-312de885 data-v-7b16fcd4><a class="item" href="/blog/docs/cloud-native/kubernetes/README" data-v-7b16fcd4><span class="arrow" data-v-7b16fcd4></span><span class="text" data-v-7b16fcd4>Kubernetes</span><span class="icon" data-v-7b16fcd4><!----></span></a></div></li><!--]--></ul></div></div><!--]--><!----><!-- <div v-if="repo" class="item">
+      <NavLink :item="repo" />
+    </div> --></nav><!--[--><!--]--><ul class="sidebar-links" data-v-4668b452><!--[--><li class="sidebar-link"><a class="sidebar-link-item" href="/blog/docs/cloud-native/docker">Docker</a><!----></li><li class="sidebar-link"><p class="sidebar-link-item">Kubernetes</p><ul class="sidebar-links"><li class="sidebar-link"><a class="sidebar-link-item active" href="/blog/docs/cloud-native/kubernetes/install">安装</a><ul class="sidebar-links"><li class="sidebar-link"><a class="sidebar-link-item" href="#kubeadm">kubeadm</a><ul class="sidebar-links"><li class="sidebar-link"><a class="sidebar-link-item" href="#系统准备">系统准备</a><!----></li><li class="sidebar-link"><a class="sidebar-link-item" href="#部署cri">部署CRI</a><!----></li><li class="sidebar-link"><a class="sidebar-link-item" href="#部署k8s">部署k8s</a><!----></li><li class="sidebar-link"><a class="sidebar-link-item" href="#安装网络插件">安装网络插件</a><!----></li><li class="sidebar-link"><a class="sidebar-link-item" href="#添加节点">添加节点</a><!----></li><li class="sidebar-link"><a class="sidebar-link-item" href="#参考">参考</a><!----></li></ul></li></ul></li><li class="sidebar-link"><a class="sidebar-link-item" href="/blog/docs/cloud-native/kubernetes/controller">控制器</a><!----></li></ul></li><!--]--></ul><!--[--><!--]--></aside><!-- <Slugs /> --><!--]--><!-- TODO: make this button accessible --><div class="sidebar-mask"></div><main class="page" data-v-7abc59e6><div class="container" data-v-7abc59e6><!--[--><!--]--><div class="content" data-v-7abc59e6><div data-v-7abc59e6><h1 id="安装"><a class="header-anchor" href="#安装" aria-hidden="true">#</a> 安装</h1><h2 id="kubeadm"><a class="header-anchor" href="#kubeadm" aria-hidden="true">#</a> kubeadm</h2><p>以下内容为使用 kubeadm 部署 <code>kubernetes v1.23.1</code></p><h3 id="系统准备"><a class="header-anchor" href="#系统准备" aria-hidden="true">#</a> 系统准备</h3><table><thead><tr><th>主机名</th><th>IP</th><th>角色</th></tr></thead><tbody><tr><td>node1</td><td>10.192.104.101</td><td>master</td></tr><tr><td>node2</td><td>10.192.104.102</td><td>node</td></tr><tr><td>node3</td><td>10.192.104.103</td><td>node</td></tr></tbody></table><h4 id="设置主机名称"><a class="header-anchor" href="#设置主机名称" aria-hidden="true">#</a> 设置主机名称</h4><div class="language-shell"><pre><code><span class="token function">sudo</span> hostnamectl set-hostname node1 --static
+</code></pre></div><p>/etc/hosts文件追加</p><div class="language-shell"><pre><code><span class="token number">10.192</span>.104.101 node1
+<span class="token number">10.192</span>.104.102 node2
+<span class="token number">10.192</span>.104.103 node3
+</code></pre></div><h4 id="设置dns"><a class="header-anchor" href="#设置dns" aria-hidden="true">#</a> 设置DNS</h4><p><code>/etc/resolv.conf</code> <strong>设置成阿里云的DNS，不然阿里云的k8s镜像解析不了</strong></p><div class="language-shell"><pre><code>nameserver <span class="token number">223.5</span>.5.5
+</code></pre></div><h4 id="关闭防火墙"><a class="header-anchor" href="#关闭防火墙" aria-hidden="true">#</a> 关闭防火墙</h4><div class="language-shell"><pre><code>systemctl stop firewalld
+systemctl disable firewalld
+</code></pre></div><h4 id="禁用selinux"><a class="header-anchor" href="#禁用selinux" aria-hidden="true">#</a> 禁用selinux</h4><div class="language-shell"><pre><code>setenforce <span class="token number">0</span>
+</code></pre></div><div class="language-shell"><pre><code><span class="token function">vim</span> /etc/selinux/config
+<span class="token assign-left variable">SELINUX</span><span class="token operator">=</span>disabled
+</code></pre></div><h4 id="关闭swap"><a class="header-anchor" href="#关闭swap" aria-hidden="true">#</a> 关闭Swap</h4><p>Kubernetes 1.8 开始要求关闭系统的 Swap，如果不关闭，默认配置下 kubelet 将无法启动。 关闭系统的 Swap 方法如下</p><div class="language-shell"><pre><code>swapoff -a
+</code></pre></div><p>修改 /etc/fstab 文件，注释掉 SWAP 的自动挂载，使用 free -m 确认 swap 已经关闭</p><p>swappiness 参数调整，修改 <code>/etc/sysctl.d/99-kubernetes-cri.conf</code> 添加下面一行</p><div class="language-shell"><pre><code>vm.swappiness<span class="token operator">=</span><span class="token number">0</span>
+</code></pre></div><p>使生效</p><div class="language-shell"><pre><code>sysctl -p /etc/sysctl.d/99-kubernetes-cri.conf
+</code></pre></div><h4 id="开启ipvs"><a class="header-anchor" href="#开启ipvs" aria-hidden="true">#</a> 开启ipvs</h4><p>由于ipvs已经加入到了内核的主干，所以为 kube-proxy 开启 ipvs 的前提需要加载以下的内核模块</p><div class="language-text"><pre><code>ip_vs
+ip_vs_rr
+ip_vs_wrr
+ip_vs_sh
+nf_conntrack_ipv4
+</code></pre></div><p>在各个服务器节点上执行以下脚本</p><div class="language-shell"><pre><code><span class="token function">cat</span> <span class="token operator">&gt;</span> /etc/sysconfig/modules/ipvs.modules <span class="token operator">&lt;&lt;</span><span class="token string">EOF
+#!/bin/bash
+modprobe -- ip_vs
+modprobe -- ip_vs_rr
+modprobe -- ip_vs_wrr
+modprobe -- ip_vs_sh
+modprobe -- nf_conntrack_ipv4
+EOF</span>
+<span class="token function">chmod</span> <span class="token number">755</span> /etc/sysconfig/modules/ipvs.modules <span class="token operator">&amp;&amp;</span> <span class="token function">bash</span> /etc/sysconfig/modules/ipvs.modules <span class="token operator">&amp;&amp;</span> lsmod <span class="token operator">|</span> <span class="token function">grep</span> -e ip_vs -e nf_conntrack_ipv4
+</code></pre></div><p>上面脚本创建了 <code>/etc/sysconfig/modules/ipvs.modules</code> 文件，保证在节点重启后能自动加载所需模块。 使用 <code>lsmod | grep -e ip_vs -e nf_conntrack_ipv4</code> 命令查看是否已经正确加载所需的内核模块。</p><p>接下来还需要确保各个节点上已经安装了 ipset 软件包，为了便于查看 ipvs 的代理规则，最好安装一下管理工具 ipvsadm 。</p><div class="language-shell"><pre><code>yum <span class="token function">install</span> -y ipset ipvsadm
+</code></pre></div><p><strong>如果以上前提条件如果不满足，则即使 kube-proxy 的配置开启了 ipvs 模式，也会退回到 iptables 模式。</strong></p><h3 id="部署cri"><a class="header-anchor" href="#部署cri" aria-hidden="true">#</a> 部署CRI</h3><p>这里的 <code>cri</code> 选择 <code>Containerd</code></p><h4 id="内核配置"><a class="header-anchor" href="#内核配置" aria-hidden="true">#</a> 内核配置</h4><p>创建 <code>/etc/modules-load.d/containerd.conf</code> 配置文件</p><div class="language-shell"><pre><code><span class="token function">cat</span> <span class="token operator">&lt;&lt;</span> <span class="token string">EOF<span class="token bash punctuation"> <span class="token operator">&gt;</span> /etc/modules-load.d/containerd.conf</span>
+overlay
+br_netfilter
+EOF</span>
+</code></pre></div><div class="language-shell"><pre><code>modprobe overlay
+modprobe br_netfilter
+</code></pre></div><p>创建 <code>/etc/sysctl.d/99-kubernetes-cri.conf</code> 配置文件</p><div class="language-shell"><pre><code><span class="token function">cat</span> <span class="token operator">&lt;&lt;</span> <span class="token string">EOF<span class="token bash punctuation"> <span class="token operator">&gt;</span> /etc/sysctl.d/99-kubernetes-cri.conf</span>
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+net.ipv4.ip_forward = 1
+user.max_user_namespaces=28633
+EOF</span>
+</code></pre></div><p>使生效</p><div class="language-shell"><pre><code>sysctl -p /etc/sysctl.d/99-kubernetes-cri.conf
+</code></pre></div><h4 id="下载安装"><a class="header-anchor" href="#下载安装" aria-hidden="true">#</a> 下载安装</h4><p><strong>在各个服务器节点上安装容器运行时 Containerd</strong></p><p>下载Containerd的二进制包</p><div class="language-shell"><pre><code><span class="token function">wget</span> https://github.com/containerd/containerd/releases/download/v1.5.8/cri-containerd-cni-1.5.8-linux-amd64.tar.gz
+</code></pre></div><p><code>cri-containerd-cni-1.5.8-linux-amd64.tar.gz</code> 压缩包中已经按照官方二进制部署推荐的目录结构布局好。里面包含了 systemd 配置文件，containerd 以及 cni 的部署文件。 将解压缩到系统的根目录/中</p><div class="language-shell"><pre><code><span class="token punctuation">[</span>root@node1 ~<span class="token punctuation">]</span><span class="token comment"># tar -zxvf cri-containerd-cni-1.5.8-linux-amd64.tar.gz -C /</span>
+etc/
+etc/systemd/
+etc/systemd/system/
+etc/systemd/system/containerd.service
+etc/crictl.yaml
+etc/cni/
+etc/cni/net.d/
+etc/cni/net.d/10-containerd-net.conflist
+usr/
+usr/local/
+usr/local/sbin/
+usr/local/sbin/runc
+usr/local/bin/
+usr/local/bin/critest
+usr/local/bin/containerd-shim
+usr/local/bin/containerd-shim-runc-v1
+usr/local/bin/ctd-decoder
+usr/local/bin/containerd
+usr/local/bin/containerd-shim-runc-v2
+usr/local/bin/containerd-stress
+usr/local/bin/ctr
+usr/local/bin/crictl
+<span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span>
+opt/cni/
+opt/cni/bin/
+opt/cni/bin/bridge
+<span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span>
+</code></pre></div><p>注意经测试 <code>cri-containerd-cni-1.5.8-linux-amd64.tar.gz</code> 包中包含的 runc 在 CentOS 7 下的动态链接有问题，这里从 runc 的 github 上单独下载 runc，并替换上面安装的 containerd 中的 runc</p><div class="language-shell"><pre><code><span class="token function">wget</span> https://github.com/opencontainers/runc/releases/download/v1.1.0-rc.1/runc.amd64
+<span class="token function">mv</span> /usr/local/sbin/runc /usr/local/sbin/runc.bak
+<span class="token function">mv</span> runc.amd64 /usr/local/sbin/runc
+</code></pre></div><h4 id="配置"><a class="header-anchor" href="#配置" aria-hidden="true">#</a> 配置</h4><p>生成 containerd 的配置文件</p><div class="language-shell"><pre><code><span class="token function">mkdir</span> -p /etc/containerd
+containerd config default <span class="token operator">&gt;</span> /etc/containerd/config.toml
+</code></pre></div><p>根据文档 Container runtimes 中的内容，对于使用 systemd 作为 init system 的 Linux 的发行版，使用 systemd 作为容器的 cgroup driver 可以确保服务器节点在资源紧张的情况更加稳定，因此这里配置各个节点上 containerd 的 cgroup driver 为 systemd</p><p>修改前面生成的配置文件 <code>/etc/containerd/config.toml</code></p><div class="language-shell"><pre><code><span class="token punctuation">[</span>plugins.<span class="token string">&quot;io.containerd.grpc.v1.cri&quot;</span>.containerd.runtimes.runc<span class="token punctuation">]</span>
+  <span class="token punctuation">..</span>.
+  <span class="token punctuation">[</span>plugins.<span class="token string">&quot;io.containerd.grpc.v1.cri&quot;</span>.containerd.runtimes.runc.options<span class="token punctuation">]</span>
+    SystemdCgroup <span class="token operator">=</span> <span class="token boolean">true</span>
+</code></pre></div><p>再修改 <code>/etc/containerd/config.toml</code> 中的</p><div class="language-shell"><pre><code><span class="token punctuation">[</span>plugins.<span class="token string">&quot;io.containerd.grpc.v1.cri&quot;</span><span class="token punctuation">]</span>
+  <span class="token punctuation">..</span>.
+  <span class="token comment"># sandbox_image = &quot;k8s.gcr.io/pause:3.5&quot;</span>
+  sandbox_image <span class="token operator">=</span> <span class="token string">&quot;registry.aliyuncs.com/google_containers/pause:3.6&quot;</span>
+</code></pre></div><p>配置 <code>containerd</code> 开机启动，并启动 <code>containerd</code></p><div class="language-shell"><pre><code>systemctl <span class="token builtin class-name">enable</span> containerd --now
+</code></pre></div><p>使用 crictl 测试一下，确保可以打印出版本信息并且没有错误信息输出</p><div class="language-shell"><pre><code><span class="token punctuation">[</span>root@node1 ~<span class="token punctuation">]</span><span class="token comment"># crictl version</span>
+Version:  <span class="token number">0.1</span>.0
+RuntimeName:  containerd
+RuntimeVersion:  v1.5.8
+RuntimeApiVersion:  v1alpha2
+</code></pre></div><h3 id="部署k8s"><a class="header-anchor" href="#部署k8s" aria-hidden="true">#</a> 部署k8s</h3><p>下面在各节点安装 kubeadm 和 kubelet</p><h4 id="安装kubeadm和kubelet"><a class="header-anchor" href="#安装kubeadm和kubelet" aria-hidden="true">#</a> 安装kubeadm和kubelet</h4><div class="language-shell"><pre><code><span class="token function">cat</span> <span class="token operator">&lt;&lt;</span><span class="token string">EOF<span class="token bash punctuation"> <span class="token operator">&gt;</span> /etc/yum.repos.d/kubernetes.repo</span>
+[kubernetes]
+name=Kubernetes
+baseurl=http://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64
+enabled=1
+gpgcheck=1
+repo_gpgcheck=1
+gpgkey=http://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg
+        http://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg
+EOF</span>
+</code></pre></div><div class="language-shell"><pre><code>yum makecache fast
+yum <span class="token function">install</span> -y kubelet kubeadm kubectl
+</code></pre></div><h4 id="初始化集群"><a class="header-anchor" href="#初始化集群" aria-hidden="true">#</a> 初始化集群</h4><p>在各节点开机启动 kubelet 服务</p><div class="language-shell"><pre><code>systemctl <span class="token builtin class-name">enable</span> kubelet.service
+</code></pre></div><p>使用 <code>kubeadm config print init-defaults --component-configs KubeletConfiguration</code> 可以打印集群初始化默认的使用的配置</p><div class="language-shell"><pre><code>kubeadm config print init-defaults --component-configs KubeletConfiguration <span class="token operator">&gt;</span> kubeadm.yaml
+</code></pre></div><p><strong>需要修改的地方</strong></p><ul><li>将 advertiseAddress 修改为本机地址</li><li>imageRepository 改为阿里云的 registry，避免因 gcr 被墙，无法直接拉取镜像</li><li>criSocket 设置容器运行时为 containerd</li><li>kubelet 的 cgroupDriver 为 systemd</li><li>kube-proxy 代理模式为 ipvs</li><li>添加 podSubnet 地址</li></ul><p>以下为修改完的 kubeadm.yaml</p><div class="language-yaml"><pre><code><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> kubeadm.k8s.io/v1beta3
+<span class="token key atrule">bootstrapTokens</span><span class="token punctuation">:</span>
+<span class="token punctuation">-</span> <span class="token key atrule">groups</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> system<span class="token punctuation">:</span>bootstrappers<span class="token punctuation">:</span>kubeadm<span class="token punctuation">:</span>default<span class="token punctuation">-</span>node<span class="token punctuation">-</span>token
+  <span class="token key atrule">token</span><span class="token punctuation">:</span> abcdef.0123456789abcdef
+  <span class="token key atrule">ttl</span><span class="token punctuation">:</span> 24h0m0s
+  <span class="token key atrule">usages</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> signing
+  <span class="token punctuation">-</span> authentication
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> InitConfiguration
+<span class="token key atrule">localAPIEndpoint</span><span class="token punctuation">:</span>
+  <span class="token key atrule">advertiseAddress</span><span class="token punctuation">:</span> 10.192.104.101
+  <span class="token key atrule">bindPort</span><span class="token punctuation">:</span> <span class="token number">6443</span>
+<span class="token key atrule">nodeRegistration</span><span class="token punctuation">:</span>
+  <span class="token comment">#criSocket: /run/containerd/containerd.sock</span>
+  <span class="token key atrule">criSocket</span><span class="token punctuation">:</span> unix<span class="token punctuation">:</span>///run/containerd/containerd.sock
+  <span class="token key atrule">imagePullPolicy</span><span class="token punctuation">:</span> IfNotPresent
+<span class="token comment">#  name: node</span>
+  <span class="token key atrule">taints</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">effect</span><span class="token punctuation">:</span> PreferNoSchedule
+    <span class="token key atrule">key</span><span class="token punctuation">:</span> node<span class="token punctuation">-</span>role.kubernetes.io/master
+<span class="token punctuation">---</span>
+<span class="token key atrule">apiServer</span><span class="token punctuation">:</span>
+  <span class="token key atrule">timeoutForControlPlane</span><span class="token punctuation">:</span> 4m0s
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> kubeadm.k8s.io/v1beta3
+<span class="token key atrule">certificatesDir</span><span class="token punctuation">:</span> /etc/kubernetes/pki
+<span class="token key atrule">clusterName</span><span class="token punctuation">:</span> kubernetes
+<span class="token key atrule">controllerManager</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token key atrule">dns</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token key atrule">etcd</span><span class="token punctuation">:</span>
+  <span class="token key atrule">local</span><span class="token punctuation">:</span>
+    <span class="token key atrule">dataDir</span><span class="token punctuation">:</span> /var/lib/etcd
+<span class="token key atrule">imageRepository</span><span class="token punctuation">:</span> registry.aliyuncs.com/google_containers
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> ClusterConfiguration
+<span class="token key atrule">kubernetesVersion</span><span class="token punctuation">:</span> 1.23.0
+<span class="token key atrule">networking</span><span class="token punctuation">:</span>
+  <span class="token key atrule">dnsDomain</span><span class="token punctuation">:</span> cluster.local
+  <span class="token key atrule">serviceSubnet</span><span class="token punctuation">:</span> 10.96.0.0/12
+  <span class="token key atrule">podSubnet</span><span class="token punctuation">:</span> 10.244.0.0/16
+<span class="token key atrule">scheduler</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token punctuation">---</span>
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> kubelet.config.k8s.io/v1beta1
+<span class="token key atrule">authentication</span><span class="token punctuation">:</span>
+  <span class="token key atrule">anonymous</span><span class="token punctuation">:</span>
+    <span class="token key atrule">enabled</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
+  <span class="token key atrule">webhook</span><span class="token punctuation">:</span>
+    <span class="token key atrule">cacheTTL</span><span class="token punctuation">:</span> 0s
+    <span class="token key atrule">enabled</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+  <span class="token key atrule">x509</span><span class="token punctuation">:</span>
+    <span class="token key atrule">clientCAFile</span><span class="token punctuation">:</span> /etc/kubernetes/pki/ca.crt
+<span class="token key atrule">authorization</span><span class="token punctuation">:</span>
+  <span class="token key atrule">mode</span><span class="token punctuation">:</span> Webhook
+  <span class="token key atrule">webhook</span><span class="token punctuation">:</span>
+    <span class="token key atrule">cacheAuthorizedTTL</span><span class="token punctuation">:</span> 0s
+    <span class="token key atrule">cacheUnauthorizedTTL</span><span class="token punctuation">:</span> 0s
+<span class="token key atrule">cgroupDriver</span><span class="token punctuation">:</span> systemd
+<span class="token key atrule">clusterDNS</span><span class="token punctuation">:</span>
+<span class="token punctuation">-</span> 10.96.0.10
+<span class="token key atrule">clusterDomain</span><span class="token punctuation">:</span> cluster.local
+<span class="token key atrule">cpuManagerReconcilePeriod</span><span class="token punctuation">:</span> 0s
+<span class="token key atrule">evictionPressureTransitionPeriod</span><span class="token punctuation">:</span> 0s
+<span class="token key atrule">fileCheckFrequency</span><span class="token punctuation">:</span> 0s
+<span class="token key atrule">healthzBindAddress</span><span class="token punctuation">:</span> 127.0.0.1
+<span class="token key atrule">healthzPort</span><span class="token punctuation">:</span> <span class="token number">10248</span>
+<span class="token key atrule">httpCheckFrequency</span><span class="token punctuation">:</span> 0s
+<span class="token key atrule">imageMinimumGCAge</span><span class="token punctuation">:</span> 0s
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> KubeletConfiguration
+<span class="token key atrule">logging</span><span class="token punctuation">:</span>
+  <span class="token key atrule">flushFrequency</span><span class="token punctuation">:</span> <span class="token number">0</span>
+  <span class="token key atrule">options</span><span class="token punctuation">:</span>
+    <span class="token key atrule">json</span><span class="token punctuation">:</span>
+      <span class="token key atrule">infoBufferSize</span><span class="token punctuation">:</span> <span class="token string">&quot;0&quot;</span>
+  <span class="token key atrule">verbosity</span><span class="token punctuation">:</span> <span class="token number">0</span>
+<span class="token key atrule">memorySwap</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token key atrule">nodeStatusReportFrequency</span><span class="token punctuation">:</span> 0s
+<span class="token key atrule">nodeStatusUpdateFrequency</span><span class="token punctuation">:</span> 0s
+<span class="token key atrule">rotateCertificates</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+<span class="token key atrule">runtimeRequestTimeout</span><span class="token punctuation">:</span> 0s
+<span class="token key atrule">shutdownGracePeriod</span><span class="token punctuation">:</span> 0s
+<span class="token key atrule">shutdownGracePeriodCriticalPods</span><span class="token punctuation">:</span> 0s
+<span class="token key atrule">staticPodPath</span><span class="token punctuation">:</span> /etc/kubernetes/manifests
+<span class="token key atrule">streamingConnectionIdleTimeout</span><span class="token punctuation">:</span> 0s
+<span class="token key atrule">syncFrequency</span><span class="token punctuation">:</span> 0s
+<span class="token key atrule">volumeStatsAggPeriod</span><span class="token punctuation">:</span> 0s
+<span class="token punctuation">---</span>
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> kubeproxy.config.k8s.io/v1alpha1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> KubeProxyConfiguration
+<span class="token key atrule">mode</span><span class="token punctuation">:</span> ipvs
+</code></pre></div><p>在开始初始化集群之前可以使用 <code>kubeadm config images pull --config kubeadm.yaml</code> 预先在各个服务器节点上拉取 k8s 需要的容器镜像</p><div class="language-shell"><pre><code><span class="token punctuation">[</span>root@node1 ~<span class="token punctuation">]</span><span class="token comment"># kubeadm config images pull --config kubeadm.yaml</span>
+<span class="token punctuation">[</span>config/images<span class="token punctuation">]</span> Pulled registry.aliyuncs.com/google_containers/kube-apiserver:v1.23.1
+<span class="token punctuation">[</span>config/images<span class="token punctuation">]</span> Pulled registry.aliyuncs.com/google_containers/kube-controller-manager:v1.23.1
+<span class="token punctuation">[</span>config/images<span class="token punctuation">]</span> Pulled registry.aliyuncs.com/google_containers/kube-scheduler:v1.23.1
+<span class="token punctuation">[</span>config/images<span class="token punctuation">]</span> Pulled registry.aliyuncs.com/google_containers/kube-proxy:v1.23.1
+<span class="token punctuation">[</span>config/images<span class="token punctuation">]</span> Pulled registry.aliyuncs.com/google_containers/pause:3.6
+<span class="token punctuation">[</span>config/images<span class="token punctuation">]</span> Pulled registry.aliyuncs.com/google_containers/etcd:3.5.1-0
+<span class="token punctuation">[</span>config/images<span class="token punctuation">]</span> Pulled registry.aliyuncs.com/google_containers/coredns:v1.8.6
+</code></pre></div><p>接下来使用 kubeadm 初始化集群，选择 node1 作为 Master Node，在 node1 上执行下面的命令</p><div class="language-shell"><pre><code><span class="token punctuation">[</span>root@node1 ~<span class="token punctuation">]</span><span class="token comment"># kubeadm init --config kubeadm.yaml</span>
+<span class="token punctuation">[</span>init<span class="token punctuation">]</span> Using Kubernetes version: v1.23.0
+<span class="token punctuation">[</span>preflight<span class="token punctuation">]</span> Running pre-flight checks
+<span class="token punctuation">[</span>preflight<span class="token punctuation">]</span> Pulling images required <span class="token keyword">for</span> setting up a Kubernetes cluster
+<span class="token punctuation">[</span>preflight<span class="token punctuation">]</span> This might take a minute or two, depending on the speed of your internet connection
+<span class="token punctuation">[</span>preflight<span class="token punctuation">]</span> You can also perform this action <span class="token keyword">in</span> beforehand using <span class="token string">&#39;kubeadm config images pull&#39;</span>
+<span class="token punctuation">[</span>certs<span class="token punctuation">]</span> Using certificateDir folder <span class="token string">&quot;/etc/kubernetes/pki&quot;</span>
+<span class="token punctuation">[</span>certs<span class="token punctuation">]</span> Generating <span class="token string">&quot;ca&quot;</span> certificate and key
+<span class="token punctuation">[</span>certs<span class="token punctuation">]</span> Generating <span class="token string">&quot;apiserver&quot;</span> certificate and key
+<span class="token punctuation">[</span>certs<span class="token punctuation">]</span> apiserver serving cert is signed <span class="token keyword">for</span> DNS names <span class="token punctuation">[</span>kubernetes kubernetes.default kubernetes.default.svc kubernetes.default.svc.cluster.local node1<span class="token punctuation">]</span> and IPs <span class="token punctuation">[</span><span class="token number">10.96</span>.0.1 <span class="token number">10.192</span>.104.101<span class="token punctuation">]</span>
+<span class="token punctuation">[</span>certs<span class="token punctuation">]</span> Generating <span class="token string">&quot;apiserver-kubelet-client&quot;</span> certificate and key
+<span class="token punctuation">[</span>certs<span class="token punctuation">]</span> Generating <span class="token string">&quot;front-proxy-ca&quot;</span> certificate and key
+<span class="token punctuation">[</span>certs<span class="token punctuation">]</span> Generating <span class="token string">&quot;front-proxy-client&quot;</span> certificate and key
+<span class="token punctuation">[</span>certs<span class="token punctuation">]</span> Generating <span class="token string">&quot;etcd/ca&quot;</span> certificate and key
+<span class="token punctuation">[</span>certs<span class="token punctuation">]</span> Generating <span class="token string">&quot;etcd/server&quot;</span> certificate and key
+<span class="token punctuation">[</span>certs<span class="token punctuation">]</span> etcd/server serving cert is signed <span class="token keyword">for</span> DNS names <span class="token punctuation">[</span>localhost node1<span class="token punctuation">]</span> and IPs <span class="token punctuation">[</span><span class="token number">10.192</span>.104.101 <span class="token number">127.0</span>.0.1 ::1<span class="token punctuation">]</span>
+<span class="token punctuation">[</span>certs<span class="token punctuation">]</span> Generating <span class="token string">&quot;etcd/peer&quot;</span> certificate and key
+<span class="token punctuation">[</span>certs<span class="token punctuation">]</span> etcd/peer serving cert is signed <span class="token keyword">for</span> DNS names <span class="token punctuation">[</span>localhost node1<span class="token punctuation">]</span> and IPs <span class="token punctuation">[</span><span class="token number">10.192</span>.104.101 <span class="token number">127.0</span>.0.1 ::1<span class="token punctuation">]</span>
+<span class="token punctuation">[</span>certs<span class="token punctuation">]</span> Generating <span class="token string">&quot;etcd/healthcheck-client&quot;</span> certificate and key
+<span class="token punctuation">[</span>certs<span class="token punctuation">]</span> Generating <span class="token string">&quot;apiserver-etcd-client&quot;</span> certificate and key
+<span class="token punctuation">[</span>certs<span class="token punctuation">]</span> Generating <span class="token string">&quot;sa&quot;</span> key and public key
+<span class="token punctuation">[</span>kubeconfig<span class="token punctuation">]</span> Using kubeconfig folder <span class="token string">&quot;/etc/kubernetes&quot;</span>
+<span class="token punctuation">[</span>kubeconfig<span class="token punctuation">]</span> Writing <span class="token string">&quot;admin.conf&quot;</span> kubeconfig <span class="token function">file</span>
+<span class="token punctuation">[</span>kubeconfig<span class="token punctuation">]</span> Writing <span class="token string">&quot;kubelet.conf&quot;</span> kubeconfig <span class="token function">file</span>
+<span class="token punctuation">[</span>kubeconfig<span class="token punctuation">]</span> Writing <span class="token string">&quot;controller-manager.conf&quot;</span> kubeconfig <span class="token function">file</span>
+<span class="token punctuation">[</span>kubeconfig<span class="token punctuation">]</span> Writing <span class="token string">&quot;scheduler.conf&quot;</span> kubeconfig <span class="token function">file</span>
+<span class="token punctuation">[</span>kubelet-start<span class="token punctuation">]</span> Writing kubelet environment <span class="token function">file</span> with flags to <span class="token function">file</span> <span class="token string">&quot;/var/lib/kubelet/kubeadm-flags.env&quot;</span>
+<span class="token punctuation">[</span>kubelet-start<span class="token punctuation">]</span> Writing kubelet configuration to <span class="token function">file</span> <span class="token string">&quot;/var/lib/kubelet/config.yaml&quot;</span>
+<span class="token punctuation">[</span>kubelet-start<span class="token punctuation">]</span> Starting the kubelet
+<span class="token punctuation">[</span>control-plane<span class="token punctuation">]</span> Using manifest folder <span class="token string">&quot;/etc/kubernetes/manifests&quot;</span>
+<span class="token punctuation">[</span>control-plane<span class="token punctuation">]</span> Creating static Pod manifest <span class="token keyword">for</span> <span class="token string">&quot;kube-apiserver&quot;</span>
+<span class="token punctuation">[</span>control-plane<span class="token punctuation">]</span> Creating static Pod manifest <span class="token keyword">for</span> <span class="token string">&quot;kube-controller-manager&quot;</span>
+<span class="token punctuation">[</span>control-plane<span class="token punctuation">]</span> Creating static Pod manifest <span class="token keyword">for</span> <span class="token string">&quot;kube-scheduler&quot;</span>
+<span class="token punctuation">[</span>etcd<span class="token punctuation">]</span> Creating static Pod manifest <span class="token keyword">for</span> <span class="token builtin class-name">local</span> etcd <span class="token keyword">in</span> <span class="token string">&quot;/etc/kubernetes/manifests&quot;</span>
+<span class="token punctuation">[</span>wait-control-plane<span class="token punctuation">]</span> Waiting <span class="token keyword">for</span> the kubelet to boot up the control plane as static Pods from directory <span class="token string">&quot;/etc/kubernetes/manifests&quot;</span><span class="token builtin class-name">.</span> This can take up to 4m0s
+<span class="token punctuation">[</span>apiclient<span class="token punctuation">]</span> All control plane components are healthy after <span class="token number">12.506459</span> seconds
+<span class="token punctuation">[</span>upload-config<span class="token punctuation">]</span> Storing the configuration used <span class="token keyword">in</span> ConfigMap <span class="token string">&quot;kubeadm-config&quot;</span> <span class="token keyword">in</span> the <span class="token string">&quot;kube-system&quot;</span> Namespace
+<span class="token punctuation">[</span>kubelet<span class="token punctuation">]</span> Creating a ConfigMap <span class="token string">&quot;kubelet-config-1.23&quot;</span> <span class="token keyword">in</span> namespace kube-system with the configuration <span class="token keyword">for</span> the kubelets <span class="token keyword">in</span> the cluster
+NOTE: The <span class="token string">&quot;kubelet-config-1.23&quot;</span> naming of the kubelet ConfigMap is deprecated. Once the UnversionedKubeletConfigMap feature gate graduates to Beta the default name will become just <span class="token string">&quot;kubelet-config&quot;</span><span class="token builtin class-name">.</span> Kubeadm upgrade will handle this transition transparently.
+<span class="token punctuation">[</span>upload-certs<span class="token punctuation">]</span> Skipping phase. Please see --upload-certs
+<span class="token punctuation">[</span>mark-control-plane<span class="token punctuation">]</span> Marking the node node1 as control-plane by adding the labels: <span class="token punctuation">[</span>node-role.kubernetes.io/master<span class="token punctuation">(</span>deprecated<span class="token punctuation">)</span> node-role.kubernetes.io/control-plane node.kubernetes.io/exclude-from-external-load-balancers<span class="token punctuation">]</span>
+<span class="token punctuation">[</span>mark-control-plane<span class="token punctuation">]</span> Marking the node node1 as control-plane by adding the taints <span class="token punctuation">[</span>node-role.kubernetes.io/master:PreferNoSchedule<span class="token punctuation">]</span>
+<span class="token punctuation">[</span>bootstrap-token<span class="token punctuation">]</span> Using token: abcdef.0123456789abcdef
+<span class="token punctuation">[</span>bootstrap-token<span class="token punctuation">]</span> Configuring bootstrap tokens, cluster-info ConfigMap, RBAC Roles
+<span class="token punctuation">[</span>bootstrap-token<span class="token punctuation">]</span> configured RBAC rules to allow Node Bootstrap tokens to get nodes
+<span class="token punctuation">[</span>bootstrap-token<span class="token punctuation">]</span> configured RBAC rules to allow Node Bootstrap tokens to post CSRs <span class="token keyword">in</span> order <span class="token keyword">for</span> nodes to get long term certificate credentials
+<span class="token punctuation">[</span>bootstrap-token<span class="token punctuation">]</span> configured RBAC rules to allow the csrapprover controller automatically approve CSRs from a Node Bootstrap Token
+<span class="token punctuation">[</span>bootstrap-token<span class="token punctuation">]</span> configured RBAC rules to allow certificate rotation <span class="token keyword">for</span> all node client certificates <span class="token keyword">in</span> the cluster
+<span class="token punctuation">[</span>bootstrap-token<span class="token punctuation">]</span> Creating the <span class="token string">&quot;cluster-info&quot;</span> ConfigMap <span class="token keyword">in</span> the <span class="token string">&quot;kube-public&quot;</span> namespace
+<span class="token punctuation">[</span>kubelet-finalize<span class="token punctuation">]</span> Updating <span class="token string">&quot;/etc/kubernetes/kubelet.conf&quot;</span> to point to a rotatable kubelet client certificate and key
+<span class="token punctuation">[</span>addons<span class="token punctuation">]</span> Applied essential addon: CoreDNS
+<span class="token punctuation">[</span>addons<span class="token punctuation">]</span> Applied essential addon: kube-proxy
+
+Your Kubernetes control-plane has initialized successfully<span class="token operator">!</span>
+
+To start using your cluster, you need to run the following as a regular user:
+
+  <span class="token function">mkdir</span> -p <span class="token environment constant">$HOME</span>/.kube
+  <span class="token function">sudo</span> <span class="token function">cp</span> -i /etc/kubernetes/admin.conf <span class="token environment constant">$HOME</span>/.kube/config
+  <span class="token function">sudo</span> <span class="token function">chown</span> <span class="token variable"><span class="token variable">$(</span><span class="token function">id</span> -u<span class="token variable">)</span></span><span class="token builtin class-name">:</span><span class="token variable"><span class="token variable">$(</span><span class="token function">id</span> -g<span class="token variable">)</span></span> <span class="token environment constant">$HOME</span>/.kube/config
+
+Alternatively, <span class="token keyword">if</span> you are the root user, you can run:
+
+  <span class="token builtin class-name">export</span> <span class="token assign-left variable">KUBECONFIG</span><span class="token operator">=</span>/etc/kubernetes/admin.conf
+
+You should now deploy a pod network to the cluster.
+Run <span class="token string">&quot;kubectl apply -f [podnetwork].yaml&quot;</span> with one of the options listed at:
+  https://kubernetes.io/docs/concepts/cluster-administration/addons/
+
+Then you can <span class="token function">join</span> any number of worker nodes by running the following on each as root:
+
+kubeadm <span class="token function">join</span> <span class="token number">10.192</span>.104.101:6443 --token abcdef.0123456789abcdef <span class="token punctuation">\</span>
+	--discovery-token-ca-cert-hash sha256:99cb615c1ae266ba41b9255202cee44109f4a3f12b31125964d8932df6120249
+</code></pre></div><p>上面记录了完成的初始化输出的内容，根据输出的内容基本上可以看出手动初始化安装一个 Kubernetes 集群所需要的关键步骤。其中有以下关键内容</p><ul><li>[certs] 生成相关的各种证书</li><li>[kubeconfig] 生成相关的 kubeconfig 文件</li><li>[kubelet-start] 生成 kubelet 的配置文件 <code>/var/lib/kubelet/config.yaml</code></li><li>[control-plane] 使用 <code>/etc/kubernetes/manifests</code> 目录中的 yaml 文件创建 apiserver、controller-manager、scheduler 的静态 pod</li><li>[bootstraptoken] 生成 token 记录下来，后边使用 <code>kubeadm join</code> 往集群中添加节点时会用到 下面的命令是配置常规用户如何使用 kubectl 访问集群</li></ul><p><strong>如果初始化失败，使用以下命令进行重置</strong></p><div class="language-shell"><pre><code>kubeadm reset
+</code></pre></div><p>配置常规用户如何使用kubectl访问集群</p><div class="language-shell"><pre><code><span class="token function">mkdir</span> -p <span class="token environment constant">$HOME</span>/.kube
+<span class="token function">sudo</span> <span class="token function">cp</span> -i /etc/kubernetes/admin.conf <span class="token environment constant">$HOME</span>/.kube/config
+<span class="token function">sudo</span> <span class="token function">chown</span> <span class="token variable"><span class="token variable">$(</span><span class="token function">id</span> -u<span class="token variable">)</span></span><span class="token builtin class-name">:</span><span class="token variable"><span class="token variable">$(</span><span class="token function">id</span> -g<span class="token variable">)</span></span> <span class="token environment constant">$HOME</span>/.kube/config
+</code></pre></div><p>查看集群状态，确认组件都处于 healthy 状态</p><div class="language-shell"><pre><code><span class="token punctuation">[</span>root@node1 ~<span class="token punctuation">]</span><span class="token comment"># kubectl get cs</span>
+Warning: v1 ComponentStatus is deprecated <span class="token keyword">in</span> v1.19+
+NAME                 STATUS    MESSAGE                         ERROR
+scheduler            Healthy   ok
+controller-manager   Healthy   ok
+etcd-0               Healthy   <span class="token punctuation">{</span><span class="token string">&quot;health&quot;</span><span class="token builtin class-name">:</span><span class="token string">&quot;true&quot;</span>,<span class="token string">&quot;reason&quot;</span><span class="token builtin class-name">:</span><span class="token string">&quot;&quot;</span><span class="token punctuation">}</span>
+</code></pre></div><p>查看 kube-proxy 是否启用 ipvs</p><div class="language-shell"><pre><code><span class="token punctuation">[</span>root@node1 ~<span class="token punctuation">]</span><span class="token comment"># kubectl get pods -n kube-system | grep kube-proxy</span>
+kube-proxy-4c8bc                <span class="token number">1</span>/1     Running   <span class="token number">0</span>          4h47m
+kube-proxy-9k48h                <span class="token number">1</span>/1     Running   <span class="token number">0</span>          4h47m
+kube-proxy-rcjkh                <span class="token number">1</span>/1     Running   <span class="token number">0</span>          4h56m
+<span class="token punctuation">[</span>root@node1 ~<span class="token punctuation">]</span><span class="token comment"># kubectl logs kube-proxy-4c8bc -n kube-system</span>
+I0119 07:07:09.310730       <span class="token number">1</span> node.go:163<span class="token punctuation">]</span> Successfully retrieved node IP: <span class="token number">10.192</span>.104.103
+I0119 07:07:09.310862       <span class="token number">1</span> server_others.go:138<span class="token punctuation">]</span> <span class="token string">&quot;Detected node IP&quot;</span> <span class="token assign-left variable">address</span><span class="token operator">=</span><span class="token string">&quot;10.192.104.103&quot;</span>
+I0119 07:07:09.341749       <span class="token number">1</span> server_others.go:269<span class="token punctuation">]</span> <span class="token string">&quot;Using ipvs Proxier&quot;</span>
+I0119 07:07:09.341801       <span class="token number">1</span> server_others.go:271<span class="token punctuation">]</span> <span class="token string">&quot;Creating dualStackProxier for ipvs&quot;</span>
+I0119 07:07:09.341856       <span class="token number">1</span> server_others.go:491<span class="token punctuation">]</span> <span class="token string">&quot;Detect-local-mode set to ClusterCIDR, but no IPv6 cluster CIDR defined, , defaulting to no-op detect-local for IPv6&quot;</span>
+E0119 07:07:09.342069       <span class="token number">1</span> proxier.go:379<span class="token punctuation">]</span> <span class="token string">&quot;Can&#39;t set sysctl, kernel version doesn&#39;t satisfy minimum version requirements&quot;</span> <span class="token assign-left variable">sysctl</span><span class="token operator">=</span><span class="token string">&quot;net/ipv4/vs/conn_reuse_mode&quot;</span> <span class="token assign-left variable">minimumKernelVersion</span><span class="token operator">=</span><span class="token string">&quot;4.1&quot;</span>
+I0119 07:07:09.342176       <span class="token number">1</span> proxier.go:438<span class="token punctuation">]</span> <span class="token string">&quot;IPVS scheduler not specified, use rr by default&quot;</span>
+E0119 07:07:09.342349       <span class="token number">1</span> proxier.go:379<span class="token punctuation">]</span> <span class="token string">&quot;Can&#39;t set sysctl, kernel version doesn&#39;t satisfy minimum version requirements&quot;</span> <span class="token assign-left variable">sysctl</span><span class="token operator">=</span><span class="token string">&quot;net/ipv4/vs/conn_reuse_mode&quot;</span> <span class="token assign-left variable">minimumKernelVersion</span><span class="token operator">=</span><span class="token string">&quot;4.1&quot;</span>
+</code></pre></div><h3 id="安装网络插件"><a class="header-anchor" href="#安装网络插件" aria-hidden="true">#</a> 安装网络插件</h3><p>这里选用 flannel</p><div class="language-shell"><pre><code><span class="token function">curl</span> -O https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+kubectl apply -f kube-flannel.yml
+</code></pre></div><p>查看 flannel pod 的状态</p><div class="language-shell"><pre><code><span class="token punctuation">[</span>root@node1 ~<span class="token punctuation">]</span><span class="token comment"># kubectl get pods -n kube-system -o wide | grep flannel</span>
+kube-flannel-ds-frdm4           <span class="token number">1</span>/1     Running   <span class="token number">0</span>          4h29m   <span class="token number">10.192</span>.104.103   node3   <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>           <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+kube-flannel-ds-ghhnw           <span class="token number">1</span>/1     Running   <span class="token number">0</span>          4h37m   <span class="token number">10.192</span>.104.101   node1   <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>           <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+kube-flannel-ds-hnknh           <span class="token number">1</span>/1     Running   <span class="token number">0</span>          4h28m   <span class="token number">10.192</span>.104.102   node2   <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>           <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+</code></pre></div><h3 id="添加节点"><a class="header-anchor" href="#添加节点" aria-hidden="true">#</a> 添加节点</h3><p>在 node2, node3 上执行</p><div class="language-shell"><pre><code>kubeadm <span class="token function">join</span> <span class="token number">10.192</span>.104.101:6443 --token abcdef.0123456789abcdef <span class="token punctuation">\</span>
+	--discovery-token-ca-cert-hash sha256:99cb615c1ae266ba41b9255202cee44109f4a3f12b31125964d8932df6120249
+</code></pre></div><p>master 节点查看集群中的节点</p><div class="language-shell"><pre><code><span class="token punctuation">[</span>root@node1 ~<span class="token punctuation">]</span><span class="token comment"># kubectl get nodes</span>
+NAME    STATUS   ROLES                  AGE     VERSION
+node1   Ready    control-plane,master   4h41m   v1.23.1
+node2   Ready    <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>                 4h32m   v1.23.1
+node3   Ready    <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>                 4h32m   v1.23.1
+</code></pre></div><h3 id="参考"><a class="header-anchor" href="#参考" aria-hidden="true">#</a> 参考</h3><ul><li><a href="https://blog.frognew.com/2021/12/kubeadm-install-kubernetes-1.23.html" target="_blank" rel="noopener noreferrer">https://blog.frognew.com/2021/12/kubeadm-install-kubernetes-1.23.html</a></li></ul></div></div><footer class="page-footer" data-v-7abc59e6 data-v-22e60b1a><div class="edit" data-v-22e60b1a><div class="edit-link" data-v-22e60b1a data-v-045573c2><!----></div></div><div class="updated" data-v-22e60b1a><!----></div></footer><div class="next-and-prev-link" data-v-7abc59e6 data-v-0facf926><div class="container" data-v-0facf926><div class="prev" data-v-0facf926><a class="link" href="/blog/docs/cloud-native/docker" data-v-0facf926><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" class="icon icon-prev" data-v-0facf926><path d="M19,11H7.4l5.3-5.3c0.4-0.4,0.4-1,0-1.4s-1-0.4-1.4,0l-7,7c-0.1,0.1-0.2,0.2-0.2,0.3c-0.1,0.2-0.1,0.5,0,0.8c0.1,0.1,0.1,0.2,0.2,0.3l7,7c0.2,0.2,0.5,0.3,0.7,0.3s0.5-0.1,0.7-0.3c0.4-0.4,0.4-1,0-1.4L7.4,13H19c0.6,0,1-0.4,1-1S19.6,11,19,11z"></path></svg><span class="text" data-v-0facf926>Docker</span></a></div><div class="next" data-v-0facf926><a class="link" href="/blog/docs/cloud-native/kubernetes/controller" data-v-0facf926><span class="text" data-v-0facf926>控制器</span><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" class="icon icon-next" data-v-0facf926><path d="M19.9,12.4c0.1-0.2,0.1-0.5,0-0.8c-0.1-0.1-0.1-0.2-0.2-0.3l-7-7c-0.4-0.4-1-0.4-1.4,0s-0.4,1,0,1.4l5.3,5.3H5c-0.6,0-1,0.4-1,1s0.4,1,1,1h11.6l-5.3,5.3c-0.4,0.4-0.4,1,0,1.4c0.2,0.2,0.5,0.3,0.7,0.3s0.5-0.1,0.7-0.3l7-7C19.8,12.6,19.9,12.5,19.9,12.4z"></path></svg></a></div></div></div><!--[--><!--]--></div></main></div><!----><!--]--></div>
+    <script>__VP_HASH_MAP__ = JSON.parse("{\"readme.md\":\"6c038851\",\"index.md\":\"4621d953\",\"docs_cloud-native_docker.md\":\"4c7fcd1e\",\"docs_frontend_css.md\":\"6365ac3c\",\"docs_frontend_js.md\":\"35425055\",\"docs_frontend_vite.md\":\"03dda292\",\"docs_frontend_vue.md\":\"fd5d664d\",\"docs_linux_awk.md\":\"6daaebe8\",\"docs_linux_shell.md\":\"03967d81\",\"docs_cloud-native_kubernetes_readme.md\":\"58296c90\",\"docs_cloud-native_kubernetes_controller.md\":\"90e580b2\",\"docs_cloud-native_kubernetes_install.md\":\"f6da6427\",\"docs_golang_base_readme.md\":\"76d2ee98\",\"docs_golang_base_data-type.md\":\"e8b0be00\",\"docs_golang_base_functions.md\":\"bf139973\"}")</script>
+    <script type="module" async src="/blog/assets/app.2478aa21.js"></script>
+  </body>
+</html>
