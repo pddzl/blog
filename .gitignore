@@ -6,6 +6,7 @@ Thumbs.db
 db.json
 *.log
 .deploy*/
+docs/.vitepress/dist
 
 # Log files
 npm-debug.log*

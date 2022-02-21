@@ -3,14 +3,14 @@
  * @type {import('vitepress').UserConfig}
  */
 module.exports = {
-  base: '/plsof/',
-  title: 'Plsof',
+  base: '/blog/',
+  title: 'Pddzl',
   lang: 'zh-CN',
   description: '天道酬勤',
   head: createHead(),
   themeConfig: {
-    repo: 'plsof',
-    docsRepo: 'plsof/blog',
+    repo: 'pddzl',
+    docsRepo: 'pddzl/blog',
     logo: '/sheep.png',
     docsBranch: 'main',
     // editLinks: true,
@@ -26,7 +26,7 @@ module.exports = {
 
 function createHead() {
   return [
-    ['meta', { name: 'author', content: 'plsof' }],
+    ['meta', { name: 'author', content: 'pddzl' }],
     [
       'meta',
       {
@@ -43,7 +43,7 @@ function createHead() {
           'width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no',
       },
     ],
-    ['meta', { name: 'keywords', content: 'plsof' }],
+    ['meta', { name: 'keywords', content: 'pddzl' }],
     ['link', { rel: 'icon', href: '/favicon.ico' }],
   ];
 }

@@ -1,9 +1,9 @@
 {
-  "name": "plsof-docs",
+  "name": "pddzl-docs",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "https://github.com/plsof/blog",
-  "author": "plsof <plsof@163.com>",
+  "repository": "https://github.com/pddzl/blog",
+  "author": "Pddzl <kubeops@163.com>",
   "license": "MIT",
   "scripts": {
     "dev": "vitepress dev",

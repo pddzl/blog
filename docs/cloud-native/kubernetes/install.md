@@ -476,11 +476,11 @@ kubeadm join 10.192.104.101:6443 --token abcdef.0123456789abcdef \
 
 上面记录了完成的初始化输出的内容，根据输出的内容基本上可以看出手动初始化安装一个 Kubernetes 集群所需要的关键步骤。其中有以下关键内容
 
-+ <font color=red>[certs]</font> 生成相关的各种证书
-+ <font color=red>[kubeconfig]</font> 生成相关的 kubeconfig 文件
-+ <font color=red>[kubelet-start]</font> 生成 kubelet 的配置文件 `/var/lib/kubelet/config.yaml`
-+ <font color=red>[control-plane]</font> 使用 `/etc/kubernetes/manifests` 目录中的 yaml 文件创建 apiserver、controller-manager、scheduler 的静态 pod
-+ <font color=red>[bootstraptoken]</font> 生成 token 记录下来，后边使用 `kubeadm join` 往集群中添加节点时会用到
++ [certs] 生成相关的各种证书
++ [kubeconfig] 生成相关的 kubeconfig 文件
++ [kubelet-start] 生成 kubelet 的配置文件 `/var/lib/kubelet/config.yaml`
++ [control-plane] 使用 `/etc/kubernetes/manifests` 目录中的 yaml 文件创建 apiserver、controller-manager、scheduler 的静态 pod
++ [bootstraptoken] 生成 token 记录下来，后边使用 `kubeadm join` 往集群中添加节点时会用到
 下面的命令是配置常规用户如何使用 kubectl 访问集群
 
 **如果初始化失败，使用以下命令进行重置**
