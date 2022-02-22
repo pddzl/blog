@@ -1,0 +1,1 @@
+import{o as e,c as a,d as r}from"./app.a15502cc.js";const t='{"title":"Vue","description":"","frontmatter":{},"headers":[{"level":2,"title":"安装","slug":"安装"}],"relativePath":"docs/frontend/vue.md","lastUpdated":1644374787000}',d={},n=r('',3);d.render=function(r,t,d,s,i,c){return e(),a("div",null,[n])};export default d;export{t as __pageData};

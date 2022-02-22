@@ -1,1 +1,0 @@
-import{o as t,c as e}from"./app.2478aa21.js";const r='{"title":"","description":"","frontmatter":{},"relativePath":"docs/frontend/js.md","lastUpdated":1640742491000}',a={};a.render=function(r,a,o,d,n,s){return t(),e("div")};export default a;export{r as __pageData};
