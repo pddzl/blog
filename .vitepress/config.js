@@ -53,7 +53,7 @@ function createHead() {
  */
 function createNav() {
   return [
-    { text: 'Home', link: '/' },
+    // { text: 'Home', link: '/' },
     {
       text: 'Linux',
       link: '/linux/',
