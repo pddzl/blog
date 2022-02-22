@@ -53,6 +53,7 @@ function createHead() {
  */
 function createNav() {
   return [
+    { text: 'Home', link: '/' },
     {
       text: 'Linux',
       link: '/linux/',
@@ -122,6 +123,17 @@ function createNav() {
 
 function createSidebar() {
   return {
+    '/docs/guide/': [
+      {
+        text: '指南',
+        children: [
+          {
+            text: '介绍',
+            link: '/docs/guide/introduction'
+          }
+        ]
+      }
+    ],
     '/docs/linux/': [
       {
         text: 'Shell',

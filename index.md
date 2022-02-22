@@ -2,7 +2,7 @@
 home: true
 heroImage: /sheep.png
 actionText: 快速开始 →
-actionLink: /guide/introduction
+actionLink: /docs/guide/introduction
 
 features:
   - title: ☁️ 云原生
