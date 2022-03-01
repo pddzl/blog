@@ -1,5 +1,86 @@
 # CSS
 
+## float
+
+`float` CSS属性指定一个元素应沿其容器的左侧或右侧放置，允许**文本**和**内联元素**环绕它。该元素从网页的正常流动(文档流)中移除，尽管仍然保持部分的流动性（与绝对定位相反）
+
+### 语法
+
+`float: left` 表明元素必须浮动在其所在的块容器左侧的关键字
+
+`float: right` 表明元素必须浮动在其所在的块容器右侧的关键字
+
+### 清除浮动
+
+在非IE浏览器（如Firefox）下，当容器的高度为auto，且容器的内容中有浮动（float为left或right）的元素，在这种情况下，容器的高度不能自动伸长以适应内容的高度，使得内容溢出到容器外面而影响（甚至破坏）布局的现象。这个现象叫浮动溢出，为了防止这个现象的出现而进行的CSS处理，就叫CSS清除浮动。
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style type="text/css">
+    .test {
+      background-color: rgba(128, 128, 128, 0.185);
+      border: solid 1px black;
+      width: 270px;
+      padding: 5px;
+    }
+
+    p {
+      color: blue;
+      float: left;
+    }
+
+    .left {
+      width: 50px;
+      height: 50px;
+      background-color: aqua;
+      float: left;
+    }
+
+    .right {
+      width: 50px;
+      height: 50px;
+      background-color: aquamarine;
+      float: right;
+    }
+
+    /* .clearfix:after {
+      content: "020";
+      display: block;
+      height: 0;
+      clear: both;
+      visibility: hidden;
+    } */
+  </style>
+</head>
+
+<body>
+  <div class="test clearfix">
+    <div class="left"></div>
+    <p>
+      hello everyone, i am pdd.
+    </p>
+    <div class="right"></div>
+  </div>
+</body>
+
+</html>
+```
+
+<img src="./images/css/unclear.png" />
+
+清除浮动，不注释`.clearfix:after`
+
+<img src="./images/css/clear.png" />
+
+参考：`https://segmentfault.com/a/1190000004865198`
+
 ## 选择器
 
 ### 基本选择器
