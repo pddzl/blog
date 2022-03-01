@@ -1,1 +1,0 @@
-import{o as t,c as e}from"./app.a15502cc.js";const r='{"title":"","description":"","frontmatter":{},"relativePath":"docs/frontend/js.md","lastUpdated":1640742491000}',o={};o.render=function(r,o,a,d,n,s){return t(),e("div")};export default o;export{r as __pageData};
