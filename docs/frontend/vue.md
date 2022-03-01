@@ -25,6 +25,18 @@ app.directive('directiveName', {
 });
 ```
 
+Vue3改造后的指令钩子变成了七个
+
+| Vue3 | Vue2 |
+| ---- | ---- |
+| created |  |
+| beforeMount | bind |
+| mounted | inserted |
+| beforeUpdate | |
+| updated | componentUpdated |
+| beforeUnmount | beforeUnmount |
+| unmounted | unbind |
+
 Example: 自定义一个switch防抖指令
 
 ```js
