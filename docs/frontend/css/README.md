@@ -1,4 +1,6 @@
-# CSS
+---
+title: CSS
+---
 
 ## float
 
@@ -73,11 +75,11 @@
 </html>
 ```
 
-<img src="./images/css/unclear.png" />
+<img src="./images/unclear.png" />
 
 清除浮动，不注释`.clearfix:after`
 
-<img src="./images/css/clear.png" />
+<img src="./images/clear.png" />
 
 参考：`https://segmentfault.com/a/1190000004865198`
 
@@ -205,7 +207,7 @@ p {
 </html>
 ```
 
-<img src="./images/css/child.png" />
+<img src="./images/child.png" />
 
 - 一般兄弟组合器
 

@@ -60,11 +60,11 @@ function createNav() {
       items: [
         {
           text: 'Shell',
-          link: '/docs/linux/shell'
+          link: '/docs/linux/shell/README'
         },
         {
           text: 'Awk',
-          link: '/docs/linux/awk'
+          link: '/docs/linux/awk/README'
         }
       ]
     },
@@ -74,15 +74,15 @@ function createNav() {
       items: [
         {
           text: 'CSS',
-          link: '/docs/frontend/css'
+          link: '/docs/frontend/css/README'
         },
         {
           text: 'Vue',
-          link: '/docs/frontend/vue'
+          link: '/docs/frontend/vue/README'
         },
         {
           text: 'Vite',
-          link: '/docs/frontend/vite'
+          link: '/docs/frontend/vite/README'
         }
       ]
     },
@@ -96,11 +96,11 @@ function createNav() {
         },
         {
           text: 'Gin',
-          link: '/docs/golang/gin'
+          link: '/docs/golang/gin/README'
         },
         {
           text: 'Gorm',
-          link: '/docs/golang/gorm'
+          link: '/docs/golang/gorm/README'
         }
       ]
     },
@@ -110,7 +110,11 @@ function createNav() {
       items: [
         {
           text: 'Docker',
-          link: '/docs/cloud-native/docker'
+          link: '/docs/cloud-native/docker/README'
+        },
+        {
+          text: 'Docker Compose',
+          link: '/docs/cloud-native/compose/README'
         },
         {
           text: 'Kubernetes',
@@ -137,50 +141,25 @@ function createSidebar() {
     '/docs/linux/': [
       {
         text: 'Shell',
-        children: [
-          {
-            text: 'shell',
-            link: '/docs/linux/shell'
-          }
-        ]
+        link: '/docs/linux/shell/README'
       },
       {
         text: "Awk",
-        children: [
-          {
-            text: 'awk',
-            link: '/docs/linux/awk'
-          }
-        ]
+        link: '/docs/linux/awk/README'
       }
     ],
     '/docs/frontend/': [
       {
         text: 'CSS',
-        children: [
-          {
-            text: 'CSS',
-            link: '/docs/frontend/css'
-          }
-        ]
+        link: '/docs/frontend/css/README'
       },
       {
         text: 'Vue',
-        children: [
-          {
-            text: 'Vue',
-            link: '/docs/frontend/vue'
-          }
-        ]
+        link: '/docs/frontend/vue/README'
       },
       {
         text: 'Vite',
-        children: [
-          {
-            text: 'Vite',
-            link: '/docs/frontend/vite'
-          }
-        ]
+        link: '/docs/frontend/vite/README'
       },
     ],
     '/docs/golang/': [
@@ -196,12 +175,24 @@ function createSidebar() {
             link: '/docs/golang/base/functions'
           }
         ]
+      },
+      {
+        text: 'Gin',
+        link: '/docs/golang/gin/README'
+      },
+      {
+        text: 'Gorm',
+        link: '/docs/golang/gorm/README'
       }
     ],
     '/docs/cloud-native/': [
       {
         text: 'Docker',
-        link: '/docs/cloud-native/docker'
+        link: '/docs/cloud-native/docker/README'
+      },
+      {
+        text: 'Docker Compose',
+        link: '/docs/cloud-native/compose/README'
       },
       {
         text: 'Kubernetes',
