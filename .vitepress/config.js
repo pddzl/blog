@@ -167,6 +167,10 @@ function createSidebar() {
         text: 'Golang',
         children: [
           {
+            text: '前言',
+            link: '/docs/golang/base/README'
+          },
+          {
             text: '数据类型',
             link: '/docs/golang/base/data-type'
           },
@@ -197,6 +201,10 @@ function createSidebar() {
       {
         text: 'Kubernetes',
         children: [
+          {
+            text: '前言',
+            link: '/docs/cloud-native/kubernetes/README'
+          },
           {
             text: '安装',
             link: '/docs/cloud-native/kubernetes/install'
