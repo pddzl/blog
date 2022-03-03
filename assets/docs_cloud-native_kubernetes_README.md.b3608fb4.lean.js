@@ -1,0 +1,1 @@
+import{o as e,c as t,a as r}from"./app.bb12f4da.js";const n='{"title":"Kubernetes","description":"","frontmatter":{"title":"Kubernetes"},"relativePath":"docs/cloud-native/kubernetes/README.md","lastUpdated":1646278519229}',a={},s=r("p",null,"Kubernetes学习笔记",-1);a.render=function(r,n,a,o,d,l){return e(),t("div",null,[s])};export default a;export{n as __pageData};

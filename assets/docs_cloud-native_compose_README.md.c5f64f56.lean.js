@@ -1,0 +1,1 @@
+import{o as t,c as e}from"./app.bb12f4da.js";const o='{"title":"Docker Compose","description":"","frontmatter":{"title":"Docker Compose"},"relativePath":"docs/cloud-native/compose/README.md","lastUpdated":1646278065670}',r={};r.render=function(o,r,a,d,p,s){return t(),e("div")};export default r;export{o as __pageData};
