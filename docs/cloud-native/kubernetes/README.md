@@ -193,3 +193,32 @@ FIELDS:
 查看具体字段
 
 `kubectl explain pod.kind`
+
+
+**查看已存在资源的详情**
+
+```shell
+[root@node1 ~]# kubectl get ns kubeops -o yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  creationTimestamp: "2022-02-22T09:07:23Z"
+  labels:
+    kubernetes.io/metadata.name: kubeops
+  name: kubeops
+  resourceVersion: "4121364"
+  uid: 4a38aee3-eb89-454b-a981-e731c3e8aadc
+spec:
+  finalizers:
+  - kubernetes
+status:
+  phase: Active
+```
+
+使用 `raw` 方式查看
+
+`kubectl get --raw '/api/v1/namespaces/kubeops'`
+
+```json
+{"kind":"Namespace","apiVersion":"v1","metadata":{"name":"kubeops","uid":"4a38aee3-eb89-454b-a981-e731c3e8aadc","resourceVersion":"4121364","creationTimestamp":"2022-02-22T09:07:23Z","labels":{"kubernetes.io/metadata.name":"kubeops"},"managedFields":[{"manager":"kubectl-create","operation":"Update","apiVersion":"v1","time":"2022-02-22T09:07:23Z","fieldsType":"FieldsV1","fieldsV1":{"f:metadata":{"f:labels":{".":{},"f:kubernetes.io/metadata.name":{}}}}}]},"spec":{"finalizers":["kubernetes"]},"status":{"phase":"Active"}}
+```
