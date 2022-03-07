@@ -1,0 +1,1 @@
+import{o as n,c as s,d as a}from"./app.6a6d24be.js";const t='{"title":"Vite","description":"","frontmatter":{"title":"Vite"},"headers":[{"level":2,"title":"配置文件","slug":"配置文件"}],"relativePath":"docs/frontend/vite/README.md","lastUpdated":1646277360099}',p={},o=a('',3);p.render=function(a,t,p,e,c,l){return n(),s("div",null,[o])};export default p;export{t as __pageData};
