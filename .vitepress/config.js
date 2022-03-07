@@ -202,7 +202,7 @@ function createSidebar() {
         text: 'Kubernetes',
         children: [
           {
-            text: '前言',
+            text: '概述',
             link: '/docs/cloud-native/kubernetes/README'
           },
           {
