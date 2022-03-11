@@ -88,10 +88,16 @@ Server: Docker Engine - Community
   GitCommit:        de40ad0
 ```
 
-### MySQL
+### 案例
 
 docker安装 `mysql` ，并映射数据到本地
 
 ```shell
 docker run -p 3306:3306 --name kop -v /data/mysql/kop:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=kop@2022 -d mysql:8.0.21 --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+```
+
+docker安装 `nginx`，并映射数据到本地
+
+```shell
+docker run -d -p 8080:80 --name myNginx -v /data/nginx:/usr/share/nginx/html nginx:1.21.6
 ```
