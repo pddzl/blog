@@ -77,6 +77,10 @@ function createNav() {
           link: '/docs/frontend/css/README'
         },
         {
+          text: 'JavaScript',
+          link: '/docs/frontend/javascript/README'
+        },
+        {
           text: 'Vue',
           link: '/docs/frontend/vue/README'
         },
@@ -152,6 +156,10 @@ function createSidebar() {
       {
         text: 'CSS',
         link: '/docs/frontend/css/README'
+      },
+      {
+        text: 'JavaScript',
+        link: '/docs/frontend/javascript/README'
       },
       {
         text: 'Vue',
