@@ -194,7 +194,6 @@ FIELDS:
 
 `kubectl explain pod.kind`
 
-
 **查看已存在资源的详情**
 
 ```shell

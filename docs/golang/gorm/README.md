@@ -128,9 +128,48 @@ db.Model(&Email{}).Where("id = ?", 2).Update("email", "plsof@qq.com")
 
 ### 删除
 
+删除一条记录时，删除对象需要指定主键，否则会触发 **批量 Delete**
+
 ```go
+// Email 的 ID 是 `10`
+db.Delete(&email)
+// DELETE from emails where id = 10;
+
+// 带额外条件的删除
 db.Where("name = ?", "pdd").Delete(&email)
 // DELETE from emails where id = 10 AND name = "pdd";
+```
+
+#### 根据主键删除
+
+GORM 允许通过主键(可以是复合主键)和内联条件来删除对象，它可以使用数字
+
+```go
+db.Delete(&User{}, 10)
+// DELETE FROM users WHERE id = 10;
+
+db.Delete(&User{}, "10")
+// DELETE FROM users WHERE id = 10;
+
+db.Delete(&users, []int{1,2,3})
+// DELETE FROM users WHERE id IN (1,2,3);
+```
+
+#### 批量删除
+
+GORM默认不允许批量删除，对此你必须加一些条件，或者使用原生SQL，或者启用 `AllowGlobalUpdate` 模式
+
+```go
+db.Delete(&User{}).Error // gorm.ErrMissingWhereClause
+
+db.Where("1 = 1").Delete(&User{})
+// DELETE FROM `users` WHERE 1=1
+
+db.Exec("DELETE FROM users")
+// DELETE FROM users
+
+db.Session(&gorm.Session{AllowGlobalUpdate: true}).Delete(&User{})
+// DELETE FROM users
 ```
 
 #### 软删除
