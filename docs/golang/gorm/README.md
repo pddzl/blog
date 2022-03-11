@@ -72,13 +72,35 @@ func GormMysql() *gorm.DB {
 ### 创建
 
 ```go
-user := User{Name: "Jinzhu", Age: 18, Birthday: time.Now()}
+user := User{Name: "pdd", Age: 18, Birthday: time.Now()}
 
 result := db.Create(&user) // 通过数据的指针来创建
 
 user.ID             // 返回插入数据的主键
 result.Error        // 返回 error
 result.RowsAffected // 返回插入记录的条数
+```
+
+#### 批量插入
+
+要有效地插入大量记录，请将一个 slice 传递给 Create 方法。 GORM 将生成单独一条SQL语句来插入所有数据，并回填主键的值，钩子方法也会被调用。
+
+```go
+var users = []User{{Name: "jinzhu1"}, {Name: "jinzhu2"}, {Name: "jinzhu3"}}
+db.Create(&users)
+
+for _, user := range users {
+  user.ID // 1,2,3
+}
+```
+
+使用`CreateInBatches`分批创建时，你可以指定每批的数量，例如：
+
+```go
+var users = []User{{name: "pdd_1"}, ...., {Name: "pdd_10000"}}
+
+// 数量为 100
+db.CreateInBatches(users, 100)
 ```
 
 ### 查询
