@@ -30,6 +30,43 @@ type Cluster struct {
 
 `Networks`、`SDN`是自定义数据类型，详情见自定义数据类型章节
 
+对应MySQL中的类型
+
+```shell
+mysql> desc clusters;
++----------------+------------------------+------+-----+---------+----------------+
+| Field          | Type                   | Null | Key | Default | Extra          |
++----------------+------------------------+------+-----+---------+----------------+
+| id             | bigint unsigned        | NO   | PRI | NULL    | auto_increment |
+| created_at     | datetime               | YES  |     | NULL    |                |
+| updated_at     | datetime               | YES  |     | NULL    |                |
+| deleted_at     | datetime               | YES  | MUL | NULL    |                |
+| name           | varchar(191)           | NO   | UNI | NULL    |                |
+| c_type         | enum('master','slave') | YES  |     | master  |                |
+| master_ip      | varchar(191)           | YES  |     | NULL    |                |
+| master_port    | bigint unsigned        | YES  |     | NULL    |                |
+| master_pass    | varchar(2000)          | YES  |     | NULL    |                |
+| desc           | varchar(191)           | YES  |     | NULL    |                |
+| sdn_version    | enum('arSdn_3.1')      | YES  |     | NULL    |                |
+| backend_type   | enum('KVM','VMware')   | YES  |     | NULL    |                |
+| backend_ip     | varchar(191)           | NO   | UNI | NULL    |                |
+| backend_port   | bigint unsigned        | NO   |     | NULL    |                |
+| backend_user   | varchar(191)           | YES  |     | NULL    |                |
+| backend_pass   | varchar(191)           | YES  |     | NULL    |                |
+| network        | json                   | NO   |     | NULL    |                |
+| sdn            | json                   | NO   |     | NULL    |                |
+| status         | bigint                 | NO   |     | NULL    |                |
+| latest_task_id | varchar(191)           | YES  |     | NULL    |                |
++----------------+------------------------+------+-----+---------+----------------+
+```
+
+#### 字段标签
+
+| 标签名 | 说明 |
+| ----- | --- |
+| column | 指定 db 列名 |
+| type | 列数据类型，type:enum('KVM','VMware')|
+
 ### 连接到数据库
 
 GORM 官方支持的数据库类型有：MySQL, PostgreSQL, SQlite, SQL Server
