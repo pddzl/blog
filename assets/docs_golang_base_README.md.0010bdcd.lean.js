@@ -1,0 +1,1 @@
+import{o as a,c as t,a as e}from"./app.a9a8a739.js";const o='{"title":"Golang","description":"","frontmatter":{"title":"Golang"},"relativePath":"docs/golang/base/README.md","lastUpdated":1646278645751}',l={},n=e("p",null,"Golang 学习笔记",-1);l.render=function(e,o,l,r,s,d){return a(),t("div",null,[n])};export default l;export{o as __pageData};

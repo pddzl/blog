@@ -1,0 +1,1 @@
+import{o as n,c as a,d as e}from"./app.a9a8a739.js";const s='{"title":"介绍","description":"","frontmatter":{},"headers":[{"level":2,"title":"本地运行","slug":"本地运行"}],"relativePath":"docs/guide/introduction.md","lastUpdated":1646122452341}',t={},o=e('',4);t.render=function(e,s,t,r,c,d){return n(),a("div",null,[o])};export default t;export{s as __pageData};
