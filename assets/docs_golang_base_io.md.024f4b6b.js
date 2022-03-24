@@ -1,0 +1,1 @@
+import{o as t,c as e}from"./app.6981bb68.js";const o='{"title":"Input/Output","description":"","frontmatter":{"title":"Input/Output"},"relativePath":"docs/golang/base/io.md","lastUpdated":1648114812235}',r={};r.render=function(o,r,a,p,n,i){return t(),e("div")};export default r;export{o as __pageData};
