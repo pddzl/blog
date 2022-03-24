@@ -185,6 +185,10 @@ function createSidebar() {
           {
             text: '函数',
             link: '/docs/golang/base/functions'
+          },
+          {
+            text: '系统',
+            link: '/docs/golang/base/system'
           }
         ]
       },
