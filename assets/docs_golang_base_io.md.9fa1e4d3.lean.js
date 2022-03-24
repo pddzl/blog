@@ -1,0 +1,1 @@
+import{o as t,c as e}from"./app.99e26a0f.js";const a='{"title":"IO","description":"","frontmatter":{"title":"IO"},"relativePath":"docs/golang/base/io.md","lastUpdated":1648114675555}',o={};o.render=function(a,o,r,i,d,n){return t(),e("div")};export default o;export{a as __pageData};
