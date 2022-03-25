@@ -189,6 +189,10 @@ function createSidebar() {
           {
             text: '系统',
             link: '/docs/golang/base/system'
+          },
+          {
+            text: '输入输出',
+            link: '/docs/golang/base/io'
           }
         ]
       },
