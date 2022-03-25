@@ -177,3 +177,105 @@ func main() {
 ```shell
 some io.Reader stream to be read
 ```
+
+## bufio
+
+`bufio` 执行带缓冲的 I/O。它封装了 `io.Reader` 和 `io.Writer`
+
+### NewReader
+
+```go
+func NewReader(rd io.Reader) *Reader
+```
+
+`NewReader` 返回一个带缓冲的 Reader
+
+Example
+
+```go
+package main
+
+import (
+  "bufio"
+  "fmt"
+  "io"
+  "log"
+  "os"
+)
+
+func main() {
+  file, err := os.Open("./1.txt")
+  if err != nil {
+    log.Fatal(err)
+  }
+  defer file.Close()
+
+  reader := bufio.NewReader(file)
+  for {
+    str, err := reader.ReadString('\n')
+    if err == io.EOF {
+      break
+    }
+    fmt.Println(str)
+  }
+}
+```
+
+### NewWriter
+
+```go
+func NewWriter(w io.Writer) *Writer
+```
+
+`NewWriter` 返回一个带缓冲的 Writer
+
+```go
+package main
+
+import (
+  "bufio"
+  "fmt"
+  "os"
+)
+
+func main() {
+  filePath := "./2.txt"
+  file, err := os.OpenFile(filePath, os.O_WRONLY | os.O_CREATE, 0666)
+  if err != nil {
+    fmt.Printf("open file err=%v\n", err)
+    return
+  }
+  defer file.Close()
+
+  str := "hello pdd!\n"
+  writer := bufio.NewWriter(file) // 带缓冲区的writer
+  for i := 0; i < 5; i++ {
+    writer.WriteString(str)
+  }
+  writer.Flush() // 将缓冲区内容写到文件
+}
+```
+
+### NewScanner
+
+`NewScanner` 返回一个从 r 读取的 Scanner，默认分隔符为 ScanLines
+
+```go
+package main
+
+import (
+  "bufio"
+  "fmt"
+  "os"
+)
+
+func main() {
+  scanner := bufio.NewScanner(os.Stdin)
+  for scanner.Scan() {
+    fmt.Println(scanner.Text()) // Println will add back the final '\n'
+  }
+  if err := scanner.Err(); err != nil {
+    fmt.Fprintln(os.Stderr, "reading standard input:", err)
+  }
+}
+```
