@@ -224,74 +224,24 @@ i4: type=int64, value=0
 
 ### 数组
 
-数组是一个由固定长度的特定类型元素组成的序列，一个数组可以由零个或多个元素组成
+数组是由相同类型元素的集合组成的数据结构，计算机会为数组分配一块连续的内存来保存其中的元素
+
+#### 初始化
 
 ```go
-package main
-
-import "fmt"
-
-func main() {
-  var a[5]int
-  fmt.Println("a=", a)
-
-  var b [3]int = [3]int{1,2}
-  fmt.Println("b[2]=", b[2])
-
-  var c [...]int{4:-1} // 定义一个含有5个元素的数组c，最后一个元素初始化为-1
-  fmt.Println("c=", c)
-}
+a := [3]int{1, 2, 3}
+b := [...]int{1, 2, 3} // 编译期间通过源代码推导数组的大小
 ```
 
-```shell
-a= [0 0 0 0 0]
-b[2]= 0
-c= [0,0,0,0,-1]
-```
+#### 语句转换
 
-如果在数组的长度位置出现的是“...”省略号，则表示数组的长度是根据初始化值的个数来计算
+1. 当元素数量小于或者等于 4 个时，会直接将数组中的元素放置在栈上
 
-```go
-q := [...]int{1, 2, 3}
-fmt.Printf("%T\n", q) // "[3]int"
-```
+2. 当元素数量大于 4 个时，会将数组中的元素放置到静态区并在运行时取出
 
-数组的长度是数组类型的一个组成部分，因此[3]int和[4]int是两种不同的数组类型。
+参考：<https://draveness.me/golang/docs/part2-foundation/ch03-datastructure/golang-array/>
 
-数组的长度必须是常量表达式，因为数组的长度需要在编译阶段确定
-
-```go
-q := [3]int{1, 2, 3}
-q = [4]int{1, 2, 3, 4} // compile error: cannot assign [4]int to [3]int
-```
-
-数组是值类型
-
-Example: 修改数组的值
-
-```go
-package main
-
-import "fmt"
-
-func modify(arr *[3]int) {
-  (*arr)[0] = 80
-  arr[1] = 90 // 指针隐式解引用
-  // arr++ go中没有指针运算
-}
-
-func main() {
-  var intArr [3]int = [3]int{10, 20, 30}
-  modify(&intArr)
-  fmt.Println("intArr", intArr)
-}
-```
-
-```shell
-intArr [80 90 30]
-```
-
-#### 数组的内存布局
+#### 内存布局
 
 + 数组地址可以通过数组名来获取 &数组名
 
@@ -322,34 +272,28 @@ intArr[1]的地址=0xc000014098
 intArr[2]的地址=0xc0000140a0
 ```
 
-#### 遍历
-
-for-range
+Example: 修改数组的值
 
 ```go
 package main
 
 import "fmt"
 
-func main() {
-  var myArr [3]string = [3]string{"pdd", "pxx", "pbb"}
+func modify(arr *[3]int) {
+  (*arr)[0] = 80
+  arr[1] = 90 // 指针隐式解引用
+  // arr++ go中没有指针运算
+}
 
-  for i := 0; i < len(myArr); i++ {
-    fmt.Printf("%s ", myArr[i])
-  }
-  fmt.Println()
-  // index, value名称自行定义
-  for index, value := range myArr {
-    fmt.Printf("下标=%d 值=%s\n", index, value)
-  }
+func main() {
+  var intArr [3]int = [3]int{10, 20, 30}
+  modify(&intArr)
+  fmt.Println("intArr", intArr)
 }
 ```
 
 ```shell
-pdd pxx pbb 
-下标=0 值=pdd
-下标=1 值=pxx
-下标=2 值=pbb
+intArr [80 90 30]
 ```
 
 ### 结构体
