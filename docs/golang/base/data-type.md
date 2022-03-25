@@ -302,6 +302,8 @@ intArr [80 90 30]
 
 在创建一个结构体变量后，如果没有给字段赋值，则字段对应其默认值
 
+#### 初始化
+
 ```go
 type Cat struct {
   Name string
@@ -338,8 +340,6 @@ var cat5 *Cat = &Cat{}
 ```
 
 #### 继承
-
-Example
 
 ```go
 type A struct {
