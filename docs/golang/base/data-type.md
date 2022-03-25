@@ -63,7 +63,7 @@ func main() {
   // 字符串可以进行运行，运算时按照码值
   var n1 = 10 + 'a' // 10 + 97 = 107
   fmt.Println("n1=", n1)
-  c4 := []rune(string("中国"))
+  c4 := []rune("中国")
   fmt.Printf("c4=%c, len=%d\n", c4, len(c4))
 }
 ```
@@ -90,16 +90,14 @@ bool类型占一个字节
 
 ### 字符串
 
-一个字符串是一个**不可改变**的字节序列
+字符串是一个**只读**的字节数组
 
-字符串底层实现是一个数据结构（结构体），占用16个字节，前8个字节是一个指针，指向字符串的地址，后8个字节是一个整数，标识字符串的长度。
-
-注意go语言的字符串内部并不以'\0'作为结尾，而是通过一个长度域来表示字符串的长度
+字符串底层实现是一个数据结构（结构体），占用16个字节，前8个字节是一个指针，指向字符数组的地址，后8个字节是一个整数，标识数组的长度。
 
 ```go
-type string {
-  ptr uintptr
-  len uint64
+type StringHeader struct {
+  Data uintptr
+  Len  int
 }
 ```
 
@@ -107,6 +105,18 @@ type string {
 var a string
 a = "aa"
 fmt.Println("a size=", unsafe.Sizeof(a)) // a size= 16
+
+b = `{"name": "pdd", "age": 18}`
+```
+
+字符串和字节数组的转换
+
+```go
+a := "abcdefg"
+// 字符串 -> []byte
+b := []byte(a)
+// []byte -> 字符串
+c := string(b)
 ```
 
 <img src="./images/string.png" alt="string" style="zoom:60%;" />
