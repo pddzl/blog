@@ -450,26 +450,19 @@ func main() {
 
 切片（slice）代表变长的序列，序列中每个元素都有相同的类型。一个slice类型一般写作[]T，其中T代表切片中元素的类型。切片的语法和数组很像，只是没有固定长度而已，切片是数组的一个引用
 
-```go
-package main
-
-import "fmt"
-
-func main() {
-  var intArr [5]int = [...]int{1, 2, 3, 4, 5}
-  slice := intArr[1:3]
-  fmt.Println("intArr", intArr)
-  fmt.Println("slice的元素", slice)
-  fmt.Println("slice的元素个数", len(slice))
-  fmt.Println("slice的容量", cap(slice))
-}
-```
-
-可以用内置的make函数创建一个指定元素类型、长度和容量的切片。容量部分可以省略，在这种情况下，容量将等于长度，未省略cap >= len
+#### 初始化
 
 ```go
-make([]T, len, cap)
+arr[0:3] or slice[0:3]
+slice := []int{1, 2, 3}
+slice := make([]int, 10)
 ```
+
+1. 通过下标的方式获得数组或者切片的一部分
+
+2. 使用字面量初始化新的切片
+
+3. 使用关键字 `make` 创建切片。`make([]T, len, cap)` 元素类型、长度和容量，容量部分可以省略，在这种情况下，容量将等于长度，未省略cap >= len
 
 Example: 创建切片
 
@@ -480,21 +473,43 @@ import "fmt"
 
 func main() {
   // 方式1
-  var intArr1 [5]int = [...]int{1, 2, 3, 4, 5}
-  slice1 := intArr1[1:3]
-  fmt.Println("slice1", slice1)
+  var intArr [5]int = [...]int{1, 2, 3, 4, 5}
+  slice1 := intArr[1:3]
+  fmt.Printf("slice1 -> 元素:%v 个数:%d 容量:%d\n", slice1, len(slice1), cap(slice1))
 
   // 方式2
-  var slice2 []int = make([]int, 5, 10)
-  slice2[0] = 1
-  slice2[1] = 2
-  fmt.Println("slice2", slice2)
+  slice2 := []int{1, 2}
+  fmt.Printf("slice2 -> 元素:%v 个数:%d 容量:%d\n", slice2, len(slice2), cap(slice2))
 
-  // 方式3 使用原理类似make
-  var slice3 []int = []int{1, 2, 3, 4, 5}
-  fmt.Println("slice3", slice3)
+  // 方式3
+  slice3 := make([]int, 2)
+  slice3[0] = 1
+  slice3[1] = 2
+  fmt.Printf("slice3 -> 元素:%v 个数:%d 容量:%d\n", slice3, len(slice3), cap(slice3))
 }
 ```
+
+```shell
+slice1 -> 元素:[2 3] 个数:2 容量:4
+slice2 -> 元素:[1 2] 个数:2 容量:2
+slice3 -> 元素:[1 2] 个数:2 容量:2
+```
+
+#### 切片的数据结构
+
+```go
+type SliceHeader struct {
+  Data uintptr
+  Len  int
+  Cap  int
+}
+```
+
++ `Data` 是指向数组的指针
+
++ `Len` 是当前切片的长度
+
++ `Cap` 是当前切片的容量，即 `Data` 数组的大小
 
 #### 切片的内存布局
 
@@ -503,8 +518,6 @@ func main() {
 #### 切片扩容
 
 append内置函数可以对切片进行动态追加
-
-+ 切片append操作的本质就是对数组扩容
 
 + 如果扩容后的切片len不大于cap，就在数组上追加数据
 
