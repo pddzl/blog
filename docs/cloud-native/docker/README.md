@@ -101,3 +101,116 @@ docker安装 `nginx`，并映射数据到本地
 ```shell
 docker run -d -p 8080:80 --name myNginx -v /data/nginx:/usr/share/nginx/html nginx:1.21.6
 ```
+
+## 镜像
+
+### 拉取
+
+`docker pull [OPTIONS] NAME[:TAG|@DIGEST]`
+
+- 从官方仓库拉取镜像（Docker Hub）
+
+`docker pull ubuntu:18.04`
+
+- 从第三方仓库拉取镜像
+
+`docker pull hub.pdd.com:9881/sc/kubeops/release:1.0.0`
+
+### 列出
+
+`docker image ls`
+
+```shell
+[root@localhost ~]# docker image ls
+REPOSITORY           TAG                 IMAGE ID            CREATED             SIZE
+redis                latest              5f515359c7f8        5 days ago          183 MB
+nginx                latest              05a60462f8ba        5 days ago          181 MB
+mongo                3.2                 fe9198c04d62        5 days ago          342 MB
+<none>               <none>              00285df0df87        5 days ago          342 MB
+ubuntu               18.04               f753707788c5        4 weeks ago         127 MB
+ubuntu               latest              f753707788c5        4 weeks ago         127 MB
+```
+
+列表包含了`仓库名`、`标签`、`镜像ID`、`创建时间`以及`所占用的空间`。镜像 ID 则是镜像的唯一标识，**一个镜像可以对应多个标签**
+
+### 构建
+
+`docker build -t myhttp:v1 .`
+
+```shell
+[root@node1 ~]# docker image ls
+REPOSITORY   TAG       IMAGE ID       CREATED         SIZE
+myhttp       v1        b5d624877dd4   19 hours ago    10MB
+```
+
+## Dockerfile
+
+### 多阶段构建
+
+```shell
+[root@node1 go]# tree .
+.
+├── dockerfile
+├── go.mod
+└── main.go
+
+0 directories, 3 files
+```
+
+main.go
+
+```go
+package main
+
+import (
+  "log"
+  "net/http"
+  "os/exec"
+)
+
+func getHostName(w http.ResponseWriter, r *http.Request) {
+  cmd := exec.Command("sh", "-c", "hostname")
+  output, err := cmd.CombinedOutput()
+  if err != nil {
+    log.Fatal(err)
+  }
+  w.Write(output)
+}
+
+func main() {
+  http.HandleFunc("/", getHostName)
+  err := http.ListenAndServe(":9090", nil)
+  if err != nil {
+    log.Printf("http server failed, err:%v\n", err)
+    return
+  }
+}
+```
+
+dockerfile
+
+```dockerfile
+FROM golang:alpine AS builder
+
+WORKDIR /build
+
+ADD go.mod .
+COPY . .
+RUN go build -ldflags="-s -w" -o myHttp main.go
+
+
+FROM alpine
+
+WORKDIR /build
+COPY --from=builder /build/myHttp /build/myHttp
+
+CMD ["./myHttp"]
+```
+
+构建
+
+```shell
+docker build -t myhttp:v1 .
+```
+
+参考: `https://segmentfault.com/a/1190000016137548`
