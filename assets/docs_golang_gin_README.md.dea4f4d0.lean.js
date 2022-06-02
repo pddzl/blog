@@ -1,1 +1,0 @@
-import{o as t,c as e}from"./app.6981bb68.js";const r='{"title":"Gin","description":"","frontmatter":{"title":"Gin"},"relativePath":"docs/golang/gin/README.md","lastUpdated":1646277691987}',i={};i.render=function(r,i,n,o,a,d){return t(),e("div")};export default i;export{r as __pageData};
