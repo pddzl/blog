@@ -1,0 +1,1 @@
+import{o as t,c as e}from"./app.4dc82166.js";const o='{"title":"Pod","description":"","frontmatter":{"title":"Pod"},"relativePath":"docs/cloud-native/kubernetes/workloads/pod.md","lastUpdated":1654156215983}',d={};d.render=function(o,d,r,a,i,n){return t(),e("div")};export default d;export{o as __pageData};
