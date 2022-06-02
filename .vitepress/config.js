@@ -226,13 +226,12 @@ function createSidebar() {
             link: '/docs/cloud-native/kubernetes/install'
           },
           {
-            text: '工作负载',
-            children: [
-              {
-                text: '控制器',
-                link: '/docs/cloud-native/kubernetes/workloads/controller'
-              }
-            ]
+            text: 'Pod',
+            link: '/docs/cloud-native/kubernetes/workloads/pod'
+          },
+          {
+            text: '控制器',
+            link: '/docs/cloud-native/kubernetes/workloads/controller'
           }
         ]
       }
