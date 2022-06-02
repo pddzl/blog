@@ -2,9 +2,68 @@
 title: 概述
 ---
 
-## Kubernetes组件
+## K8s 组件
 
-## Kubernetes对象
+架构图
+
+<img src="./images/architecture.png" alt="架构" style="zoom:40%;" />
+
+### 控制平面组件
+
+**kube-apiserver**
+
+`Kubernetes API`是 Kubernetes 控制平面的前端，用于处理内部和外部请求。API 服务器会确定请求是否有效，如果有效，则对其进行处理。您可以通过 REST 调用、kubectl 命令行界面或其他命令行工具（例如 kubeadm）来访问 API。
+
+**kube-scheduler**
+
+控制平面组件，负责监视新创建的、未指定运行节点（node）的 Pods，选择节点让 Pod 在上面运行。调度决策考虑的因素包括单个 Pod 和 Pod 集合的资源需求、硬件/软件/策略约束、亲和性和反亲和性规范、数据位置、工作负载间的干扰和最后时限。
+
+**kube-controller-manager**
+
+运行控制器进程的控制平面组件
+
++ 节点控制器（Node Controller）：负责在节点出现故障时进行通知和响应
+
++ 任务控制器（Job controller）：监测代表一次性任务的 Job 对象，然后创建 Pods 来运行这些任务直至完成
+
++ 端点控制器（Endpoints Controller）：填充端点（Endpoints）对象（即加入 Service 与 Pod）
+
++ 服务帐户和令牌控制器（Service Account & Token Controllers）：为新的命名空间创建默认帐户和 API 访问令牌
+
+**etcd**
+
+etcd 是兼具一致性和高可用性的键值数据库，可以作为保存 Kubernetes 所有集群数据的后台数据库。
+
+### 节点组件
+
+**kubelet**
+
+一个在集群中每个节点（node）上运行的代理。 它保证容器（containers）都 运行在 Pod 中。
+
+**kube-proxy**
+
+kube-proxy 是集群中每个节点上运行的网络代理， 实现 Kubernetes 服务（Service） 概念的一部分。kube-proxy 维护节点上的网络规则。这些网络规则允许从集群内部或外部的网络会话与 Pod 进行网络通信。如果操作系统提供了数据包过滤层并可用的话，kube-proxy 会通过它来实现网络规则。否则， kube-proxy 仅转发流量本身。
+
+**容器运行时（Container Runtime）**
+
+容器运行环境是负责运行容器的软件。Kubernetes 支持容器运行时，例如 Docker、 containerd、CRI-O 以及 [Kubernetes CRI (容器运行环境接口)](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/container-runtime-interface.md) 的其他任何实现。
+
+## K8s API
+
+查看所有api组
+
+```shell
+[root@node1 ~]# kubectl get --raw /
+```
+
+通过api查看namespace test
+
+```shell
+[root@node1 ~]# kubectl get --raw '/api/v1/namespaces/test'
+{"kind":"Namespace","apiVersion":"v1","metadata":{"name":"test","uid":"11b94940-21e2-44f6-a5fb-923788045c86","resourceVersion":"8614265","creationTimestamp":"2022-03-31T13:15:16Z","labels":{"kubernetes.io/metadata.name":"test"},"managedFields":[{"manager":"kubectl-create","operation":"Update","apiVersion":"v1","time":"2022-03-31T13:15:16Z","fieldsType":"FieldsV1","fieldsV1":{"f:metadata":{"f:labels":{".":{},"f:kubernetes.io/metadata.name":{}}}}}]},"spec":{"finalizers":["kubernetes"]},"status":{"phase":"Active"}}
+```
+
+## K8s 对象
 
 在 Kubernetes 系统中，Kubernetes 对象是持久化的实体。 Kubernetes 使用这些实体去表示整个集群的状态。
 
