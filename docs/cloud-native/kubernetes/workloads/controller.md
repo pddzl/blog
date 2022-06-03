@@ -6,6 +6,10 @@ Kubernetes 中内建了很多的 controller（控制器），这些控制器相�
 
 ## ReplicaSet
 
+ReplicaSet 的目的是维护一组在任何时候都处于运行状态的 Pod 副本的稳定集合。 因此，它通常用来保证给定数量的、完全相同的 Pod 的可用性。
+
+**建议使用Deployment**
+
 ## Deployments
 
 一个 Deployment 为 Pods 和 ReplicaSets 提供声明式的更新能力。
@@ -78,7 +82,9 @@ kubectl edit deployment myhttp -n test
 
 2. 滚动更新（RollingUpdate）
 
-`.spec.strategy.type==RollingUpdate` 采取滚动更新的方式更新 Pods。可以指定 maxUnavailable 和 maxSurge 来控制滚动更新 过程。
+默认选项
+
+`.spec.strategy.type==RollingUpdate` 采取滚动更新的方式更新 Pods。可以指定 maxUnavailable 和 maxSurge 来控制滚动更新过程。
 
 最大不可用 `.spec.strategy.rollingUpdate.maxUnavailable` 是一个可选字段，用来指定更新过程中不可用的 Pod 的个数上限
 
@@ -124,6 +130,22 @@ kubectl autoscale deployment/myhttp -n test --min=10 --max=15 --cpu-percent=80
 
 ## DaemonSet
 
+DaemonSet 确保全部（或者某些）节点上运行一个 Pod 的副本。当有节点加入集群时，也会为他们新增一个 Pod。当有节点从集群移除时，这些 Pod 也会被回收。删除 DaemonSet 将会删除它创建的所有 Pod。
+
+DaemonSet 的一些典型用法
+
++ 在每个节点上运行集群守护进程
+
++ 在每个节点上运行日志收集守护进程
+
++ 在每个节点上运行监控守护进程
+
 ## Jobs
 
+Job 会创建一个或者多个 Pods，并将继续重试 Pods 的执行，直到指定数量的 Pods 成功终止。 随着 Pods 成功结束，Job 跟踪记录成功完成的 Pods 个数。当数量达到指定的成功个数阈值时，任务（即 Job）结束。 删除 Job 的操作会清除所创建的全部 Pods。 挂起 Job 的操作会删除 Job 的所有活跃 Pod，直到 Job 被再次恢复执行。
+
 ## CronJob
+
+CronJob 创建基于时隔重复调度的 Jobs。
+
+一个 CronJob 对象就像 crontab (cron table) 文件中的一行。它用 Cron 格式进行编写，并周期性地在给定的调度时间执行 Job。
