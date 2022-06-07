@@ -108,3 +108,32 @@ vue2与vue3生命周期钩子函数的对比
 |activated|onActivated|
 |deactivated|onDeactivated|
 
+## Example
+
+### 读取文件
+
+```html
+<template>
+  <div>
+    <el-upload action="" :limit="1" :auto-upload="false" :on-change="handleChange" :on-remove="handleRemove">
+      <el-button size="small">选择文件</el-button>
+    </el-upload>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'Upload',
+  setup() {
+    const handleChange = (uploadFile) => {
+      const reader = new FileReader()
+      // uploadFile.raw element-ui对file进行了封装
+      reader.readAsText(uploadFile.raw)
+      reader.onload = function() {
+        console.log('文件内容', reader.result)
+      }
+    }
+  }
+}
+</script>
+```
