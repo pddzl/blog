@@ -590,27 +590,19 @@ slice3=[1]
 
 在 Go 语言中，一个 `map` 就是一个哈希表的引用，`map` 类型可以写为 `map[K]V`，其中 K 和 V 分别对应 key 和 value。
 
-`map` 中所有的 key 都有相同的类型，所有的 value 也有着相同的类型，但是 key 和 value 之间可以是不同的数据类型。
-
 `slice`、`map`、`function` 不可以作为 key，因为这几个没法用 == 来判断
 
+#### 初始化
+
 ```go
-// 声明map不会分配内存，初始化需要make分配内存后才能赋值和使用
-// slice区别：slice声明后，可以append数据
-var a map[string]string
-a = make(map[string]string, 10)
-a["no1"] = "北京"
-a["no2"] = "上海"
-a["no3"] = "无锡"
-
-ages := make(map[string]int)
-ages["alice"] = 31
-ages["charlie"] = 34
-
 ages := map[string]int{
   "alice":   31,
   "charlie": 34,
 }
+
+ages := make(map[string]int, 2)
+ages["alice"] = 31
+ages["charlie"] = 34
 ```
 
 #### map增删查该
@@ -638,13 +630,13 @@ if ok {
 }
 ```
 
-#### map遍历
+#### 扩容
 
-```go
-for k,v := range a {
-  fmt.Printf("k=%v v=%v", k, v)
-}
-```
+map扩容不是个原子操作，触发扩容的因素
+
+1. 装载因子已经超过 6.5
+
+2. 哈希使用了太多溢出桶
 
 ### Channel
 
