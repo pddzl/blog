@@ -175,16 +175,16 @@ function createSidebar() {
         text: 'Golang',
         children: [
           {
-            text: '前言',
-            link: '/docs/golang/base/README'
-          },
-          {
             text: '数据类型',
             link: '/docs/golang/base/data-type'
           },
           {
             text: '函数',
             link: '/docs/golang/base/functions'
+          },
+          {
+            text: '关键字',
+            link: '/docs/golang/base/keyword'
           },
           {
             text: '系统',
