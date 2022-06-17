@@ -595,11 +595,13 @@ slice3=[1]
 #### 初始化
 
 ```go
+// 字面量
 ages := map[string]int{
   "alice":   31,
   "charlie": 34,
 }
 
+// make
 ages := make(map[string]int, 2)
 ages["alice"] = 31
 ages["charlie"] = 34
