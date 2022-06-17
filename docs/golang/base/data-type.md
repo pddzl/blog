@@ -453,49 +453,17 @@ func main() {
 #### 初始化
 
 ```go
+// 1. 通过下标的方式获得数组或者切片的一部分
 arr[0:3] or slice[0:3]
+
+// 2. 使用字面量初始化新的切片
 slice := []int{1, 2, 3}
+
+// 3. 使用关键字 make 创建切片。make([]T, len, cap) 元素类型、长度和容量，容量部分可以省略，在这种情况下，容量将等于长度，未省略cap >= len
 slice := make([]int, 10)
 ```
 
-1. 通过下标的方式获得数组或者切片的一部分
-
-2. 使用字面量初始化新的切片
-
-3. 使用关键字 `make` 创建切片。`make([]T, len, cap)` 元素类型、长度和容量，容量部分可以省略，在这种情况下，容量将等于长度，未省略cap >= len
-
-Example: 创建切片
-
-```go
-package main
-
-import "fmt"
-
-func main() {
-  // 方式1
-  var intArr [5]int = [...]int{1, 2, 3, 4, 5}
-  slice1 := intArr[1:3]
-  fmt.Printf("slice1 -> 元素:%v 个数:%d 容量:%d\n", slice1, len(slice1), cap(slice1))
-
-  // 方式2
-  slice2 := []int{1, 2}
-  fmt.Printf("slice2 -> 元素:%v 个数:%d 容量:%d\n", slice2, len(slice2), cap(slice2))
-
-  // 方式3
-  slice3 := make([]int, 2)
-  slice3[0] = 1
-  slice3[1] = 2
-  fmt.Printf("slice3 -> 元素:%v 个数:%d 容量:%d\n", slice3, len(slice3), cap(slice3))
-}
-```
-
-```shell
-slice1 -> 元素:[2 3] 个数:2 容量:4
-slice2 -> 元素:[1 2] 个数:2 容量:2
-slice3 -> 元素:[1 2] 个数:2 容量:2
-```
-
-#### 切片的数据结构
+#### 数据结构
 
 ```go
 type SliceHeader struct {
@@ -515,15 +483,14 @@ type SliceHeader struct {
 
 <img src="./images/slice.png" alt="slice" style="zoom:50%;" />
 
-#### 切片扩容
+#### 扩容
 
 append内置函数可以对切片进行动态追加
 
-+ 如果扩容后的切片len不大于cap，就在数组上追加数据
-
-+ 如果扩容后的切片len大于cap，go底层会创建一个新的数组newArr（扩容后大小），将切片原来包含的数据拷贝到新数组，追加数据，切片重新引用到新数组（newArr由底层维护，不可见）
-
-#### 扩容策略
+```go
+a := make([]int)
+append(a, 5)
+```
 
 1. 如果期望容量大于当前容量的两倍就会使用期望容量
 
@@ -549,9 +516,8 @@ func main() {
   fmt.Printf("slice=%v len=%d cap=%d\n", slice, len(slice), cap(slice))
   fmt.Printf("数组地址=%p 切片地址=%p\n", slice, &slice)
 }
-```
 
-```shell
+$ go run main.go
 数组地址=0xc000098030
 slice=[1 2] len=2 cap=5
 数组地址=0xc000098030 切片地址=0xc0000a2000
