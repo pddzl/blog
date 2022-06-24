@@ -327,6 +327,41 @@ example: block1向右向下偏移20px
 
 `sticky` 跟前面四个属性值都不一样，它会产生动态效果，很像 `relative` 和 `fixed` 的结合：一些时候是 `relative` 定位（定位基点是自身默认位置），另一些时候自动变成`fixed`定位（定位基点是视口）。元素不会被移出正常文档流
 
+#### z-index
+
+`z-index` 属性设定了一个定位元素及其后代元素或 `flex` 项目的 `z-order`。当元素之间重叠的时候，`z-index` 较大的元素会覆盖较小的元素在上层进行显示。(默认是后面的元素覆盖前面的元素)
+
+```html
+<html>
+  <head>
+    <style>
+      .block1 {
+        width: 50px;
+        height: 50px;
+        background-color: aqua;
+        position: relative;
+        left: 20px;
+        top: 20px;
+        z-index: 2;
+      }
+      .block2 {
+        width: 50px;
+        height: 50px;
+        background-color: pink;
+        position: relative;
+        z-index: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="block1">
+    </div>
+    <div class="block2">
+    </div>
+  </body>
+</html>
+```
+
 #### 定位实现水平垂直居中
 
 ```html
