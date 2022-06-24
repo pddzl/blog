@@ -355,12 +355,16 @@ example: block1向右向下偏移20px
   </head>
   <body>
     <div class="block1">
+      <p>1</p>
     </div>
     <div class="block2">
+      <p>2</p>
     </div>
   </body>
 </html>
 ```
+
+<img src="./images/position/z-index.png" />
 
 #### 定位实现水平垂直居中
 
