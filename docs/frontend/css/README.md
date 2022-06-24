@@ -327,6 +327,15 @@ example: block1向右向下偏移20px
 
 `sticky` 跟前面四个属性值都不一样，它会产生动态效果，很像 `relative` 和 `fixed` 的结合：一些时候是 `relative` 定位（定位基点是自身默认位置），另一些时候自动变成`fixed`定位（定位基点是视口）。元素不会被移出正常文档流
 
+#### 定位实现水平垂直居中
+
+```html
+position: relative;
+left: 50%;
+top: 50%;
+transform: trnaslate(-%50, -%50);
+```
+
 ### flex
 
 ### grid
