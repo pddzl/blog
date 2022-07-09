@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/blog/assets/style.92809fa1.css">
     <link rel="modulepreload" href="/blog/assets/Home.29c46145.js">
     <link rel="modulepreload" href="/blog/assets/app.25ccd784.js">
-    <link rel="modulepreload" href="/blog/assets/docs_golang_gorm_README.md.89c6a8f2.lean.js">
+    <link rel="modulepreload" href="/blog/assets/docs_golang_gorm_README.md.0bcc1a27.lean.js">
     <link rel="modulepreload" href="/blog/assets/app.25ccd784.js">
     <meta name="author" content="pddzl">
     <meta name="keywords" content="docker, k8s, vue, golang">
@@ -215,162 +215,110 @@ db<span class="token punctuation">.</span><span class="token function">Session</
   HostName  <span class="token builtin">string</span>  <span class="token string">`gorm:&quot;column:hostname;not null;unique&quot;`</span>
   SshIp     <span class="token builtin">string</span>  <span class="token string">`gorm:&quot;not null;unique&quot;`</span>
 <span class="token punctuation">}</span>
-</code></pre></div><h3 id="many-to-many"><a class="header-anchor" href="#many-to-many" aria-hidden="true">#</a> Many To Many</h3><p>Example:</p><ol><li>数据结构</li></ol><table><thead><tr><th>表1</th><th>表2</th><th>关联关系</th></tr></thead><tbody><tr><td>user</td><td>address</td><td>belongs_to</td></tr><tr><td>user</td><td>email</td><td>has_many</td></tr><tr><td>user</td><td>creditcard</td><td>has_one</td></tr><tr><td>user</td><td>languages</td><td>many_to_many</td></tr></tbody></table><img src="/blog/assets/related.ad93b591.png" alt="gorm" style="zoom:50%;"><ol start="2"><li>代码</li></ol><div class="language-go"><pre><code><span class="token keyword">package</span> main
+</code></pre></div><h3 id="many-to-many"><a class="header-anchor" href="#many-to-many" aria-hidden="true">#</a> Many To Many</h3><p>多对多会在两张表之间添加一张连接表</p><p>例如：模板表、任务表，模板表的每条记录包含多条任务</p><img src="/blog/assets/m2m.71a32887.png" alt="manytomany" style="zoom:45%;"><div class="language-go"><pre><code><span class="token keyword">package</span> main
 
 <span class="token keyword">import</span> <span class="token punctuation">(</span>
-  <span class="token string">&quot;fmt&quot;</span>
-  <span class="token string">&quot;github.com/jinzhu/gorm&quot;</span>
-  <span class="token boolean">_</span> <span class="token string">&quot;github.com/jinzhu/gorm/dialects/mysql&quot;</span>
+  <span class="token string">&quot;gorm.io/driver/mysql&quot;</span>
+  <span class="token string">&quot;gorm.io/gorm&quot;</span>
+  <span class="token string">&quot;time&quot;</span>
 <span class="token punctuation">)</span>
 
-<span class="token keyword">type</span> User <span class="token keyword">struct</span> <span class="token punctuation">{</span>
-  ID                <span class="token builtin">uint</span>       <span class="token string">`gorm:&quot;primary_key&quot;`</span>
-  Birthday          <span class="token builtin">string</span>     <span class="token string">`gorm:&quot;column:birthday&quot;`</span>
-  Age               <span class="token builtin">int</span>        <span class="token string">`gorm:&quot;column:age&quot;`</span>
-  Name              <span class="token builtin">string</span>     <span class="token string">`gorm:&quot;column:name&quot;`</span>
-  BillingAddress    Address    <span class="token string">`gorm:&quot;foreignkey:BillingAddressId;&quot;`</span> <span class="token comment">// One-To-One (属于 - 本表的BillingAddressID作外键</span>
-  BillingAddressId  <span class="token builtin">int</span>        <span class="token string">`gorm:&quot;column:billing_address_id&quot;`</span>
-  ShippingAddress   Address    <span class="token string">`gorm:&quot;foreignkey:ShippingAddressId;&quot;`</span> <span class="token comment">// One-To-One (属于 - 本表的ShippingAddressID作外键)</span>
-  ShippingAddressId <span class="token builtin">int</span>        <span class="token string">`gorm:&quot;column:shipping_address_id&quot;`</span>
-  CreditCard        CreditCard <span class="token string">`gorm:&quot;foreignkey:UserID;&quot;`</span> <span class="token comment">// One-To-One (拥有一个 - CreditCard表的UserID作外键)</span>
-  Emails            <span class="token punctuation">[</span><span class="token punctuation">]</span>Email    <span class="token string">`gorm:&quot;ForeignKey:UserID;&quot;`</span>            <span class="token comment">// One-To-Many (拥有多个 - Email表的UserID作外键)</span>
-  Languages         <span class="token punctuation">[</span><span class="token punctuation">]</span>Language <span class="token string">`gorm:&quot;many2many:user_languages;&quot;`</span>     <span class="token comment">// Many-To-Many , &#39;user_languages&#39;是连接表</span>
+<span class="token keyword">type</span> CommonMODEL <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+  ID        <span class="token builtin">uint</span>           <span class="token string">`gorm:&quot;primarykey&quot;`</span> <span class="token comment">// 主键ID</span>
+  CreatedAt time<span class="token punctuation">.</span>Time      <span class="token comment">// 创建时间</span>
+  UpdatedAt time<span class="token punctuation">.</span>Time      <span class="token comment">// 更新时间</span>
+  DeletedAt gorm<span class="token punctuation">.</span>DeletedAt <span class="token string">`gorm:&quot;index&quot; json:&quot;-&quot;`</span> <span class="token comment">// 删除时间</span>
 <span class="token punctuation">}</span>
 
-<span class="token keyword">type</span> Email <span class="token keyword">struct</span> <span class="token punctuation">{</span>
-  ID     <span class="token builtin">int</span>    <span class="token string">`gorm:&quot;primary_key&quot;`</span>
-  UserID <span class="token builtin">int</span>    <span class="token string">`gorm:&quot;column:user_id;&quot;`</span> <span class="token comment">// 外键 (属于), tag `index`是为该列创建索引</span>
-  Email  <span class="token builtin">string</span> <span class="token string">`gorm:&quot;column:email&quot;`</span>    <span class="token comment">// `type`设置sql类型, `unique_index` 为该列设置唯一索引</span>
+<span class="token comment">// 模板表</span>
+<span class="token keyword">type</span> TemplateModel <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+  CommonMODEL
+  Name    <span class="token builtin">string</span>      <span class="token string">`json:&quot;name&quot; gorm:&quot;not null;unique&quot;`</span>
+  Tasks   <span class="token punctuation">[</span><span class="token punctuation">]</span>TaskModel <span class="token string">`json:&quot;tasks&quot; gorm:&quot;many2many:template_tasks&quot;`</span>
+  Comment <span class="token builtin">string</span>      <span class="token string">`json:&quot;comment&quot;`</span>
 <span class="token punctuation">}</span>
 
-<span class="token keyword">type</span> Address <span class="token keyword">struct</span> <span class="token punctuation">{</span>
-  ID       <span class="token builtin">int</span>    <span class="token string">`gorm:&quot;primary_key&quot;`</span>
-  Address1 <span class="token builtin">string</span> <span class="token string">`gorm:&quot;column:address1&quot;`</span> <span class="token comment">// 设置字段为非空并唯一</span>
-  Address2 <span class="token builtin">string</span> <span class="token string">`gorm:&quot;column:address2&quot;`</span>
-  Post     <span class="token builtin">string</span> <span class="token string">`gorm:&quot;column:post&quot;`</span>
-<span class="token punctuation">}</span>
-
-<span class="token keyword">type</span> Language <span class="token keyword">struct</span> <span class="token punctuation">{</span>
-  ID   <span class="token builtin">int</span>    <span class="token string">`gorm:&quot;primary_key&quot;`</span>
-  Name <span class="token builtin">string</span> <span class="token string">`gorm:&quot;column:name&quot;`</span> <span class="token comment">// 创建索引并命名，如果找到其他相同名称的索引则创建组合索引</span>
-  Code <span class="token builtin">string</span> <span class="token string">`gorm:&quot;column:code&quot;`</span> <span class="token comment">// `unique_index` also works</span>
-<span class="token punctuation">}</span>
-
-<span class="token keyword">type</span> CreditCard <span class="token keyword">struct</span> <span class="token punctuation">{</span>
-  ID     <span class="token builtin">int</span>    <span class="token string">`gorm:&quot;primary_key&quot;`</span>
-  UserID <span class="token builtin">int</span>    <span class="token string">`gorm:&quot;column:user_id;&quot;`</span>
-  Number <span class="token builtin">string</span> <span class="token string">`gorm:&quot;column:number&quot;`</span>
+<span class="token comment">// 任务表</span>
+<span class="token keyword">type</span> TaskModel <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+  CommonMODEL
+  Name    <span class="token builtin">string</span> <span class="token string">`json:&quot;name&quot; gorm:&quot;not null;unique&quot;`</span>
+  Comment <span class="token builtin">string</span> <span class="token string">`json:&quot;comment&quot;`</span>
 <span class="token punctuation">}</span>
 
 <span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-  db<span class="token punctuation">,</span> err <span class="token operator">:=</span> gorm<span class="token punctuation">.</span><span class="token function">Open</span><span class="token punctuation">(</span><span class="token string">&quot;mysql&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;root:21ysten123@(127.0.0.1)/gorm?charset=utf8&amp;parseTime=True&amp;loc=Local&quot;</span><span class="token punctuation">)</span>
+  client<span class="token punctuation">,</span> err <span class="token operator">:=</span> gorm<span class="token punctuation">.</span><span class="token function">Open</span><span class="token punctuation">(</span>mysql<span class="token punctuation">.</span><span class="token function">Open</span><span class="token punctuation">(</span><span class="token string">&quot;root:huayun2021@(127.0.0.1)/gorm?charset=utf8mb4&amp;parseTime=True&amp;loc=Local&quot;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token operator">&amp;</span>gorm<span class="token punctuation">.</span>Config<span class="token punctuation">{</span>DisableForeignKeyConstraintWhenMigrating<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
   <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
     <span class="token function">panic</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
   <span class="token punctuation">}</span>
+  db<span class="token punctuation">,</span> <span class="token boolean">_</span> <span class="token operator">:=</span> client<span class="token punctuation">.</span><span class="token function">DB</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
   <span class="token keyword">defer</span> db<span class="token punctuation">.</span><span class="token function">Close</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-  db<span class="token punctuation">.</span><span class="token function">AutoMigrate</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>User<span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
-    Email<span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
-    Address<span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
-    Language<span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
-    CreditCard<span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
 
-  <span class="token keyword">var</span> creditCard1 CreditCard
-  creditCard1<span class="token punctuation">.</span>ID <span class="token operator">=</span> <span class="token number">1</span>
-  creditCard1<span class="token punctuation">.</span>UserID <span class="token operator">=</span> <span class="token number">1001</span>
-  creditCard1<span class="token punctuation">.</span>Number <span class="token operator">=</span> <span class="token string">&quot;1001PDD&quot;</span>
+  <span class="token comment">// 初始化表</span>
+  client<span class="token punctuation">.</span><span class="token function">AutoMigrate</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>TemplateModel<span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>TaskModel<span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
 
-  <span class="token keyword">var</span> creditCard2 CreditCard
-  creditCard2<span class="token punctuation">.</span>ID <span class="token operator">=</span> <span class="token number">2</span>
-  creditCard2<span class="token punctuation">.</span>UserID <span class="token operator">=</span> <span class="token number">1002</span>
-  creditCard2<span class="token punctuation">.</span>Number <span class="token operator">=</span> <span class="token string">&quot;1002PXX&quot;</span>
+  <span class="token keyword">var</span> task1<span class="token punctuation">,</span> task2<span class="token punctuation">,</span> task3 TaskModel
+  task1<span class="token punctuation">.</span>ID <span class="token operator">=</span> <span class="token number">1</span>
+  task1<span class="token punctuation">.</span>Name <span class="token operator">=</span> <span class="token string">&quot;task1&quot;</span>
+  task2<span class="token punctuation">.</span>ID <span class="token operator">=</span> <span class="token number">2</span>
+  task2<span class="token punctuation">.</span>Name <span class="token operator">=</span> <span class="token string">&quot;task2&quot;</span>
+  task3<span class="token punctuation">.</span>ID <span class="token operator">=</span> <span class="token number">3</span>
+  task3<span class="token punctuation">.</span>Name <span class="token operator">=</span> <span class="token string">&quot;task3&quot;</span>
 
-  <span class="token keyword">var</span> language1 Language
-  language1<span class="token punctuation">.</span>ID <span class="token operator">=</span> <span class="token number">1</span>
-  language1<span class="token punctuation">.</span>Name <span class="token operator">=</span> <span class="token string">&quot;english&quot;</span>
-  language1<span class="token punctuation">.</span>Code <span class="token operator">=</span> <span class="token string">&quot;101ENG&quot;</span>
+  <span class="token keyword">var</span> template1<span class="token punctuation">,</span> template2 TemplateModel
+  template1<span class="token punctuation">.</span>Name <span class="token operator">=</span> <span class="token string">&quot;template1&quot;</span>
+  template2<span class="token punctuation">.</span>Name <span class="token operator">=</span> <span class="token string">&quot;template2&quot;</span>
 
-  <span class="token keyword">var</span> language2 Language
-  language2<span class="token punctuation">.</span>ID <span class="token operator">=</span> <span class="token number">2</span>
-  language2<span class="token punctuation">.</span>Name <span class="token operator">=</span> <span class="token string">&quot;chinese&quot;</span>
-  language2<span class="token punctuation">.</span>Code <span class="token operator">=</span> <span class="token string">&quot;102CHI&quot;</span>
+  tTasks1 <span class="token operator">:=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span>TaskModel<span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span>
+  tTasks1<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> task1
+  tTasks1<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> task2
+  template1<span class="token punctuation">.</span>Tasks <span class="token operator">=</span> tTasks1
 
-  languages <span class="token operator">:=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span>Language<span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span>
-  languages<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> language1
-  languages<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> language2
+  tTasks2 <span class="token operator">:=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span>TaskModel<span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span>
+  tTasks2<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> task1
+  tTasks2<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> task2
+  tTasks2<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">=</span> task3
+  template2<span class="token punctuation">.</span>Tasks <span class="token operator">=</span> tTasks2
 
-  <span class="token keyword">var</span> address Address
-  address<span class="token punctuation">.</span>ID <span class="token operator">=</span> <span class="token number">1</span>
-  address<span class="token punctuation">.</span>Address1 <span class="token operator">=</span> <span class="token string">&quot;扬州市&quot;</span>
-  address<span class="token punctuation">.</span>Address2 <span class="token operator">=</span> <span class="token string">&quot;无锡市&quot;</span>
-  address<span class="token punctuation">.</span>Post <span class="token operator">=</span> <span class="token string">&quot;214000&quot;</span>
+  <span class="token comment">// 创建任务</span>
+  client<span class="token punctuation">.</span><span class="token function">Create</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>task1<span class="token punctuation">)</span>
+  client<span class="token punctuation">.</span><span class="token function">Create</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>task2<span class="token punctuation">)</span>
+  client<span class="token punctuation">.</span><span class="token function">Create</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>task3<span class="token punctuation">)</span>
 
-  <span class="token keyword">var</span> email1 Email
-  email1<span class="token punctuation">.</span>ID <span class="token operator">=</span> <span class="token number">1</span>
-  email1<span class="token punctuation">.</span>UserID <span class="token operator">=</span> <span class="token number">11</span>
-  email1<span class="token punctuation">.</span>Email <span class="token operator">=</span> <span class="token string">&quot;254995740@qq.com&quot;</span>
-
-  <span class="token keyword">var</span> email2 Email
-  email2<span class="token punctuation">.</span>ID <span class="token operator">=</span> <span class="token number">2</span>
-  email2<span class="token punctuation">.</span>UserID <span class="token operator">=</span> <span class="token number">12</span>
-  email2<span class="token punctuation">.</span>Email <span class="token operator">=</span> <span class="token string">&quot;1103901630@qq.com&quot;</span>
-
-  oEmails1 <span class="token operator">:=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span>Email<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
-  oEmails1<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> email1
-
-  oEmails2 <span class="token operator">:=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span>Email<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
-  oEmails2<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> email2
-
-  <span class="token keyword">var</span> user1 User
-  user1<span class="token punctuation">.</span>ID <span class="token operator">=</span> <span class="token number">1</span>
-  user1<span class="token punctuation">.</span>Birthday <span class="token operator">=</span> <span class="token string">&quot;1029&quot;</span>
-  user1<span class="token punctuation">.</span>Age <span class="token operator">=</span> <span class="token number">30</span>
-  user1<span class="token punctuation">.</span>Name <span class="token operator">=</span> <span class="token string">&quot;pdd&quot;</span>
-  user1<span class="token punctuation">.</span>BillingAddress <span class="token operator">=</span> address
-  user1<span class="token punctuation">.</span>BillingAddressId <span class="token operator">=</span> <span class="token number">1</span>
-  user1<span class="token punctuation">.</span>ShippingAddress <span class="token operator">=</span> address
-  user1<span class="token punctuation">.</span>ShippingAddressId <span class="token operator">=</span> <span class="token number">2</span>
-  user1<span class="token punctuation">.</span>CreditCard <span class="token operator">=</span> creditCard1
-  user1<span class="token punctuation">.</span>Emails <span class="token operator">=</span> oEmails1
-  user1<span class="token punctuation">.</span>Languages <span class="token operator">=</span> languages
-
-  <span class="token keyword">var</span> user2 User
-  user2<span class="token punctuation">.</span>ID <span class="token operator">=</span> <span class="token number">2</span>
-  user2<span class="token punctuation">.</span>Birthday <span class="token operator">=</span> <span class="token string">&quot;1030&quot;</span>
-  user2<span class="token punctuation">.</span>Age <span class="token operator">=</span> <span class="token number">30</span>
-  user2<span class="token punctuation">.</span>Name <span class="token operator">=</span> <span class="token string">&quot;pxx&quot;</span>
-  user2<span class="token punctuation">.</span>BillingAddress <span class="token operator">=</span> address
-  user2<span class="token punctuation">.</span>BillingAddressId <span class="token operator">=</span> <span class="token number">2</span>
-  user2<span class="token punctuation">.</span>ShippingAddress <span class="token operator">=</span> address
-  user2<span class="token punctuation">.</span>ShippingAddressId <span class="token operator">=</span> <span class="token number">2</span>
-  user2<span class="token punctuation">.</span>CreditCard <span class="token operator">=</span> creditCard2
-  user2<span class="token punctuation">.</span>Emails <span class="token operator">=</span> oEmails2
-  user2<span class="token punctuation">.</span>Languages <span class="token operator">=</span> languages
-
-  <span class="token comment">//插入数据</span>
-  <span class="token comment">//db.Create(&amp;creditCard1)</span>
-  <span class="token comment">//db.Create(&amp;creditCard2)</span>
-  <span class="token comment">//db.Create(&amp;language1)</span>
-  <span class="token comment">//db.Create(&amp;language2)</span>
-  <span class="token comment">//db.Create(&amp;address)</span>
-  <span class="token comment">//db.Create(&amp;email1)</span>
-  <span class="token comment">//db.Create(&amp;email2)</span>
-  <span class="token comment">//db.Create(&amp;user1)</span>
-  <span class="token comment">//db.Create(&amp;user2)</span>
-
-  <span class="token comment">//删除数据</span>
-  <span class="token comment">//db.Delete(&amp;user)</span>
-
-  <span class="token comment">//查询</span>
-  u <span class="token operator">:=</span> User<span class="token punctuation">{</span>ID<span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">}</span>
-  db<span class="token punctuation">.</span><span class="token function">Model</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>u<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Debug</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Find</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>u<span class="token punctuation">)</span>
-  db<span class="token punctuation">.</span><span class="token function">Model</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>u<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Debug</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Related</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>u<span class="token punctuation">.</span>CreditCard<span class="token punctuation">,</span><span class="token string">&quot;CreditCard&quot;</span><span class="token punctuation">)</span>
-  db<span class="token punctuation">.</span><span class="token function">Model</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>u<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Debug</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Related</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>u<span class="token punctuation">.</span>Emails<span class="token punctuation">,</span><span class="token string">&quot;Emails&quot;</span><span class="token punctuation">)</span>
-  db<span class="token punctuation">.</span><span class="token function">Model</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>u<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Debug</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Related</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>u<span class="token punctuation">.</span>Languages<span class="token punctuation">,</span> <span class="token string">&quot;Languages&quot;</span><span class="token punctuation">)</span>
-  db<span class="token punctuation">.</span><span class="token function">Model</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>u<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Debug</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Related</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>u<span class="token punctuation">.</span>BillingAddress<span class="token punctuation">,</span><span class="token string">&quot;BillingAddress&quot;</span><span class="token punctuation">)</span>
-  db<span class="token punctuation">.</span><span class="token function">Model</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>u<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Debug</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Related</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>u<span class="token punctuation">.</span>ShippingAddress<span class="token punctuation">,</span><span class="token string">&quot;ShippingAddress&quot;</span><span class="token punctuation">)</span>
-  fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>u<span class="token punctuation">)</span>
+  <span class="token comment">// 创建模板</span>
+  client<span class="token punctuation">.</span><span class="token function">Create</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>template1<span class="token punctuation">)</span>
+  client<span class="token punctuation">.</span><span class="token function">Create</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>template2<span class="token punctuation">)</span>
 <span class="token punctuation">}</span>
-</code></pre></div><div class="language-go"><pre><code><span class="token punctuation">{</span><span class="token number">1</span> <span class="token number">1029</span> <span class="token number">30</span> pdd <span class="token punctuation">{</span><span class="token number">1</span> 扬州市 无锡市 <span class="token number">214000</span><span class="token punctuation">}</span> <span class="token number">1</span> <span class="token punctuation">{</span><span class="token number">1</span> 扬州市 无锡市 <span class="token number">214000</span><span class="token punctuation">}</span> <span class="token number">1</span> <span class="token punctuation">{</span><span class="token number">1</span> <span class="token number">1</span> <span class="token number">1001</span>PDD<span class="token punctuation">}</span> <span class="token punctuation">[</span><span class="token punctuation">{</span><span class="token number">1</span> <span class="token number">1</span> <span class="token number">254995740</span>@qq<span class="token punctuation">.</span>com<span class="token punctuation">}</span><span class="token punctuation">]</span> <span class="token punctuation">[</span><span class="token punctuation">{</span><span class="token number">1</span> english <span class="token number">101</span>ENG<span class="token punctuation">}</span> <span class="token punctuation">{</span><span class="token number">2</span> chinese <span class="token number">102</span>CHI<span class="token punctuation">}</span><span class="token punctuation">]</span><span class="token punctuation">}</span>
+</code></pre></div><p>验证</p><div class="language-shell"><pre><code>mysql<span class="token operator">&gt;</span> <span class="token keyword">select</span> * from task_models<span class="token punctuation">;</span>
++----+-------------------------+-------------------------+------------+-------+---------+
+<span class="token operator">|</span> <span class="token function">id</span> <span class="token operator">|</span> created_at              <span class="token operator">|</span> updated_at              <span class="token operator">|</span> deleted_at <span class="token operator">|</span> name  <span class="token operator">|</span> comment <span class="token operator">|</span>
++----+-------------------------+-------------------------+------------+-------+---------+
+<span class="token operator">|</span>  <span class="token number">1</span> <span class="token operator">|</span> <span class="token number">2022</span>-07-09 <span class="token number">15</span>:47:05.219 <span class="token operator">|</span> <span class="token number">2022</span>-07-09 <span class="token number">15</span>:47:05.219 <span class="token operator">|</span> NULL       <span class="token operator">|</span> task1 <span class="token operator">|</span>         <span class="token operator">|</span>
+<span class="token operator">|</span>  <span class="token number">2</span> <span class="token operator">|</span> <span class="token number">2022</span>-07-09 <span class="token number">15</span>:47:05.228 <span class="token operator">|</span> <span class="token number">2022</span>-07-09 <span class="token number">15</span>:47:05.228 <span class="token operator">|</span> NULL       <span class="token operator">|</span> task2 <span class="token operator">|</span>         <span class="token operator">|</span>
+<span class="token operator">|</span>  <span class="token number">3</span> <span class="token operator">|</span> <span class="token number">2022</span>-07-09 <span class="token number">15</span>:47:05.236 <span class="token operator">|</span> <span class="token number">2022</span>-07-09 <span class="token number">15</span>:47:05.236 <span class="token operator">|</span> NULL       <span class="token operator">|</span> task3 <span class="token operator">|</span>         <span class="token operator">|</span>
++----+-------------------------+-------------------------+------------+-------+---------+
+<span class="token number">3</span> rows <span class="token keyword">in</span> <span class="token builtin class-name">set</span> <span class="token punctuation">(</span><span class="token number">0.00</span> sec<span class="token punctuation">)</span>
+
+mysql<span class="token operator">&gt;</span> <span class="token keyword">select</span> * from template_models<span class="token punctuation">;</span>
++----+-------------------------+-------------------------+------------+-----------+---------+
+<span class="token operator">|</span> <span class="token function">id</span> <span class="token operator">|</span> created_at              <span class="token operator">|</span> updated_at              <span class="token operator">|</span> deleted_at <span class="token operator">|</span> name      <span class="token operator">|</span> comment <span class="token operator">|</span>
++----+-------------------------+-------------------------+------------+-----------+---------+
+<span class="token operator">|</span>  <span class="token number">1</span> <span class="token operator">|</span> <span class="token number">2022</span>-07-09 <span class="token number">15</span>:47:05.242 <span class="token operator">|</span> <span class="token number">2022</span>-07-09 <span class="token number">15</span>:47:05.242 <span class="token operator">|</span> NULL       <span class="token operator">|</span> template1 <span class="token operator">|</span>         <span class="token operator">|</span>
+<span class="token operator">|</span>  <span class="token number">2</span> <span class="token operator">|</span> <span class="token number">2022</span>-07-09 <span class="token number">15</span>:47:05.279 <span class="token operator">|</span> <span class="token number">2022</span>-07-09 <span class="token number">15</span>:47:05.279 <span class="token operator">|</span> NULL       <span class="token operator">|</span> template2 <span class="token operator">|</span>         <span class="token operator">|</span>
++----+-------------------------+-------------------------+------------+-----------+---------+
+<span class="token number">2</span> rows <span class="token keyword">in</span> <span class="token builtin class-name">set</span> <span class="token punctuation">(</span><span class="token number">0.00</span> sec<span class="token punctuation">)</span>
+
+mysql<span class="token operator">&gt;</span> <span class="token keyword">select</span> * from template_tasks<span class="token punctuation">;</span>
++-------------------+---------------+
+<span class="token operator">|</span> template_model_id <span class="token operator">|</span> task_model_id <span class="token operator">|</span>
++-------------------+---------------+
+<span class="token operator">|</span>                 <span class="token number">1</span> <span class="token operator">|</span>             <span class="token number">1</span> <span class="token operator">|</span>
+<span class="token operator">|</span>                 <span class="token number">1</span> <span class="token operator">|</span>             <span class="token number">2</span> <span class="token operator">|</span>
+<span class="token operator">|</span>                 <span class="token number">2</span> <span class="token operator">|</span>             <span class="token number">1</span> <span class="token operator">|</span>
+<span class="token operator">|</span>                 <span class="token number">2</span> <span class="token operator">|</span>             <span class="token number">2</span> <span class="token operator">|</span>
+<span class="token operator">|</span>                 <span class="token number">2</span> <span class="token operator">|</span>             <span class="token number">3</span> <span class="token operator">|</span>
++-------------------+---------------+
+<span class="token number">5</span> rows <span class="token keyword">in</span> <span class="token builtin class-name">set</span> <span class="token punctuation">(</span><span class="token number">0.01</span> sec<span class="token punctuation">)</span>
 </code></pre></div><h3 id="预加载"><a class="header-anchor" href="#预加载" aria-hidden="true">#</a> 预加载</h3><p>GORM 允许在 Preload 的其它 SQL 中直接加载关系，例如：</p><div class="language-go"><pre><code><span class="token comment">// Cluster有多个Host，ClusterID是外键</span>
 <span class="token keyword">type</span> Cluster <span class="token keyword">struct</span> <span class="token punctuation">{</span>
   gorm<span class="token punctuation">.</span>Model
@@ -457,7 +405,7 @@ db<span class="token punctuation">.</span><span class="token function">Preload</
   Hosts        <span class="token punctuation">[</span><span class="token punctuation">]</span>HostModel <span class="token string">`gorm:&quot;constraint:OnDelete:CASCADE;comment:&#39;主机&#39;&quot;`</span>
 <span class="token punctuation">}</span>
 </code></pre></div></div></div><footer class="page-footer" data-v-7abc59e6 data-v-22e60b1a><div class="edit" data-v-22e60b1a><div class="edit-link" data-v-22e60b1a data-v-045573c2><!----></div></div><div class="updated" data-v-22e60b1a><!----></div></footer><div class="next-and-prev-link" data-v-7abc59e6 data-v-0facf926><div class="container" data-v-0facf926><div class="prev" data-v-0facf926><a class="link" href="/blog/docs/golang/gin/README" data-v-0facf926><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" class="icon icon-prev" data-v-0facf926><path d="M19,11H7.4l5.3-5.3c0.4-0.4,0.4-1,0-1.4s-1-0.4-1.4,0l-7,7c-0.1,0.1-0.2,0.2-0.2,0.3c-0.1,0.2-0.1,0.5,0,0.8c0.1,0.1,0.1,0.2,0.2,0.3l7,7c0.2,0.2,0.5,0.3,0.7,0.3s0.5-0.1,0.7-0.3c0.4-0.4,0.4-1,0-1.4L7.4,13H19c0.6,0,1-0.4,1-1S19.6,11,19,11z"></path></svg><span class="text" data-v-0facf926>Gin</span></a></div><div class="next" data-v-0facf926><!----></div></div></div><!--[--><!--]--></div></main></div><!----><!--]--></div>
-    <script>__VP_HASH_MAP__ = JSON.parse("{\"readme.md\":\"6f499d5d\",\"index.md\":\"b2734738\",\"docs_guide_introduction.md\":\"8a3515a7\",\"docs_cloud-native_compose_readme.md\":\"bbfc7a4e\",\"docs_cloud-native_docker_readme.md\":\"05180634\",\"docs_cloud-native_kubernetes_readme.md\":\"8e106c8d\",\"docs_cloud-native_kubernetes_install.md\":\"3236aebc\",\"docs_frontend_css_readme.md\":\"ad2a088c\",\"docs_frontend_javascript_readme.md\":\"61c8e327\",\"docs_frontend_vite_readme.md\":\"f57ddd78\",\"docs_frontend_vue_readme.md\":\"c15226be\",\"docs_golang_base_readme.md\":\"4e0c831e\",\"docs_golang_base_data-type.md\":\"b34d8c09\",\"docs_golang_base_functions.md\":\"bf8af09b\",\"docs_golang_base_io.md\":\"49e4bd4d\",\"docs_golang_base_keyword.md\":\"244fd70c\",\"docs_golang_base_system.md\":\"18e03ee0\",\"docs_golang_gin_readme.md\":\"f76fa1dd\",\"docs_linux_awk_readme.md\":\"c07e9548\",\"docs_golang_gorm_readme.md\":\"89c6a8f2\",\"docs_linux_shell_readme.md\":\"d9b5303a\",\"docs_cloud-native_kubernetes_workloads_controller.md\":\"ce014287\",\"docs_cloud-native_kubernetes_workloads_pod.md\":\"6913e26e\"}")</script>
+    <script>__VP_HASH_MAP__ = JSON.parse("{\"readme.md\":\"6f499d5d\",\"index.md\":\"b2734738\",\"docs_guide_introduction.md\":\"8a3515a7\",\"docs_cloud-native_compose_readme.md\":\"bbfc7a4e\",\"docs_cloud-native_docker_readme.md\":\"05180634\",\"docs_cloud-native_kubernetes_readme.md\":\"8e106c8d\",\"docs_cloud-native_kubernetes_install.md\":\"3236aebc\",\"docs_frontend_css_readme.md\":\"ad2a088c\",\"docs_frontend_javascript_readme.md\":\"61c8e327\",\"docs_frontend_vite_readme.md\":\"f57ddd78\",\"docs_frontend_vue_readme.md\":\"c15226be\",\"docs_golang_base_readme.md\":\"4e0c831e\",\"docs_golang_base_data-type.md\":\"b34d8c09\",\"docs_golang_base_functions.md\":\"bf8af09b\",\"docs_golang_base_io.md\":\"49e4bd4d\",\"docs_golang_base_keyword.md\":\"244fd70c\",\"docs_golang_base_system.md\":\"18e03ee0\",\"docs_golang_gin_readme.md\":\"f76fa1dd\",\"docs_golang_gorm_readme.md\":\"0bcc1a27\",\"docs_linux_awk_readme.md\":\"c07e9548\",\"docs_linux_shell_readme.md\":\"d9b5303a\",\"docs_cloud-native_kubernetes_workloads_controller.md\":\"ce014287\",\"docs_cloud-native_kubernetes_workloads_pod.md\":\"6913e26e\"}")</script>
     <script type="module" async src="/blog/assets/app.25ccd784.js"></script>
   </body>
 </html>
