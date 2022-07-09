@@ -451,6 +451,51 @@ mysql> select * from template_tasks;
 5 rows in set (0.01 sec)
 ```
 
+### 关联模式
+
+#### 查找关联
+
+查找template ID为1包含的所有任务
+
+```go
+var tasks []TaskModel
+var template TemplateModel
+template.ID = 1
+client.Model(&template).Association("Tasks").Find(&tasks)
+
+for _, t := range tasks {
+  fmt.Println(t.Name)
+}
+
+name -> task1
+name -> task2
+```
+
+#### 添加关联
+
+template ID为1的记录添加任务3
+
+```go
+var task TaskModel
+task.ID = 3
+var template TemplateModel
+template.ID = 1
+client.Model(&template).Association("Tasks").Append(&task)
+```
+
+#### 替换关联
+
+template ID为1的记录目前的任务为1、2、3，现替换为4
+
+```go
+var task TaskModel
+task.ID = 4
+task.Name = "task4"
+var template TemplateModel
+template.ID = 1
+client.Model(&template).Association("Tasks").Replace(&task)
+```
+
 ### 预加载
 
 GORM 允许在 Preload 的其它 SQL 中直接加载关系，例如：
