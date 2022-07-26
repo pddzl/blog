@@ -125,6 +125,16 @@ function createNav() {
           link: '/docs/cloud-native/kubernetes/README'
         },
       ]
+    },
+    {
+      text: '数据库',
+      link: '/db/',
+      items: [
+        {
+          text: 'Redis',
+          link: '/docs/db/redis/README'
+        }
+      ]
     }
   ];
 }
@@ -234,6 +244,12 @@ function createSidebar() {
             link: '/docs/cloud-native/kubernetes/workloads/controller'
           }
         ]
+      }
+    ],
+    '/docs/db/': [
+      {
+        text: 'Redis',
+        link: '/docs/db/redis/README'
       }
     ]
   };
