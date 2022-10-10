@@ -377,4 +377,144 @@ transform: trnaslate(-%50, -%50);
 
 ### flex
 
+`Example:`
+
+1. 设置垂直居中 `align-item: center` 和 `overflow-y: auto` 内容溢出后顶部内部看不到
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <style type="text/css">
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      height: 300px;
+    }
+    .header {
+      background-color: lightgreen;
+      width: 100%;
+    }
+    .content {
+      flex-grow: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      background-color: lightblue;
+      overflow-y: auto;
+      width: 100%;
+    }
+    .bottom {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-basis: 20%;
+      background-color: lightcoral;
+      width: 100%;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <p style="text-align: center;">header</p>
+    </div>
+    <div class="content">
+      <p>pdd1</p>
+      <p>pdd2</p>
+      <p>pdd3</p>
+      <p>pdd4</p>
+      <p>pdd5</p>
+      <p>pdd6</p>
+    </div>
+    <div class="bottom">
+      <p>bottom</p>
+    </div>
+  </div>
+</body>
+
+</html>
+```
+
+<img src="./images/flex/align-item_overflow_error.png" style="zoom:70%;" />
+
+::: warning
+pdd1 未能显示出来
+:::
+
+解决方案: 嵌套一个div
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <style type="text/css">
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      height: 300px;
+    }
+    .header {
+      background-color: lightgreen;
+      width: 100%;
+    }
+    .scroll-content {
+      margin-top: auto;
+      margin-bottom: auto;
+      overflow-y: auto;
+      width: 100%;
+    }
+    .content {
+      flex-grow: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      background-color: lightblue;
+    }
+    .bottom {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-basis: 20%;
+      background-color: lightcoral;
+      width: 100%;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <p style="text-align: center;">header</p>
+    </div>
+    <div class="scroll-content">
+      <div class="content">
+        <p>pdd1</p>
+        <p>pdd2</p>
+        <p>pdd3</p>
+        <p>pdd4</p>
+        <p>pdd5</p>
+        <p>pdd6</p>
+      </div>
+    </div>
+    <div class="bottom">
+      <p>bottom</p>
+    </div>
+  </div>
+</body>
+
+</html>
+```
+
+<img src="./images/flex/align-item_overflow_corret.png" style="zoom:70%;" />
+
 ### grid
