@@ -140,6 +140,51 @@ var users = []User{{name: "pdd_1"}, ...., {Name: "pdd_10000"}}
 db.CreateInBatches(users, 100)
 ```
 
+#### upsert(update+insert) 冲突
+
+表cluster, 表host 一对多关联
+
+```go
+model cluster {
+  hosts []host
+}
+```
+
+```go
+model host {
+  ssh_ip string `gorm:not null;unique`
+}
+```
+
+cluster.hosts = []host
+
+gorm.db.create(&cluster)
+
+实际执行的SQL语句
+
+```sql
+insert into host ... ON DUPLICATE KEY UPDATE `cluster_id`=VALUES(`cluster_id`)
+insert into cluster ...
+```
+
+***目前问题***
+
+创建集群的时候会更新主机
+
+主机（192.168.1.1, 192.168.1.2） 属于集群1
+
+创建集群2（主机ssh_ip也是192.168.1.1, 192.168.1.2）
+
+创建成功
+
+192.168.1.1, 192.168.1.2 属于集群2
+
+集群1无对应主机
+
+解决方案
+
+事务 create db host、create cluster 分开执行
+
 ### 查询
 
 - 检索单个对象
