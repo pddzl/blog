@@ -156,9 +156,12 @@ model host {
 }
 ```
 
-cluster.hosts = []host
+添加cluster
 
+```go
+cluster.hosts = []host
 gorm.db.create(&cluster)
+```
 
 实际执行的SQL语句
 
