@@ -159,7 +159,7 @@ model host {
 添加cluster
 
 ```go
-cluster.hosts = []host
+cluster.hosts = []host{"192.168.1.1", "192.168.1.2"}
 gorm.db.create(&cluster)
 ```
 
@@ -169,6 +169,16 @@ gorm.db.create(&cluster)
 insert into host ... ON DUPLICATE KEY UPDATE `cluster_id`=VALUES(`cluster_id`)
 insert into cluster ...
 ```
+
+> 在MySQL数据库中，如果在insert语句后面带上ON DUPLICATE KEY UPDATE 子句，而要插入的行与`表中现有记录的惟一索引或主键`中产生重复值，那么就会发生旧行的更新；如果插入的行数据与现有`表中记录的唯一索引或者主键`不重复，则执行新纪录插入操作。
+>
+> **说通俗点就是数据库中存在某个记录时，执行这个语句会更新，而不存在这条记录时，就会插入。**
+
+**参考:**
+
+`https://www.cnblogs.com/better-farther-world2099/articles/11737376.html`
+
+`https://www.cnblogs.com/baichunyu/p/15076702.html`
 
 ***目前问题***
 
@@ -186,7 +196,7 @@ insert into cluster ...
 
 解决方案
 
-事务 create db host、create cluster 分开执行
+事务 create host、create cluster 分开执行
 
 ### 查询
 
