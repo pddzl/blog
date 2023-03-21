@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "repository": "https://github.com/pddzl/blog",
-  "author": "Pddzl <kubeops@163.com>",
+  "author": "Pddzl <pddzl5@163.com>",
   "license": "MIT",
   "scripts": {
     "dev": "vitepress dev",
