@@ -1,0 +1,1 @@
+import{_ as e,c as t,o as a}from"./chunks/framework.cd9250a1.js";const l=JSON.parse('{"title":"Gin","description":"","frontmatter":{"title":"Gin"},"headers":[],"relativePath":"backend/gin/README.md","lastUpdated":null}'),n={name:"backend/gin/README.md"};function r(c,o,s,i,d,p){return a(),t("div")}const m=e(n,[["render",r]]);export{l as __pageData,m as default};
