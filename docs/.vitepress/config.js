@@ -12,9 +12,6 @@ export default defineConfig({
   markdown: {
     lineNumbers: true, //显示代码行数
   },
-  head: [
-    ['links', {rel: 'icon', href: '/images/logo.png'}]
-  ],
   themeConfig: {
     lastUpdatedText: '上次更新',
     docFooter: { //上下篇文本
