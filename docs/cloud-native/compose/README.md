@@ -1,6 +1,8 @@
 ---
-title: Docker Compose
+outline: deep
 ---
+
+# Compose
 
 ## 安装
 

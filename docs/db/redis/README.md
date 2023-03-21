@@ -1,6 +1,8 @@
 ---
-title: Redis
+outline: deep
 ---
+
+# Redis
 
 ## 分布式锁
 

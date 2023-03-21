@@ -1,6 +1,8 @@
 ---
-title: Vite
+outline: deep
 ---
+
+# Vite
 
 ## 介绍
 

@@ -1,6 +1,8 @@
 ---
-title: JavaScript
+outline: deep
 ---
+
+# JavaScript
 
 ## 下载
 
@@ -18,7 +20,7 @@ title: JavaScript
 
 要知道浏览器是否支持 `download` 属性，简单的一句代码即可区分
 
-```js
+```javascript
 const isSupport = 'download' in document.createElement('a')
 ```
 

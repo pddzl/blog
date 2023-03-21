@@ -1,6 +1,8 @@
 ---
-title: Vue
+outline: deep
 ---
+
+# Vue
 
 ## 自定义指令
 

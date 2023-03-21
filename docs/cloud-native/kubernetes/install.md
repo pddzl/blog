@@ -1,6 +1,8 @@
 ---
-title: 安装
+outline: deep
 ---
+
+# 安装
 
 ## kubeadm
 

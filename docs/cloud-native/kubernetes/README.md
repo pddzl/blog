@@ -1,14 +1,14 @@
 ---
-title: 概述
+outline: deep
 ---
 
-## K8s 组件
+# 组件
 
 架构图
 
 <img src="./images/architecture.png" alt="架构" style="zoom:40%;" />
 
-### 控制平面组件
+## 控制平面组件
 
 **kube-apiserver**
 
