@@ -23,7 +23,7 @@ module.exports = [
     activeMatch: "/backend/",
     items: [
       { text: "Golang", link: "/backend/golang/data-type" },
-      { text: "Gorm", link: "/backend/gorm/README" },
+      { text: "Gorm", link: "/backend/gorm/introduction" },
     ],
   },
   {
