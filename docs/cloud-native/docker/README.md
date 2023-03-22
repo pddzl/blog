@@ -191,7 +191,7 @@ func main() {
 
 dockerfile
 
-```dockerfile
+```yaml
 FROM golang:alpine AS builder
 
 WORKDIR /build

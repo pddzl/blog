@@ -82,7 +82,7 @@ sysctl -p /etc/sysctl.d/99-kubernetes-cri.conf
 
 由于ipvs已经加入到了内核的主干，所以为 kube-proxy 开启 ipvs 的前提需要加载以下的内核模块
 
-```text
+```txt
 ip_vs
 ip_vs_rr
 ip_vs_wrr
