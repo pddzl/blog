@@ -122,5 +122,13 @@ module.exports = {
       text: "Redis",
       link: "/db/redis/README",
     },
+    {
+      text: 'MySQL',
+      items: [
+        {
+          text: 'Join', link: '/db/mysql/join'
+        }
+      ]
+    }
   ],
 };

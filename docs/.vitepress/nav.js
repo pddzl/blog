@@ -39,6 +39,7 @@ module.exports = [
     text: "数据库",
     activeMatch: "/db/",
     items: [
+      { text: 'MySQL', link: '/db/mysql/join' },
       { text: "Redis", link: "/db/redis/README" }
     ],
   },
