@@ -6,6 +6,8 @@ outline: deep
 
 ## 创建
 
+### 创建记录
+
 ```go
 user := User{Name: "pdd", Age: 18, Birthday: time.Now()}
 
@@ -18,7 +20,7 @@ result.RowsAffected // 返回插入记录的条数
 
 ### 批量插入
 
-要有效地插入大量记录，请将一个 slice 传递给 Create 方法。 GORM 将生成单独一条SQL语句来插入所有数据，并回填主键的值，钩子方法也会被调用。
+要有效地插入大量记录，请将一个 `slice` 传递给 `Create` 方法。 GORM 将生成单独一条SQL语句来插入所有数据，并回填主键的值，钩子方法也会被调用。
 
 ```go
 var users = []User{{Name: "jinzhu1"}, {Name: "jinzhu2"}, {Name: "jinzhu3"}}
@@ -29,7 +31,7 @@ for _, user := range users {
 }
 ```
 
-使用`CreateInBatches`分批创建时，你可以指定每批的数量，例如：
+使用 `CreateInBatches` 分批创建时，你可以指定每批的数量，例如：
 
 ```go
 var users = []User{{name: "pdd_1"}, ...., {Name: "pdd_10000"}}
@@ -38,17 +40,31 @@ var users = []User{{name: "pdd_1"}, ...., {Name: "pdd_10000"}}
 db.CreateInBatches(users, 100)
 ```
 
+### 根据Map创建
+
+GORM 支持根据 `map[string]interface{}` 和 `[]map[string]interface{}{}` 创建记录
+
+```go
+db.Model(&User{}).Create(map[string]interface{}{
+  "Name": "jinzhu", "Age": 18,
+})
+
+// batch insert from `[]map[string]interface{}{}`
+db.Model(&User{}).Create([]map[string]interface{}{
+  {"Name": "jinzhu_1", "Age": 18},
+  {"Name": "jinzhu_2", "Age": 20},
+})
+```
+
 ### upsert(update+insert) 冲突
 
-表cluster, 表host 一对多关联
+`table cluster` 与 `table host` 一对多关联关系
 
 ```go
 model cluster {
   hosts []host
 }
-```
 
-```go
 model host {
   ssh_ip string `gorm:not null;unique`
 }
@@ -58,7 +74,7 @@ model host {
 
 ```go
 cluster.hosts = []host{"192.168.1.1", "192.168.1.2"}
-gorm.db.create(&cluster)
+db.create(&cluster)
 ```
 
 实际执行的SQL语句
@@ -68,11 +84,13 @@ insert into host ... ON DUPLICATE KEY UPDATE `cluster_id`=VALUES(`cluster_id`)
 insert into cluster ...
 ```
 
+解释：
+
 > 在MySQL数据库中，如果在insert语句后面带上ON DUPLICATE KEY UPDATE 子句，而要插入的行与`表中现有记录的惟一索引或主键`中产生重复值，那么就会发生旧行的更新；如果插入的行数据与现有`表中记录的唯一索引或者主键`不重复，则执行新纪录插入操作。
 >
 > **说通俗点就是数据库中存在某个记录时，执行这个语句会更新，而不存在这条记录时，就会插入。**
 
-**参考:**
+参考：
 
 `https://www.cnblogs.com/better-farther-world2099/articles/11737376.html`
 
@@ -84,7 +102,7 @@ insert into cluster ...
 
 主机（192.168.1.1, 192.168.1.2） 属于集群1
 
-创建集群2（主机ssh_ip也是192.168.1.1, 192.168.1.2）
+创建集群2（主机 ssh_ip 也是192.168.1.1, 192.168.1.2）
 
 创建成功
 
@@ -94,13 +112,15 @@ insert into cluster ...
 
 解决方案
 
-事务 create host、create cluster 分开执行
+事务 `create host`、`create cluster` 分开执行
+
+详见 `https://pddzl.github.io/blog/backend/gorm/tutorial.html#事务`
 
 ## 查询
 
-- 检索单个对象
+### 检索单个对象
 
-GORM 提供了`First`、`Take`、`Last`方法，以便从数据库中检索单个对象。当查询数据库时它添加了`LIMIT 1`条件，且没有找到记录时，它会返回`ErrRecordNotFound`错误
+GORM 提供了 `First`、`Take`、`Last` 方法，以便从数据库中检索单个对象。当查询数据库时它添加了 `LIMIT 1` 条件，且没有找到记录时，它会返回 `ErrRecordNotFound` 错误
 
 ```go
 // 获取第一条记录（主键升序）
@@ -123,7 +143,7 @@ result.Error        // returns error or nil
 errors.Is(result.Error, gorm.ErrRecordNotFound)
 ```
 
-- 检索全部对象
+### 检索全部对象
 
 ```go
 // 获取全部记录
@@ -135,10 +155,90 @@ result.RowsAffected // 返回找到的记录数，相当于 `len(users)`
 result.Error        // returns error
 ```
 
-## 更新
+### Joins
+
+关于 `join` 的介绍详见 `https://pddzl.github.io/blog/db/mysql/join.html`
+
+具体代码详见 `https://github.com/pddzl/td27-admin -> GetUsers 获取所有用户`
 
 ```go
-db.Model(&Email{}).Where("id = ?", 2).Update("email", "plsof@qq.com")
+type UserResult struct {
+  CreatedAt   time.Time `json:"createdAt"`
+  ID          uint
+  Username    string `json:"username"` // 用户名
+  Phone       string `json:"phone"`    // 手机号
+  Email       string `json:"email"`    // 邮箱
+  Active      bool   `json:"active"`   // 是否活跃
+  RoleModelID uint   `json:"roleId"`   // 角色ID
+  RoleName    string `json:"role"`     // 角色名
+}
+
+var userResults []systemRes.UserResult
+
+db.Select("sys_user.id,sys_user.username,sys_user.phone,sys_user.email,sys_user.active,sys_user.role_model_id,sys_role.role_name").Joins("left join sys_role on sys_user.role_model_id = sys_role.id").Scan(&userResults)
+```
+
+## 更新
+
+### 保存所有字段
+
+`Save` 会保存所有的字段，即使字段是零值
+
+```go
+b.First(&user)
+
+user.Name = "jinzhu 2"
+user.Age = 100
+db.Save(&user)
+// UPDATE users SET name='jinzhu 2', age=100, birthday='2016-01-01', updated_at = '2013-11-17 21:34:10' WHERE id=111;
+```
+
+### 更新单个列
+
+```go
+db.Model(&Email{}).Where("id = ?", 2).Update("email", "pddzl5@163.com")
+```
+
+### 更新多列
+
+`Updates` 方法支持 `struct` 和 `map[string]interface{}` 参数。当使用 `struct` 更新时，默认情况下，GORM 只会更新非零值的字段
+
+```go
+// 根据 `struct` 更新属性，只会更新非零值的字段
+db.Model(&user).Updates(User{Name: "hello", Age: 18, Active: false})
+// UPDATE users SET name='hello', age=18, updated_at = '2013-11-17 21:34:10' WHERE id = 111;
+
+// 根据 `map` 更新属性
+db.Model(&user).Updates(map[string]interface{}{"name": "hello", "age": 18, "active": false})
+// UPDATE users SET name='hello', age=18, active=false, updated_at='2013-11-17 21:34:10' WHERE id=111;
+```
+
+::: warning
+当使用 struct 进行更新时，GORM 只会更新非零值的字段。 你可以使用 map 更新字段，或者使用 Select 指定要更新的字段
+:::
+
+### 更新选定字段
+
+如果您想要在更新时选定、忽略某些字段，您可以使用 `Select`、`Omit`
+
+```go
+// Select with Map
+// User's ID is `111`:
+db.Model(&user).Select("name").Updates(map[string]interface{}{"name": "hello", "age": 18, "active": false})
+// UPDATE users SET name='hello' WHERE id=111;
+
+db.Model(&user).Omit("name").Updates(map[string]interface{}{"name": "hello", "age": 18, "active": false})
+// UPDATE users SET age=18, active=false, updated_at='2013-11-17 21:34:10' WHERE id=111;
+
+// Select with Struct (select zero value fields)
+db.Model(&user).Select("Name", "Age").Updates(User{Name: "new_name", Age: 0})
+// UPDATE users SET name='new_name', age=0 WHERE id=111;
+
+// Select all fields (select all fields include zero value fields)
+db.Model(&user).Select("*").Updates(User{Name: "jinzhu", Role: "admin", Age: 0})
+
+// Select all fields but omit Role (select all fields include zero value fields)
+db.Model(&user).Select("*").Omit("Role").Updates(User{Name: "jinzhu", Role: "admin", Age: 0})
 ```
 
 ## 删除

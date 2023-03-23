@@ -81,3 +81,24 @@ type Cluster struct {
   Hosts        []HostModel `gorm:"constraint:OnDelete:CASCADE;comment:'主机'"`
 }
 ```
+
+## 事务
+
+```go
+// 事务创建集群、主机
+err = db.Transaction(func(tx *gorm.DB) error {
+  // 创建主机
+  if err = tx.Create(cluster.Hosts).Error; err != nil {
+    // 返回任何错误都会回滚事务
+    return err
+  }
+
+  // 创建集群
+  if err = tx.Create(cluster).Error; err != nil {
+    return err
+  }
+
+  // 返回 nil 提交事务
+  return nil
+})
+```

@@ -6,9 +6,9 @@ outline: deep
 
 ## Belongs to
 
-`belongs to`会与另一个模型建立了一对一的连接。这种模型的每一个实例都“属于”另一个模型的一个实例。
+`belongs to` 会与另一个模型建立了一对一的连接。这种模型的每一个实例都“属于”另一个模型的一个实例。
 
-例如，您的应用包含 cluster 和 host，并且每个 host 能且只能被分配给一个 cluster。下面的类型就表示这种关系。注意，在`Host`对象中，有一个和`Cluster`一样的ClusterID。默认情况下，`ClusterID`被隐含地用来在`Host`和`Cluster`之间创建一个外键关系，因此必须包含在`Host`结构体中才能填充`Cluster`内部结构体。
+例如，您的应用包含 `cluster` 和 `host`，并且每个 `host` 能且只能被分配给一个 `cluster`。下面的类型就表示这种关系。注意，在 `Host` 对象中，有一个和 `Cluster` 一样的 `ClusterID`。默认情况下，`ClusterID` 被隐含地用来在 `Host` 和 `Cluster` 之间创建一个外键关系，因此必须包含在 `Host` 结构体中才能填充 `Cluster` 内部结构体。
 
 ```go
 // Host 属于 Cluster，ClusterID是外键
@@ -28,9 +28,9 @@ type Cluster struct {
 
 ## Has One
 
-`has one`与另一个模型建立一对一的关联，但它和一对一关系有些许不同。这种关联表明一个模型的每个实例都包含或拥有另一个模型的一个实例。
+`has one` 与另一个模型建立一对一的关联，但它和一对一关系有些许不同。这种关联表明一个模型的每个实例都包含或拥有另一个模型的一个实例。
 
-例如，您的应用包含 cluster 和 host 模型，且每个 cluster 只能有一个 host。
+例如，您的应用包含 `cluster` 和 `host` 模型，且每个 `cluster` 只能有一个 `host`。
 
 ```go
 // Cluster有一个Host，ClusterID是外键
@@ -50,9 +50,9 @@ type Host struct {
 
 ## Has Many
 
-`has many`与另一个模型建立了一对多的连接。不同于`has one`，拥有者可以有零或多个关联模型。
+`has many` 与另一个模型建立了一对多的连接。不同于 `has one`，拥有者可以有零或多个关联模型。
 
-例如，您的应用包含cluster和host模型，且每个cluster可以有多个host。
+例如，您的应用包含 `cluster` 和 `host` 模型，且每个 `cluster` 可以有多个 `host`。
 
 ```go
 // Cluster有多个Host，ClusterID是外键
@@ -74,9 +74,13 @@ type Host struct {
 
 多对多会在两张表之间添加一张连接表
 
-例如：模板表、任务表，模板表的每条记录包含多条任务。与一对多的区别：**一对多中每条记录含有的多条记录必须是唯一的，不能被其它记录包含了**
+例如：模板表、任务表，模板表的每条记录包含多条任务
 
-<img src="./images/m2m.png" alt="manytomany" style="zoom:45%" />
+::: info
+与一对多的区别：**一对多中每条记录含有的多条记录必须是唯一的，不能被其它记录包含了**
+:::
+
+<img src="./images/m2m.png" alt="manytomany" style="zoom:50%" />
 
 ```go
 package main
@@ -224,7 +228,7 @@ client.Model(&template).Association("Tasks").Append(&task)
 
 ### 替换关联
 
-template ID为1的记录目前的任务为1、2、3，现替换为4
+操作：template ID 为1的记录目前的任务为1、2、3，现替换为4
 
 ```go
 var task TaskModel
@@ -233,6 +237,29 @@ task.Name = "task4"
 var template TemplateModel
 template.ID = 1
 client.Model(&template).Association("Tasks").Replace(&task)
+```
+
+### 删除关联
+
+> 如果存在，则删除源模型与参数之间的关系，只会删除引用，不会从数据库中删除这些对象
+
+操作：template ID 为1的记录删除任务3
+
+```go
+var task TaskModel
+task.ID = 3
+task.Name = "task3"
+var template TemplateModel
+template.ID = 1
+client.Model(&template).Association("Tasks").delete(&task)
+```
+
+### 清空关联
+
+> 删除源模型与关联之间的所有引用，但不会删除这些关联
+
+```go
+client.Model(&template).Association("Tasks").Clear()
 ```
 
 ## 预加载
