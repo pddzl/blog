@@ -139,7 +139,3 @@ export default {
 }
 </script>
 ```
-
-### eslint
-
-`vue add @vue/cli-plugin-eslint`
