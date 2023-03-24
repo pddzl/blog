@@ -6,11 +6,9 @@ outline: deep
 
 ## 基础类型
 
-值类型：变量直接存储，变量通常在栈中分配
-
 ### 整型
 
-+ 有符号整型
+#### 有符号整型
 
 ```go
 int8    1字节 -2^7 ~ 2^7-1
@@ -20,7 +18,7 @@ int64   8字节 -2^63 ~ 2^63-1
 int     32位系统为int32 64位系统为int64
 ```
 
-+ 无符号整型
+#### 无符号整型
 
 ```go
 uint8   1字节 0 ~ 2^8-1
@@ -43,7 +41,18 @@ float64 8字节
 Go语言有两种字符类型
 
 + byte（uint8的别名），代表ASCII码的一个字符，一个ASCII字符占一个字节
+
+```go
+type byte = uint8
+```
+
 + rune（int32的别名），代表一个Unicode码，当需要处理中文的时候需要用到rune类型，一个中文占用3个字节
+
+```go
+type rune = int32
+```
+
+案例：
 
 ```go
 package main
@@ -86,9 +95,9 @@ complex64 complex128
 
 ### 布尔值
 
-bool类型数据只允许取值true和false，默认值为false
+`bool` 类型数据只允许取值 true 和 false，默认值为 false
 
-bool类型占一个字节
+`bool` 类型占一个字节
 
 ### 字符串
 
@@ -121,6 +130,8 @@ b := []byte(a)
 c := string(b)
 ```
 
+底层原理图：
+
 <img src="./images/string.png" alt="string" style="zoom:60%;" />
 
 ### 常量
@@ -133,11 +144,9 @@ c := string(b)
 const s string = "abc"
 ```
 
-### Example
+### 基本数据类型转换
 
-基本数据类型转换
-
-Example1
+Example1:
 
 int32 -> float32, int32 -> int8, int32 -> int8, int32 -> int64
 
@@ -169,7 +178,7 @@ i type is int32
 num2= 63
 ```
 
-Example2
+Example2:
 
 ```go
 package main
@@ -221,8 +230,6 @@ i4: type=int64, value=0
 ```
 
 ## 聚合类型
-
-值类型：变量直接存储，变量通常在栈中分配
 
 ### 数组
 
@@ -300,7 +307,7 @@ intArr [80 90 30]
 
 ### 结构体
 
-结构体是一种聚合的数据类型，是由零个或多个任意类型的值聚合成的实体
+结构体是由零个或多个任意类型的值聚合成的实体
 
 在创建一个结构体变量后，如果没有给字段赋值，则字段对应其默认值
 
