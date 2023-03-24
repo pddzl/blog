@@ -44,7 +44,13 @@ module.exports = {
     {
       text: "Golang",
       items: [
-        { text: "数据类型", link: "/backend/golang/data-type" },
+        { text: "数据类型",
+          items: [
+            { text: '基础类型', link: "/backend/golang/data_type/base" },
+            { text: '聚合类型', link: "/backend/golang/data_type/aggregation" },
+            { text: '引用类型', link: "/backend/golang/data_type/reference" }
+          ]
+        },
         { text: "函数", link: "/backend/golang/functions" },
         { text: "关键字", link: "/backend/golang/keyword" },
         { text: "系统", link: "/backend/golang/system" },
