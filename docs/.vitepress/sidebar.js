@@ -53,6 +53,12 @@ module.exports = {
         },
         { text: "函数", link: "/backend/golang/functions" },
         { text: "关键字", link: "/backend/golang/keyword" },
+        { text: "并发", 
+          items: [
+            { text: 'Goroutine', link: '/backend/golang/concurrence/goroutine' },
+            { text: 'Channel', link: '/backend/golang/concurrence/channel' }
+          ]
+        },
         { text: "系统", link: "/backend/golang/system" },
         { text: "输入输出", link: "/backend/golang/io" },
       ],

@@ -116,6 +116,8 @@ slice3=[1]
 
 在 Go 语言中，一个 `map` 就是一个哈希表的引用，`map` 类型可以写为 `map[K]V`，其中 K 和 V 分别对应 key 和 value。
 
+关于哈希表的介绍 `https://mp.weixin.qq.com/s/AkPIN6Ugno9vkQ2AAmCEAA`
+
 `slice`、`map`、`function` 不可以作为 key，因为这几个没法用 == 来判断
 
 ### 初始化
@@ -133,7 +135,43 @@ ages["alice"] = 31
 ages["charlie"] = 34
 ```
 
-### map增删查该
+### 数据结构
+
+```go
+type hmap struct {
+  count     int // # 当前哈希表中的元素数量
+  flags     uint8
+  B         uint8  // 当前哈希表持有的 buckets 数量
+  noverflow uint16 // approximate number of overflow buckets; see incrnoverflow for details
+  hash0     uint32 // hash seed
+
+  buckets    unsafe.Pointer // array of 2^B Buckets. may be nil if count==0.
+  oldbuckets unsafe.Pointer // 哈希在扩容时用于保存之前 buckets 的字段，它的大小是当前 buckets 的一半
+  nevacuate  uintptr        // progress counter for evacuation (buckets less than this have been evacuated)
+
+  extra *mapextra // optional fields
+}
+
+type mapextra struct {
+  overflow    *[]*bmap
+  oldoverflow *[]*bmap
+
+  // nextOverflow holds a pointer to a free overflow bucket.
+  nextOverflow *bmap
+}
+
+type bmap struct {
+  tophash [bucketCnt]uint8
+}
+```
+
+<img src="./images/hmap.png" alt="hmap" style="zoom:50%;" />
+
+如上图所示哈希表 `runtime.hmap` 的桶是 `runtime.bmap`。每一个 `runtime.bmap` 都能存储 8 个键值对，当哈希表中存储的数据过多，单个桶已经装满时就会使用 `extra.nextOverflow` 中桶存储溢出的数据
+
+上述两种不同的桶在内存中是连续存储的，我们在这里将它们分别称为正常桶和溢出桶，上图中黄色的 `runtime.bmap` 就是正常桶，绿色的 `runtime.bmap` 是溢出桶
+
+### 增删查改
 
 增加，更新
 
@@ -160,134 +198,23 @@ if ok {
 
 ### 扩容
 
-map扩容不是个原子操作，触发扩容的因素
+触发扩容的因素
 
 1. 装载因子已经超过 6.5
 
 2. 哈希使用了太多溢出桶
 
+### 线程安全
+
+`map` 在并发情况下，只读是线程安全的，同时读写是线程不安全的
+
+需要并发安全的 `map`，可以使用 `sync.map`
+
 ## Channel
 
-`Channel`是一种先入先出（FIFO）通信机制，可以用它在goroutine之间传递消息
+详见并发 channel 章节
 
-和map类似，channel也对应一个由make创建的底层数据结构的引用，默认值为nil
-
-```go
-ch := make(chan int)
-```
-
-`Channel`支持三种通信模式，全双工、只读，只写
-
-```go
-chan T          // 可以接收和发送类型为T的数据
-chan<- float64  // 只可以用来发送float64类型的数据
-<-chan int      // 只可以用来接收int类型的数据
-```
-
-### 关闭Channel
-
-可以用内置close函数关闭channel，随后对该channel写数据将导致panic异常，但仍可以正常从该channel读取数据，如果channel已经没有数据的话将产生一个零值的数据。
-
-```go
-import "fmt"
-
-func main() {
-  ch := make(chan int, 1)
-  ch <- 1
-  close(ch)
-  //ch <- 2 // panic
-  a1 := <-ch
-  a2 := <-ch
-  fmt.Printf("a1=%d a2=%d\n", a1, a2)
-}
-```
-
-检查channel是否已经被关闭
-
-```go
-v, ok := <-ch
-```
-
-### 不带缓存的Channel
-
-```go
-ch := make(chan int)
-```
-
-一个基于无缓存channel的发送操作将导致发送者goroutine阻塞，直到另一个goroutine在相同的channel上执行接收操作，当发送的值通过channel成功传输之后，两个goroutine可以继续执行后面的语句。反之，如果接收操作先发生，那么接收者goroutine也将阻塞，直到有另一个goroutine在相同的channel上执行发送操作
-
-```go
-package main
-
-import (
-  "fmt"
-  "time"
-)
-
-func worker(done chan bool) {
-  time.Sleep(time.Second * 2)
-  // 通知任务已完成
-  done <- true
-}
-
-func main() {
-  start := time.Now()
-
-  done := make(chan bool, 1)
-  go worker(done)
-  // 阻塞直到接收到数据
-  <-done
-
-  end := time.Since(start)
-  fmt.Println("task Done!")
-  fmt.Println("cost time=", end)
-}
-```
-
-```shell
-task Done!
-cost time= 2.001512833s
-```
-
-### 带缓存的Channel
-
-带缓存的channel内部持有一个元素队列。队列的最大容量是在调用make函数创建channel时通过第二个参数指定的。下面的语句创建了一个可以持有三个字符串元素的带缓存channel
-
-```go
-ch := make(chan int, 3)
-```
-
-当缓存满的时候写阻塞，当缓存空的时候读阻塞
-
-### Channel遍历
-
-`for ... range`语句可以遍历channel
-
-```go
-package main
-
-import (
-  "fmt"
-  "time"
-)
-
-func main() {
-  c := make(chan int)
-  go func() {
-    for i := 0; i < 10; i = i + 1 {
-      c <- i
-      time.Sleep(1 * time.Second)
-    }
-    close(c)
-  }()
-  for i := range c {
-    fmt.Println(i)
-  }
-  fmt.Println("Finished")
-}
-```
-
-`range c`产生的迭代值为channel中发送的值，它会一直迭代直到channel被关闭。上面的例子中如果把`close(c)`注释掉，程序会一直阻塞在`for ... range`那一行
+`https://pddzl.github.io/blog/backend/golang/concurrence/channel.html`
 
 ## 指针
 
@@ -365,7 +292,7 @@ type RPCError struct {
 }
 
 func (e *RPCError) Error() string {
-	return fmt.Sprintf("%s, code=%d", e.Message, e.Code)
+  return fmt.Sprintf("%s, code=%d", e.Message, e.Code)
 }
 ```
 
@@ -376,7 +303,3 @@ func (e *RPCError) Error() string {
 1. 带有一组方法的接口
 
 2. 不带任何方法的接口
-
-## 函数
-
-函数也是一种引用类型，具体详见函数章节
