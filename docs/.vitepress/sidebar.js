@@ -55,6 +55,7 @@ module.exports = {
         { text: "关键字", link: "/backend/golang/keyword" },
         { text: "并发", 
           items: [
+            { text: 'Context', link: '/backend/golang/concurrence/context' },
             { text: 'Goroutine', link: '/backend/golang/concurrence/goroutine' },
             { text: 'Channel', link: '/backend/golang/concurrence/channel' }
           ]
