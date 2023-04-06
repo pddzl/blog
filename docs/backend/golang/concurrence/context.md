@@ -62,3 +62,11 @@ ctx1 down
 ctx2 down
 main context deadline exceeded
 ```
+
+## 源码分析
+
+退出的原理: 监听 ctx 里面的 channel（关闭 channel 后，可以从 channel 里面读取到对应类型的零值）
+
+context.WithCancel(parent Context): 从 parent Context 创建一个带有取消方法的 child Context，该 Context 可以手动调用 cancel
+
+cancel() 关闭当前 ctx 的 channel 以及 children 节点的 channel
