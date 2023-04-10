@@ -126,6 +126,23 @@ slice3=[1]
 
 `slice`、`map`、`function` 不可以作为 key，因为这几个没法用 == 来判断
 
+`slice`, `map` 会动态扩缩容
+
+函数类型虽然是一种指针类型，即使两个函数的函数体完全相同，它们也不是同一个函数，因此使用函数类型作为 map 的键会导致无法正确比较和查找键值对。
+
+另外，需要注意的是，虽然函数类型本身不能作为 map 的键，但是可以通过函数类型的值（即函数变量）来作为键。例如：
+
+```go
+type Add func(int, int) int
+
+func main() {
+  m := make(map[Add]string)
+  f := func(a, b int) int { return a + b }
+  m[f] = "add"
+  fmt.Println(m[f]) // 输出："add"
+}
+```
+
 ### 初始化
 
 ```go
