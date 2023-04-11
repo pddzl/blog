@@ -53,6 +53,8 @@ module.exports = {
         },
         { text: "函数", link: "/backend/golang/functions" },
         { text: "关键字", link: "/backend/golang/keyword" },
+        { text: '接口', link: '/backend/golang/interface' },
+        { text: '反射', link: '/backend/golang/reflect' },
         { text: "并发", 
           items: [
             { text: 'Context', link: '/backend/golang/concurrence/context' },
