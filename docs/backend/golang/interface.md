@@ -6,7 +6,50 @@ outline: deep
 
 ## 概述
 
-Go 语言中的接口是一组方法的签名
+Go 语言中的接口是一组方法的签名，接口的实现是隐式的
+
+```go
+type mi interface {
+  keep()
+}
+
+type pdd struct {
+  name string
+}
+
+// pdd 实现了 mi 接口
+func (p *pdd) keep() {
+  fmt.Println("keep running")
+}
+```
+
+### 实现方式
+
+1. 结构体实现接口
+
+```go
+type mi interface {
+  keep()
+}
+
+type pdd struct{}
+
+func (p pdd) keep() {
+  fmt.Println("keep running")
+}
+
+func main() {
+  var pdd1 mi = &pdd{}
+  pdd1.keep()
+
+  var pdd2 mi = pdd{}
+  pdd2.keep()
+}
+```
+
+**作为指针的 `&pdd{}` 变量能够隐式地获取到指向的结构体，所以能在结构体上调用 `keep` 方法。**
+
+2. 指针结构体实现接口
 
 ```go
 type mi interface {
@@ -22,8 +65,24 @@ func (p *pdd) keep() {
 func main() {
   var pdd1 mi = &pdd{}
   pdd1.keep()
+
+  // 不通过
+  var pdd2 mi = pdd{}
+  pdd2.keep()
 }
 ```
+
+```shell
+./test.go:19:16: cannot use pdd{} (value of type pdd) as type mi in variable declaration:
+        pdd does not implement mi (keep method has pointer receiver)
+```
+
+在 `Go` 语言中函数传参是值拷贝， pdd2 接口拷贝了 `pdd{}`结构体，所以传入到 keep 方法里面是另一个 `pdd{}` 结构体了
+
+|| 结构体实现接口 | 结构体指针实现接口 |
+| --- | --- | --- |
+| 结构体初始化变量 | 通过 | 不通过 |
+| 结构体指针初始化变量 | 通过 | 通过 |
 
 ### 空接口
 
@@ -83,7 +142,7 @@ rw = f
 
 ## 类型断言
 
-接口类型转换成具体类型 `x.(T)`
+接口类型转换成具体类型 `x.(T)`（判断接口类型是否实现了某个具体类型的方法）
 
 1. 空接口.(具体类型)
 
@@ -149,3 +208,22 @@ rw, ok := w.(io.ReadWriter)
 先判断 *os.File 是否实现了 io.Writer 接口，再判断是否实现了 io.ReadWriter 接口
 
 ## 动态派发
+
+在运行时，根据接口变量实际存储的类型信息来动态调用该类型的方法
+
+```go
+type mi interface {
+  keep()
+}
+
+type pdd struct{}
+
+func (p *pdd) keep() {
+  fmt.Println("keep running")
+}
+
+func main() {
+  var pdd1 mi = &pdd{}
+  pdd1.keep()
+}
+```
