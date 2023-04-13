@@ -239,6 +239,12 @@ if ok {
 
 `https://pddzl.github.io/blog/backend/golang/concurrence/channel.html`
 
+## 接口
+
+详见接口章节
+
+`https://pddzl.github.io/blog/backend/golang/interface.html`
+
 ## 指针
 
 Go支持指针，但不支持指针运算，指针默认值为nil
@@ -291,38 +297,3 @@ p1 := &Person{name: "易天", age: 24}
 fmt.Println((*p1).name)
 fmt.Println(p1.name)
 ```
-
-## 接口
-
-Go 语言中的接口是一组方法的签名
-
-### 隐式接口
-
-在接口中我们只能定义方法签名，不能包含成员变量
-
-```go
-type error interface {
-	Error() string
-}
-```
-
-如果一个类型需要实现 error 接口，那么它只需要实现 Error() string 方法，下面的 RPCError 结构体就是 error 接口的一个实现
-
-```go
-type RPCError struct {
-  Code    int64
-  Message string
-}
-
-func (e *RPCError) Error() string {
-  return fmt.Sprintf("%s, code=%d", e.Message, e.Code)
-}
-```
-
-**Go 语言中接口的实现都是隐式的，实现接口的所有方法就隐式地实现了接口**
-
-### 类型
-
-1. 带有一组方法的接口
-
-2. 不带任何方法的接口
