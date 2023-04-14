@@ -77,12 +77,37 @@ func main() {
         pdd does not implement mi (keep method has pointer receiver)
 ```
 
-在 `Go` 语言中函数传参是值拷贝， pdd2 接口拷贝了 `pdd{}`结构体，所以传入到 keep 方法里面是另一个 `pdd{}` 结构体了
+**在 `Go` 语言中函数传参是值拷贝， pdd2 接口拷贝了 `pdd{}`结构体，所以传入到 keep 方法里面是另一个 `pdd{}` 结构体了**
 
 || 结构体实现接口 | 结构体指针实现接口 |
 | --- | --- | --- |
 | 结构体初始化变量 | 通过 | 不通过 |
 | 结构体指针初始化变量 | 通过 | 通过 |
+
+### 系统类型运行时
+
+runtime._type 是 Go 语言类型的运行时表示，每个类型都对应一个 runtime._type 结构体。这个结构体包含了该类型的各种信息，例如类型名称、类型大小、字段数量、方法数量、方法表等等。
+
+```go
+type _type struct {
+  size       uintptr
+  ptrdata    uintptr // size of memory prefix holding all pointers
+  hash       uint32
+  tflag      tflag
+  align      uint8
+  fieldAlign uint8
+  kind       uint8
+  // function for comparing objects of this type
+  // (ptr to object A, ptr to object B) -> ==?
+  equal func(unsafe.Pointer, unsafe.Pointer) bool
+  // gcdata stores the GC type data for the garbage collector.
+  // If the KindGCProg bit is set in kind, gcdata is a GC program.
+  // Otherwise it is a ptrmask bitmap. See mbitmap.go for details.
+  gcdata    *byte
+  str       nameOff
+  ptrToThis typeOff
+}
+```
 
 ### 空接口
 
