@@ -200,6 +200,7 @@ opt/cni/bin/bridge
 wget https://github.com/opencontainers/runc/releases/download/v1.1.0-rc.1/runc.amd64
 mv /usr/local/sbin/runc /usr/local/sbin/runc.bak
 mv runc.amd64 /usr/local/sbin/runc
+chmod +x /usr/local/sbin/runc
 ```
 
 #### 配置
