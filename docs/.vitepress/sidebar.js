@@ -86,6 +86,7 @@ module.exports = {
         { text: "安装", link: "/cloud-native/kubernetes/install" },
         { text: "Pod", link: "/cloud-native/kubernetes/workloads/pod" },
         { text: "控制器", link: "/cloud-native/kubernetes/workloads/controller" },
+        { text: "策略", link: "/cloud-native/kubernetes/policy/README" },
       ],
     },
   ],
