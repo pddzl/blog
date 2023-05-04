@@ -33,6 +33,7 @@ module.exports = [
       { text: "Docker", link: "/cloud-native/docker/README" },
       { text: "Docker Compose", link: "/cloud-native/compose/README" },
       { text: "Kubernetes", link: "/cloud-native/kubernetes/README" },
+      { text: "KubeSphere", link: "/cloud-native/kubeSphere/README" },
     ],
   },
   {

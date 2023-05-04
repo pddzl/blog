@@ -89,6 +89,7 @@ module.exports = {
         { text: "策略", link: "/cloud-native/kubernetes/policy/README" },
       ],
     },
+    { text: "KubeSphere", link: "/cloud-native/kubeSphere/README" }
   ],
   "/db/": [
     { text: "Redis", link: "/db/redis/README" },
