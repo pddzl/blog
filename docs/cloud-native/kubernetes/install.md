@@ -4,11 +4,9 @@ outline: deep
 
 # 安装
 
-## kubeadm
-
 以下内容为使用 kubeadm 部署 `kubernetes v1.23.1`
 
-### 系统准备
+## 系统准备
 
 | 主机名 | IP | 角色 |
 | ----- | -- | --- |
@@ -16,7 +14,7 @@ outline: deep
 | node2 | 10.192.104.102 | node |
 | node3 | 10.192.104.103 | node |
 
-#### 设置主机名称
+### 设置主机名称
 
 ```shell
 sudo hostnamectl set-hostname node1 --static
@@ -30,7 +28,7 @@ sudo hostnamectl set-hostname node1 --static
 10.192.104.103 node3
 ```
 
-#### 设置DNS
+### 设置DNS
 
 `/etc/resolv.conf` **设置成阿里云的DNS，不然阿里云的k8s镜像解析不了**
 
@@ -38,14 +36,14 @@ sudo hostnamectl set-hostname node1 --static
 nameserver 223.5.5.5
 ```
 
-#### 关闭防火墙
+### 关闭防火墙
 
 ```shell
 systemctl stop firewalld
 systemctl disable firewalld
 ```
 
-#### 禁用selinux
+### 禁用selinux
 
 ```shell
 setenforce 0
@@ -56,7 +54,7 @@ vim /etc/selinux/config
 SELINUX=disabled
 ```
 
-#### 关闭Swap
+### 关闭Swap
 
 Kubernetes 1.8 开始要求关闭系统的 Swap，如果不关闭，默认配置下 kubelet 将无法启动。 关闭系统的 Swap 方法如下
 
@@ -78,7 +76,7 @@ vm.swappiness=0
 sysctl -p /etc/sysctl.d/99-kubernetes-cri.conf
 ```
 
-#### 开启ipvs
+### 开启ipvs
 
 由于ipvs已经加入到了内核的主干，所以为 kube-proxy 开启 ipvs 的前提需要加载以下的内核模块
 
@@ -114,11 +112,11 @@ yum install -y ipset ipvsadm
 
 **如果以上前提条件如果不满足，则即使 kube-proxy 的配置开启了 ipvs 模式，也会退回到 iptables 模式。**
 
-### 部署CRI
+## 部署CRI
 
 这里的 `cri` 选择 `Containerd`
 
-#### 内核配置
+### 内核配置
 
 创建 `/etc/modules-load.d/containerd.conf` 配置文件
 
@@ -151,7 +149,7 @@ EOF
 sysctl -p /etc/sysctl.d/99-kubernetes-cri.conf
 ```
 
-#### 下载安装
+### 下载安装
 
 **在各个服务器节点上安装容器运行时 Containerd**
 
@@ -203,7 +201,7 @@ mv runc.amd64 /usr/local/sbin/runc
 chmod +x /usr/local/sbin/runc
 ```
 
-#### 配置
+### 配置
 
 生成 containerd 的配置文件
 
@@ -248,11 +246,11 @@ RuntimeVersion:  v1.5.8
 RuntimeApiVersion:  v1alpha2
 ```
 
-### 部署k8s
+## 安装k8s
 
 下面在各节点安装 kubeadm 和 kubelet
 
-#### 安装kubeadm和kubelet
+### 安装kubeadm和kubelet
 
 ```shell
 cat <<EOF > /etc/yum.repos.d/kubernetes.repo
@@ -269,10 +267,10 @@ EOF
 
 ```shell
 yum makecache fast
-yum install -y kubelet kubeadm kubectl
+yum install -y kubelet-1.23.1 kubeadm-1.23.1 kubectl-1.23.1
 ```
 
-#### 初始化集群
+### 初始化集群
 
 在各节点开机启动 kubelet 服务
 
@@ -568,6 +566,68 @@ node2   Ready    <none>                 4h32m   v1.23.1
 node3   Ready    <none>                 4h32m   v1.23.1
 ```
 
-### 参考
+## 参考
 
 + <https://blog.frognew.com/2021/12/kubeadm-install-kubernetes-1.23.html>
+
+## 安装Dashboard
+
+```shell
+wget https://raw.githubusercontent.com/kubernetes/dashboard/v2.7.0/aio/deploy/recommended.yaml
+```
+
+修改service type 为 NodePort
+
+```yaml
+kind: Service
+apiVersion: v1
+metadata:
+  labels:
+    k8s-app: kubernetes-dashboard
+  name: kubernetes-dashboard
+  namespace: kubernetes-dashboard
+spec:
+  ports:
+    - port: 443
+      targetPort: 8443
+  type: NodePort
+  selector:
+    k8s-app: kubernetes-dashboard
+```
+
+```shell
+kubectl apply -f recommended.yaml
+```
+
+创建 Service Account
+
+```yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: admin-user
+  namespace: kubernetes-dashboard
+```
+
+创建 ClusterRoleBinding
+
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: admin-user
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+- kind: ServiceAccount
+  name: admin-user
+  namespace: kubernetes-dashboard
+```
+
+获取登录 token
+
+```shell
+kubectl -n kubernetes-dashboard create token admin-user
+```
