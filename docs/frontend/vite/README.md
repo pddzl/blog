@@ -188,3 +188,77 @@ export default (configEnv: ConfigEnv): UserConfigExport => {
   }
 }
 ```
+
+vite.config.js
+
+```js
+import vue from "@vitejs/plugin-vue"
+import { resolve } from "path"
+import DefineOptions from "unplugin-vue-define-options/vite"
+import { defineConfig, loadEnv } from "vite"
+
+export default defineConfig(({ mode }) => {
+  // 根据当前工作目录中的 `mode` 加载 .env 文件
+  const env = loadEnv(mode, process.cwd())
+
+  return {
+    /** 打包时根据实际情况修改 base */
+    base: env.VITE_PUBLIC_PATH,
+    // 起个别名，在引用资源时，可以用‘@/资源路径’直接访问
+    resolve: {
+      alias: {
+        "@": resolve(__dirname, "src")
+      }
+    },
+    // 配置前端服务地址和端口
+    server: {
+      host: true,
+      port: env.VITE_CLI_PORT,
+      // 是否开启 https
+      https: false,
+      open: true,
+      cors: true,
+      // 设置反向代理，跨域
+      proxy: {
+        [env.VITE_BASE_API]: {
+          // 后台地址
+          target: `${env.VITE_BASE_PATH}:${env.VITE_SERVER_PORT}/`,
+          changeOrigin: true,
+          rewrite: (path) => path.replace(new RegExp("^" + env.VITE_BASE_API), "")
+        },
+        // websocket
+        "^/task/message": {
+          target: `${env.VITE_BASE_PATH}:${env.VITE_SERVER_PORT}/`,
+          ws: true,
+          changeOrigin: true
+        }
+      }
+    },
+    build: {
+      /** 消除打包大小超过 500kb 警告 */
+      chunkSizeWarningLimit: 2000,
+      /** Vite 2.6.x 以上需要配置 minify: "terser", terserOptions 才能生效 */
+      minify: "terser",
+      /** 在打包代码时移除 console.log、debugger 和 注释 */
+      terserOptions: {
+        compress: {
+          drop_console: false,
+          drop_debugger: true,
+          pure_funcs: ["console.log"]
+        },
+        format: {
+          /** 删除注释 */
+          comments: false
+        }
+      },
+      /** 打包后静态资源目录 */
+      assetsDir: "static"
+    },
+    plugins: [
+      vue(),
+      /** DefineOptions 可以更简单的注册组件名称 */
+      DefineOptions()
+    ]
+  }
+})
+```
