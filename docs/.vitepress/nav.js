@@ -24,6 +24,7 @@ module.exports = [
     items: [
       { text: "Golang", link: "/backend/golang/data_type/base" },
       { text: "Gorm", link: "/backend/gorm/introduction" },
+      { text: "Gin", link: "/backend/gin/README" }
     ],
   },
   {

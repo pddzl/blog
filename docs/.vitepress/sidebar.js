@@ -75,6 +75,7 @@ module.exports = {
         { text: '教程', link: '/backend/gorm/tutorial' }
       ]
     },
+    { text: "Gin", link: "/backend/gin/README"}
   ],
   "/cloud-native/": [
     { text: "Docker", link: "/cloud-native/docker/README" },
