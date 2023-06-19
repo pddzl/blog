@@ -134,6 +134,18 @@ spec:
 ```
 
 ```shell
+kubectl apply -f my-ingress.yaml
+```
+
+如果出现报错: **Error from server (InternalError): error when creating "yaml/xxx/xxx-ingress.yaml": Internal error occurred: failed calling webhook "validate.nginx.ingress.kubernetes.io": Post https://ingress-nginx-controller-admission.ingress-nginx.svc:443/extensions/v1beta1/ingresses?timeout=30s: Temporary Redirect**
+
+详见 `https://stackoverflow.com/questions/61616203/nginx-ingress-controller-failed-calling-webhook`
+
+```shell
+kubectl delete -A ValidatingWebhookConfiguration ingress-nginx-admission
+```
+
+```shell
 [root@node1 test]# kubectl get ingress -n test
 NAME         CLASS    HOSTS            ADDRESS   PORTS   AGE
 my-ingress   <none>   www.tabops.com             80      46s
