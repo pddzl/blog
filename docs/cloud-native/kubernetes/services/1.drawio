@@ -1,0 +1,75 @@
+<mxfile host="65bd71144e">
+    <diagram id="L86E0VVStFSr8dmwVA4M" name="Page-1">
+        <mxGraphModel dx="1212" dy="432" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="29" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontColor=#00FF00;endArrow=open;sourcePerimeterSpacing=8;targetPerimeterSpacing=8;" parent="1" source="2" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="389" y="460" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="2" value="&lt;font color=&quot;#ff6666&quot;&gt;节点&lt;br&gt;&lt;/font&gt;31896:80 | 31390:443" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="114" y="437" width="135" height="46" as="geometry"/>
+                </mxCell>
+                <mxCell id="30" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontColor=#00FF00;endArrow=open;sourcePerimeterSpacing=8;targetPerimeterSpacing=8;" parent="1" source="3" target="4" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" value="&lt;font color=&quot;#ff6666&quot;&gt;Service&lt;/font&gt;&lt;br&gt;&lt;font color=&quot;#0000ff&quot;&gt;ingress-nginx-controller&lt;/font&gt;&lt;br&gt;&lt;font color=&quot;#000000&quot;&gt;80|443&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontColor=#00FF00;" parent="1" vertex="1">
+                    <mxGeometry x="391" y="436" width="144" height="48" as="geometry"/>
+                </mxCell>
+                <mxCell id="4" value="Pod &amp;lt;nginx&amp;gt;&lt;br&gt;&lt;font color=&quot;#0000ff&quot;&gt;ingress-nginx-controller&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontColor=#FF6666;" parent="1" vertex="1">
+                    <mxGeometry x="377" y="554" width="172" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="5" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="1" vertex="1">
+                    <mxGeometry x="377" y="604" width="172" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="6" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+                    <mxGeometry x="387" y="614" width="172" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="17" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.008;entryY=0.463;entryDx=0;entryDy=0;entryPerimeter=0;fontColor=#000000;endArrow=open;sourcePerimeterSpacing=8;targetPerimeterSpacing=8;" parent="1" source="7" target="11" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="22" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;fontColor=#000000;endArrow=open;sourcePerimeterSpacing=8;targetPerimeterSpacing=8;exitX=1;exitY=0.5;exitDx=0;exitDy=0;dashed=1;" parent="1" source="7" target="20" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="569" y="649" as="sourcePoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="7" value="www.tabops.com" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+                    <mxGeometry x="397" y="624" width="172" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="10" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontColor=#000000;endArrow=open;sourcePerimeterSpacing=8;targetPerimeterSpacing=8;" parent="1" source="8" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="377" y="642" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="8" value="&lt;div style=&quot;&quot;&gt;&lt;font color=&quot;#000000&quot;&gt;rules:&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font color=&quot;#000000&quot;&gt;&amp;nbsp; &amp;nbsp; - host: www.tabops.com&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font color=&quot;#000000&quot;&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; http:&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font color=&quot;#000000&quot;&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; paths:&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font color=&quot;#000000&quot;&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; - pathType: Prefix&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font color=&quot;#000000&quot;&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; path: /&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font color=&quot;#000000&quot;&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; backend:&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font color=&quot;#000000&quot;&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; service:&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font color=&quot;#000000&quot;&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; name: my-service&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font color=&quot;#000000&quot;&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; port:&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font color=&quot;#000000&quot;&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; number: 80&lt;/font&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontColor=#00FF00;align=left;" parent="1" vertex="1">
+                    <mxGeometry x="96" y="560" width="186" height="164" as="geometry"/>
+                </mxCell>
+                <mxCell id="11" value="" style="rounded=0;whiteSpace=wrap;html=1;fontColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="789" y="586" width="93" height="187" as="geometry"/>
+                </mxCell>
+                <mxCell id="12" value="pod1" style="ellipse;whiteSpace=wrap;html=1;fontColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="805" y="604.25" width="59" height="40.75" as="geometry"/>
+                </mxCell>
+                <mxCell id="18" value="pod2" style="ellipse;whiteSpace=wrap;html=1;fontColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="805" y="659.63" width="59" height="40.75" as="geometry"/>
+                </mxCell>
+                <mxCell id="19" value="pod3" style="ellipse;whiteSpace=wrap;html=1;fontColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="805" y="715" width="59" height="40.75" as="geometry"/>
+                </mxCell>
+                <mxCell id="23" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;fontColor=#000000;endArrow=open;sourcePerimeterSpacing=8;targetPerimeterSpacing=8;dashed=1;" parent="1" source="20" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="789" y="673" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="20" value="&lt;font color=&quot;#ff6666&quot;&gt;Service&lt;/font&gt;&lt;br&gt;&lt;font color=&quot;#0000ff&quot;&gt;my-service&lt;/font&gt;&lt;br&gt;80" style="rounded=0;whiteSpace=wrap;html=1;fontColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="624" y="492" width="104" height="51" as="geometry"/>
+                </mxCell>
+                <mxCell id="25" value="&lt;font color=&quot;#ff6666&quot;&gt;Deployment&lt;/font&gt;&lt;br&gt;&lt;font color=&quot;#0000ff&quot;&gt;selector: my-app&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="783" y="548" width="105" height="32" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

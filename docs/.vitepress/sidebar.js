@@ -88,6 +88,11 @@ module.exports = {
         { text: "Pod", link: "/cloud-native/kubernetes/workloads/pod" },
         { text: "控制器", link: "/cloud-native/kubernetes/workloads/controller" },
         { text: "策略", link: "/cloud-native/kubernetes/policy/README" },
+        { text: "服务",
+          items: [
+            { text: "Ingress", link: "/cloud-native/kubernetes/services/ingress" }
+          ]
+        }
       ],
     },
     { text: "KubeSphere", link: "/cloud-native/kubeSphere/README" }
