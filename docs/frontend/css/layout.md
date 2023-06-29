@@ -137,6 +137,34 @@ example: block1向右向下偏移20px
 
 绝对定位，`absolute` 相对于父级元素进行偏移（最近父一级的非 `static` 定位元素，如果未找到定位元素，则定位基点就会变成整个网页的根元素 `html`），元素会被移出正常文档流
 
+```html
+<html>
+  <head>
+    <style>
+      .block1 {
+        width: 50px;
+        height: 50px;
+        background-color: aqua;
+        position: relative;
+      }
+      .block2 {
+        width: 50px;
+        height: 50px;
+        background-color: pink;
+        position: absolute;
+        left: 20px;
+        top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="block1">
+      <div class="block2"/>
+    </div>
+  </body>
+</html>
+```
+
 <img src="./images/position/absolute.png" />
 
 - fixed
