@@ -192,7 +192,7 @@ example: block1向右向下偏移20px
 position: relative;
 left: 50%;
 top: 50%;
-transform: trnaslate(-%50, -%50);
+transform: trnaslate(-50%, -50%);
 ```
 
 ## flex
