@@ -368,6 +368,57 @@ if ok {
 
 需要并发安全的 `map`，可以使用 `sync.map`
 
+### 面试题
+
+#### 第一题
+
+下面的程序执行会报错吗
+
+```go
+package main
+
+import "fmt"
+
+type person struct {
+	Name string
+	Age  uint
+}
+
+func main() {
+	info := map[string]person{
+		"a": {"p1", 20},
+		"b": {"p2", 30},
+	}
+
+	info["b"].Age = 25
+
+	fmt.Println("info", info)
+}
+```
+
+答案：报错
+
+```shell
+./main.go:16:2: cannot assign to struct field info["a"].Age in map
+```
+
+原因：**结构体作为map的元素时，不能直接修改结构体的某个字段，也就是map中的struct的字段不能直接寻址**
+
+解决方案：
+
+```go
+// 第一种
+bb := person{Name: "p2", Age: 25}
+info["b"] = bb
+// 第二种
+info := map[string]*person{
+  "a": {"p1", 20},
+  "b": {"p2", 30},
+}
+
+info["b"].Age = 25
+```
+
 ## Channel
 
 详见并发 channel 章节
