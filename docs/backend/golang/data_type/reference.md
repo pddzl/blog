@@ -93,7 +93,7 @@ append(a, 5)
 
 扩容操作会创建一个新的底层数组，将原来的元素复制到新数组中，并返回一个新的切片。
 
-### 切片拷贝
+### 拷贝
 
 切片使用内置函数 `copy` 进行拷贝，copy(dst_para, src_para): dst_para 和 src_para 都是切片类型
 
@@ -117,6 +117,141 @@ slice1=[1 2 3 4 5]
 slice2=[1 2 3 4 5 0 0 0 0 0]
 slice3=[1]
 ```
+
+### 排序
+
+`Golang` `sort`包 提供了 `sort.Ints()` `sort.Float64s()` `sort.Strings()` 三种数据类型的排序函数，默认升序。
+
+```go
+package main
+
+import (
+	"fmt"
+	"sort"
+)
+
+func main() {
+	sliceInt := []int{1, 3, 2, 5, 4}
+	sliceFloat := []float64{1.0, 3.0, 2.0, 5.0, 4.0}
+	sliceString := []string{"a", "c", "b", "e", "d"}
+
+	sort.Ints(sliceInt)
+	sort.Float64s(sliceFloat)
+	sort.Strings(sliceString)
+	fmt.Println("int", sliceInt)
+	fmt.Println("float", sliceFloat)
+	fmt.Println("string", sliceString)
+}
+```
+
+输出
+```shell
+int [1 2 3 4 5]
+float [1 2 3 4 5]
+string [a b c d e]
+```
+
+降序
+
+```shell
+sort.Slice(sliceInt, func(i, j int) bool {
+	return sliceInt[i] > sliceInt[j]
+})
+fmt.Println("int", sliceInt)
+```
+
+```shell
+int [5 4 3 2 1]
+```
+
+`Example` 对结构体的指定字段排序
+
++ 第一种
+
+`sort` 包有一个 `sort.Interface` 接口，该接口有三个方法 `Len()`、`Less()`、`Swap(i, j)`。通用排序函数 `sort.Sort` 可以排序任何实现了 `sort.Interface` 接口的对象（变量）
+
+```go
+package main
+
+import (
+	"fmt"
+	"sort"
+)
+
+type person struct {
+	Name string
+	Age  uint
+}
+
+type sliceP []person
+
+// 实现 sort.Interface 的三个方法
+func (s sliceP) Len() int {
+	return len(s)
+}
+
+func (s sliceP) Less(i, j int) bool {
+	return s[i].Age < s[j].Age
+}
+
+func (s sliceP) Swap(i, j int) {
+	s[i], s[j] = s[j], s[i]
+}
+
+func main() {
+	info := []person{
+		{Name: "p1", Age: 10},
+		{Name: "p2", Age: 5},
+		{Name: "p3", Age: 20},
+		{Name: "p4", Age: 3},
+		{Name: "p5", Age: 17},
+	}
+
+	sort.Sort(sliceP(info))
+
+	fmt.Println("info", info)
+}
+```
+
++ 第二种
+
+```go
+package main
+
+import (
+	"fmt"
+	"sort"
+)
+
+func main() {
+	type person struct {
+		name string
+		age  uint
+	}
+
+	info := []person{
+		{name: "p1", age: 10},
+		{name: "p2", age: 5},
+		{name: "p3", age: 20},
+		{name: "p4", age: 3},
+		{name: "p5", age: 17},
+	}
+
+	sort.Slice(info, func(i, j int) bool {
+		return info[i].age < info[j].age
+	})
+
+	fmt.Println("info", info)
+}
+```
+
+输出
+
+```shell
+info [{p4 3} {p2 5} {p1 10} {p5 17} {p3 20}]
+```
+
+参考：`https://www.cnblogs.com/niuben/p/14773947.html`
 
 ## map
 
