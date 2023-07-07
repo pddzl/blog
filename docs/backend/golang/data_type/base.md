@@ -27,7 +27,7 @@ uint64  8字节 0 ~ 2^64-1
 
 ## 浮点数
 
-浮点数都是有符号的，go的浮点型默认为float64
+浮点数都是有符号的，`go` 的浮点型默认为 `float64`
 
 ```go
 float32 4字节
@@ -36,21 +36,21 @@ float64 8字节
 
 ## 字符
 
-Go语言有两种字符类型
+`Go` 语言有两种字符类型
 
-+ byte（uint8的别名），代表ASCII码的一个字符，一个ASCII字符占一个字节
++ byte（uint8 的别名），代表 `ASCII` 码的一个字符，一个 `ASCII` 字符占一个字节
 
 ```go
 type byte = uint8
 ```
 
-+ rune（int32的别名），代表一个Unicode码，当需要处理中文的时候需要用到rune类型，一个中文占用3个字节
++ rune（int32 的别名），代表一个 `Unicode` 码，当需要处理中文的时候需要用到 `rune` 类型，一个中文占用3个字节
 
 ```go
 type rune = int32
 ```
 
-案例：
+Example:
 
 ```go
 package main
@@ -93,7 +93,7 @@ complex64 complex128
 
 ## 布尔值
 
-`bool` 类型数据只允许取值 true 和 false，默认值为 false
+`bool` 类型数据只允许取值 `true` 和 `false`，默认值为 `false`
 
 `bool` 类型占一个字节
 
@@ -101,7 +101,7 @@ complex64 complex128
 
 字符串是一个**只读**的字节数组
 
-字符串底层实现是一个数据结构（结构体），占用16个字节，前8个字节是一个指针，指向字符数组的地址，后8个字节是一个整数，标识数组的长度。
+字符串底层实现的数据结构（结构体），占用16个字节，前8个字节是一个指针，指向字符数组的地址，后8个字节是一个整数，标识数组的长度。
 
 ```go
 type StringHeader struct {
@@ -144,9 +144,15 @@ const s string = "abc"
 
 ## 数据类型转换
 
-Example1:
+Example:
 
-int32 -> float32, int32 -> int8, int32 -> int8, int32 -> int64
+int32 -> float32
+
+int32 -> int8
+
+int32 -> int8
+
+int32 -> int64
 
 ```go
 package main
@@ -176,7 +182,7 @@ i type is int32
 num2= 63
 ```
 
-Example2:
+Example:
 
 ```go
 package main
