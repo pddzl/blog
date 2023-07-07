@@ -49,27 +49,33 @@ package main
 import "fmt"
 
 func main() {
-  var intArr [5]int = [...]int{1, 2, 3, 4, 5}
-  slice := intArr[0:2]
-  fmt.Printf("数组地址=%p\n", &intArr)
-  fmt.Printf("slice=%v len=%d cap=%d\n", slice, len(slice), cap(slice))
-  fmt.Printf("数组地址=%p 切片地址=%p\n", slice, &slice)
-  slice = append(slice, 6, 7)
-  fmt.Printf("slice=%v len=%d cap=%d\n", slice, len(slice), cap(slice))
-  fmt.Printf("数组地址=%p 切片地址=%p\n", slice, &slice)
-  slice = append(slice, 8, 9)
-  fmt.Printf("slice=%v len=%d cap=%d\n", slice, len(slice), cap(slice))
-  fmt.Printf("数组地址=%p 切片地址=%p\n", slice, &slice)
+	var intArr [5]int = [...]int{1, 2, 3, 4, 5}
+	slice := intArr[0:2]
+	fmt.Printf("数组地址=%p\n", &intArr)
+	fmt.Printf("slice=%v len=%d cap=%d\n", slice, len(slice), cap(slice))
+	fmt.Printf("数组地址=%p 切片地址=%p\n", slice, &slice)
+	slice = append(slice, 6, 7)
+	fmt.Println("intArr", intArr)
+	fmt.Printf("slice=%v len=%d cap=%d\n", slice, len(slice), cap(slice))
+	fmt.Printf("数组地址=%p 切片地址=%p\n", slice, &slice)
+	//cap容量不够，新建了底层数组
+	slice = append(slice, 8, 9)
+	fmt.Println("intArr", intArr)
+	fmt.Printf("slice=%v len=%d cap=%d\n", slice, len(slice), cap(slice))
+	fmt.Printf("数组地址=%p 切片地址=%p\n", slice, &slice)
 }
+```
 
-$ go run main.go
-数组地址=0xc000098030
+```shell
+数组地址=0x140000b4000
 slice=[1 2] len=2 cap=5
-数组地址=0xc000098030 切片地址=0xc0000a2000
+数组地址=0x140000b4000 切片地址=0x140000a0018
+intArr [1 2 6 7 5]
 slice=[1 2 6 7] len=4 cap=5
-数组地址=0xc000098030 切片地址=0xc0000a2000
+数组地址=0x140000b4000 切片地址=0x140000a0018
+intArr [1 2 6 7 5]
 slice=[1 2 6 7 8 9] len=6 cap=10
-数组地址=0xc0000ac000 切片地址=0xc0000a2000
+数组地址=0x140000c2000 切片地址=0x140000a0018
 ```
 
 ### 扩容
@@ -251,13 +257,13 @@ func main() {
 info [{p4 3} {p2 5} {p1 10} {p5 17} {p3 20}]
 ```
 
-参考：`https://www.cnblogs.com/niuben/p/14773947.html`
+参考：<https://www.cnblogs.com/niuben/p/14773947.html>
 
 ## map
 
 在 `Go` 语言中，一个 `map` 就是一个哈希表的引用，`map` 类型可以写为 `map[K]V`，其中 `K` 和 `V` 分别对应 `key` 和 `value`。
 
-关于哈希表的介绍 `https://mp.weixin.qq.com/s/AkPIN6Ugno9vkQ2AAmCEAA`
+关于哈希表的介绍： <https://mp.weixin.qq.com/s/AkPIN6Ugno9vkQ2AAmCEAA>
 
 `slice`、`map`、`function` 不可以作为 `key`，因为这几个没法用 == 来判断
 
@@ -327,7 +333,7 @@ type bmap struct {
 
 如上图所示哈希表 `runtime.hmap` 的桶是 `runtime.bmap`。每一个 `runtime.bmap` 都能存储 8 个键值对，当哈希表中存储的数据过多，单个桶已经装满时就会使用 `extra.nextOverflow` 中桶存储溢出的数据
 
-上述两种不同的桶在内存中是连续存储的，我们在这里将它们分别称为正常桶和溢出桶，上图中黄色的 `runtime.bmap` 就是正常桶，绿色的 `runtime.bmap` 是溢出桶
+上述两种不同的桶在内存中是连续存储的，我们在这里将它们分别称为正常桶和溢出桶，上图中黄色的 `runtime.bmap` 就是正常桶，蓝色的 `runtime.bmap` 是溢出桶
 
 ### 增删查改
 
