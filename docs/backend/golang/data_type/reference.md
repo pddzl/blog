@@ -427,19 +427,15 @@ info["b"].Age = 25
 
 ## Channel
 
-详见并发 channel 章节
-
-`https://pddzl.github.io/blog/backend/golang/concurrence/channel.html`
+详见并发 `channel` 章节：<https://pddzl.github.io/blog/backend/golang/concurrence/channel.html>
 
 ## 接口
 
-详见接口章节
-
-`https://pddzl.github.io/blog/backend/golang/interface.html`
+详见接口章节：<https://pddzl.github.io/blog/backend/golang/interface.html>
 
 ## 指针
 
-Go支持指针，但不支持指针运算，指针默认值为nil
+Go支持指针，但不支持指针运算，指针默认值为 `nil`
 
 ```go
 package main
@@ -482,7 +478,7 @@ func main() {
 
 ### 隐式解引用
 
-对于一些复杂类型的指针， 如果要访问成员变量的话，需要写成类似`(*p).field`的形式，Go提供了隐式解引用特性，我们只需要`p.field`即可访问相应的成员
+对于一些复杂类型的指针， 如果要访问成员变量的话，需要写成类似 `(*p).field` 的形式，Go提供了隐式解引用特性，我们只需要 `p.field` 即可访问相应的成员
 
 ```go
 p1 := &Person{name: "易天", age: 24}

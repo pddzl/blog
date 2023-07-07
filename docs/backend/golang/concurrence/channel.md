@@ -6,19 +6,19 @@ outline: deep
 
 ## 简介
 
-Channel 是一种先入先出（FIFO）通信机制，可以用它在 goroutine 之间传递消息
+`Channel` 是一种先入先出（FIFO）通信机制，可以用它在 `goroutine` 之间传递消息
 
 我们常见的编程语言中，线程之间传递数据一般都是共享内存，为了解决线程竞争，我们需要限制同一时间能够读写这些数据的线程
 
-在 Go 语言中也能使用共享内存加互斥锁进行通信，但 Go 语言提供了一种不同的并发模式，即通信顺序进程（Communicating sequential processes，CSP）。
+在 `Go` 语言中也能使用共享内存加互斥锁进行通信，但 `Go` 语言提供了一种不同的并发模式，即通信顺序进程（Communicating sequential processes，CSP）。
 
-Goroutine 和 Channel 分别对应 CSP 中的实体和传递信息的媒介，Goroutine 之间会通过 Channel 传递数据。
+`Goroutine` 和 `Channel` 分别对应 `CSP` 中的实体和传递信息的媒介，`Goroutine` 之间会通过 `Channel` 传递数据。
 
 这就是我们常说的不要通过共享内存的方式进行通信，而是应该通过通信的方式共享内存
 
 ### 初始化
 
-和 map 类似，`channel` 也对应一个由 make 创建的底层数据结构的引用，默认值为nil
+和 `map` 类似，`channel` 也对应一个由 `make` 创建的底层数据结构的引用，默认值为 `nil`
 
 ```go
 ch := make(chan int) // 不带缓冲
@@ -33,11 +33,10 @@ chan<- float64  // 只可以用来发送 float64 类型的数据（只写）
 <-chan int      // 只可以用来接收int类型的数据（只读）
 ```
 
-`range c` 产生的迭代值为 `channel` 中发送的值，它会一直迭代直到 `channel` 被关闭。上面的例子中如果把 `close(c)` 注释掉，程序会一直阻塞在 `for ... range` 那一行
-
+`range c` 产生的迭代值为 `channel` 中发送的值，它会一直迭代直到 `channel` 被关闭。
 ### 关闭管道
 
-可以用内置 close 函数关闭 `channel`，随后对该 `channel` 写数据将导致 panic 异常，但仍可以正常从该 `channel` 读取数据，如果 `channel` 已经没有数据的话将产生一个零值的数据。
+可以用内置 `close` 函数关闭 `channel`，随后对该 `channel` 写数据将导致 `panic` 异常，但仍可以正常从该 `channel` 读取数据，如果 `channel` 已经没有数据的话将产生一个零值的数据。
 
 ```go
 package main

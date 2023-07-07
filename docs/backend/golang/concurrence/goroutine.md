@@ -20,13 +20,13 @@ outline: deep
 
 协程是一种用户态的轻量级线程，协程的调度完全由用户控制。协程拥有自己的寄存器上下文和栈。协程调度切换时，将寄存器上下文和栈保存到其他地方，在切回来的时候，恢复先前保存的寄存器上下文和栈，直接操作栈则基本没有内核切换的开销，可以不加锁的访问全局变量，所以上下文的切换非常快。
 
-`goroutine` 是 golang 中对协程的具体实现，`goroutine` 让一组可复用的函数运行在一组线程之上，即使有协程阻塞，该线程的其他协程也可以被runtime调度，转移到其他可运行的线程上。
+`goroutine` 是 golang 中对协程的具体实现，`goroutine` 让一组可复用的函数运行在一组线程之上，即使有协程阻塞，该线程的其他协程也可以被 `runtime` 调度，转移到其他可运行的线程上。
 
-`goroutine` 非常轻量，一个 `goroutine` 只占几KB，并且这几KB就足够 `goroutine` 运行完，这就能在有限的内存空间内支持大量 `goroutine`，支持了更多的并发。虽然一个`goroutine` 的栈只占几KB，但实际是可伸缩的，如果需要更多内容，runtime 会自动为 `goroutine` 分配。
+`goroutine` 非常轻量，一个 `goroutine` 只占几 KB，并且这几 KB 就足够 `goroutine` 运行完，这就能在有限的内存空间内支持大量 `goroutine`，支持了更多的并发。虽然一个`goroutine` 的栈只占几 KB，但实际是可伸缩的，如果需要更多内容，`runtime` 会自动为 `goroutine` 分配。
 
 ## GMP模型
 
-在 Go 中，线程是运行 `goroutine` 的实体，调度器的功能是把可运行的 `goroutine` 分配到工作线程上。
+在 `Go` 中，线程是运行 `goroutine` 的实体，调度器的功能是把可运行的 `goroutine` 分配到工作线程上。
 
 <img src="./images/goroutine.png" alt="GMP模型" style="zoom:50%;" />
 

@@ -6,7 +6,7 @@ outline: deep
 
 ## 介绍
 
-上下文 `context.Context` 在 Go 语言中用来设置截止日期、同步信号，传递请求相关值的结构体。上下文与 `Goroutine` 有比较密切的关系，主要用于超时控制和多Goroutine间的数据传递
+上下文 `context.Context` 在 `Go` 语言中用来设置截止日期、同步信号，传递请求相关值的结构体。上下文与 `Goroutine` 有比较密切的关系，主要用于超时控制和多 `Goroutine` 间的数据传递
 
 ## Demo演示
 
@@ -65,8 +65,8 @@ main context deadline exceeded
 
 ## 源码分析
 
-退出的原理: 监听 ctx 里面的 channel（关闭 channel 后，可以从 channel 里面读取到对应类型的零值）
+退出的原理: 监听 `ctx` 里面的 `channel`（关闭 `channel` 后，可以从 `channel` 里面读取到对应类型的零值）
 
-context.WithCancel(parent Context): 从 parent Context 创建一个带有取消方法的 child Context，该 Context 可以手动调用 cancel
+context.WithCancel(parent Context): 从 `parent Context` 创建一个带有取消方法的 `child Context`，该 `Context` 可以手动调用 `cancel`
 
-cancel() 关闭当前 ctx 的 channel 以及 children 节点的 channel
+`cancel()` 关闭当前 `ctx` 的 `channel` 以及 `children` 节点的 `channel`
