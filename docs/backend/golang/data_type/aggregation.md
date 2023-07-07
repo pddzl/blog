@@ -25,7 +25,7 @@ b := [...]int{1, 2, 3} // 编译期间通过源代码推导数组的大小
 
 ### 内存布局
 
-+ 数组地址可以通过数组名来获取 &数组名
++ 数组地址可以通过数组名来获取（&数组名）
 
 + 数组第一个元素的地址就是数组的地址
 
@@ -222,4 +222,63 @@ func main() {
 ```shell
 0xc000070040 0xc000070040 0xc000070050 0xc000070058 0xc000070068
 内存大小 56 16 8
+```
+
+### 面试题
+
+1、结构体可以比较吗
+
+答案：可比较也不可比较，如果结构体字段为 `slice`、`map`、`func` 则不可比较
+
+可比较
+
+```go
+package main
+
+import "fmt"
+
+type info struct {
+	name string
+	age  int
+}
+
+func main() {
+	p1 := info{name: "p1", age: 10}
+	p2 := info{name: "p1", age: 10}
+
+	if p1 == p2 {
+		fmt.Println("==")
+	}
+}
+```
+
+```
+==
+```
+不可比较
+
+```go
+package main
+
+import "fmt"
+
+type info struct {
+	name map[string]int
+}
+
+func main() {
+	p1 := info{name: map[string]int{"p1": 10}}
+	p2 := info{name: map[string]int{"p1": 10}}
+
+	if p1 == p2 {
+		fmt.Println("==")
+	}
+}
+```
+
+返回
+
+```go
+# command-line-arguments
+./main.go:13:5: invalid operation: p1 == p2 (struct containing map[string]int cannot be compared)
 ```
