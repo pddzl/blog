@@ -125,19 +125,33 @@ in main
 
 ```go
 func main() {
-  defer println("in main")
+  defer fmt.Println("in main")
+
+  defer func(){
+    if err := recover(); err != nil {
+      fmt.Println(err)
+    }
+  }()
+
   go func() {
-    defer println("in goroutine")
+    defer fmt.Println("in goroutine")
     panic("")
   }()
 
   time.Sleep(1 * time.Second)
 }
+```
 
-$ go run main.go
+```shell
 in goroutine
 panic:
-...
+
+goroutine 18 [running]:
+main.main.func2()
+	/Users/paul/1.go:19 +0x68
+created by main.main
+	/Users/paul/1.go:17 +0x80
+exit status 2
 ```
 
 `recover` 只有在 `defer` 中调用才会生效
