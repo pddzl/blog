@@ -11,13 +11,16 @@ outline: deep
 安装 yum 源
 
 ```shell
-yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+yum-config-manager --add-repo https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+dnf config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
 ```
+
+`dnf install docker-ce docker-ce-cli containerd.io`
 
 列出 `docker` 的版本
 
 ```shell
-[root@node1 ~]# yum list docker-ce.x86_64  --showduplicates |sort -r
+[root@node1 ~]# yum list docker-ce.x86_64  --showduplicates | sort -r
  * updates: mirrors.aliyun.com
 Loading mirror speeds from cached hostfile
 Loaded plugins: fastestmirror
