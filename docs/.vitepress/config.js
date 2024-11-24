@@ -1,9 +1,8 @@
-import { defineConfig } from 'vitepress'
-const wyNav = require('./nav.js')
-const wySidebar = require('./sidebar.js')
+import wyNav from './nav.js'
+import wySidebar from './sidebar.js'
 
 // https://vitepress.dev/reference/site-config
-export default defineConfig({
+export default ({
   base: '/blog/',
   title: "pddzl",
   lang: 'zh-CN',
