@@ -1,4 +1,4 @@
-module.exports = [
+const myNav = [
   { text: "Home", link: "/" },
   {
     text: "Linux",
@@ -46,3 +46,5 @@ module.exports = [
     ],
   },
 ];
+
+export default myNav

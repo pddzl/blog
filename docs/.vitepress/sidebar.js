@@ -1,4 +1,4 @@
-module.exports = {
+const sidebar = {
   "/linux/": [
     {
       // text: "Date",
@@ -107,3 +107,5 @@ module.exports = {
     }
   ],
 };
+
+export default sidebar
