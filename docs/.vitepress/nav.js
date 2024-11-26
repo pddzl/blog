@@ -1,6 +1,15 @@
 const myNav = [
   { text: "Home", link: "/" },
   {
+    text: "英语",
+    activeMatch: "/english/",
+    items: [
+      { text: "音标", link: "/english/phonetic" },
+      { text: "语法", link: "/english/grammar" },
+      { text: "新概念", link: "/english/NewConcept" },
+    ],
+  },
+  {
     text: "Linux",
     activeMatch: "/linux/",
     items: [
@@ -24,7 +33,7 @@ const myNav = [
     items: [
       { text: "Golang", link: "/backend/golang/data_type/base" },
       { text: "Gorm", link: "/backend/gorm/introduction" },
-      { text: "Gin", link: "/backend/gin/README" }
+      { text: "Gin", link: "/backend/gin/README" },
     ],
   },
   {
@@ -41,10 +50,10 @@ const myNav = [
     text: "数据库",
     activeMatch: "/db/",
     items: [
-      { text: 'MySQL', link: '/db/mysql/join' },
-      { text: "Redis", link: "/db/redis/README" }
+      { text: "MySQL", link: "/db/mysql/join" },
+      { text: "Redis", link: "/db/redis/README" },
     ],
   },
 ];
 
-export default myNav
+export default myNav;

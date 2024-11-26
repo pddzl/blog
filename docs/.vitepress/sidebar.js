@@ -1,66 +1,83 @@
 const sidebar = {
-  "/linux/": [
+  "/english/": [
     {
-      // text: "Date",
-      items: [
-        { text: 'Date', link: "/linux/date" }
-      ]
+      items: [{ text: "音标", link: "/english/phonetic" }],
     },
     {
-      // text: "Awk",
+      items: [{ text: "语法", link: "/english/grammar" }],
+    },
+    {
+      items: [{ text: "新概念", items: [{text: "新概念二", }] link: "/english/NewConcept/Nce2" }],
+    },
+  ],
+  "/linux/": [
+    {
+      text: "Shell",
+      base: "/linux/",
       items: [
-        { text: 'Awk', link: "/linux/awk" }
-      ]
+        {
+          items: [
+            {
+              text: "Date",
+              link: "date",
+            },
+            {
+              text: "Awk",
+              link: "awk",
+            },
+          ],
+        },
+      ],
     },
   ],
   "/frontend/": [
     {
       text: "CSS",
       items: [
-        { text: '选择器', link: "/frontend/css/selector" },
-        { text: '布局', link: "/frontend/css/layout" }
-      ]
+        { text: "选择器", link: "/frontend/css/selector" },
+        { text: "布局", link: "/frontend/css/layout" },
+      ],
     },
     {
       // text: "JavaScript",
-      items: [
-        { text: 'JavaScript', link: "/frontend/javascript/README" }
-      ]
+      items: [{ text: "JavaScript", link: "/frontend/javascript/README" }],
     },
     {
       // text: "Vue",
-      items: [
-        { text: 'Vue', link: "/frontend/vue/README" }
-      ]
+      items: [{ text: "Vue", link: "/frontend/vue/README" }],
     },
     {
       // text: "Vite",
-      items: [
-        { text: 'Vite', link: "/frontend/vite/README" }
-      ]
+      items: [{ text: "Vite", link: "/frontend/vite/README" }],
     },
   ],
   "/backend/": [
     {
       text: "Golang",
+      collapsed: false,
       items: [
-        { text: "数据类型",
+        {
+          text: "数据类型",
           items: [
-            { text: '基础类型', link: "/backend/golang/data_type/base" },
-            { text: '聚合类型', link: "/backend/golang/data_type/aggregation" },
-            { text: '引用类型', link: "/backend/golang/data_type/reference" }
-          ]
+            { text: "基础类型", link: "/backend/golang/data_type/base" },
+            { text: "聚合类型", link: "/backend/golang/data_type/aggregation" },
+            { text: "引用类型", link: "/backend/golang/data_type/reference" },
+          ],
         },
         { text: "函数", link: "/backend/golang/functions" },
         { text: "关键字", link: "/backend/golang/keyword" },
-        { text: '接口', link: '/backend/golang/interface' },
-        { text: '反射', link: '/backend/golang/reflect' },
-        { text: "并发", 
+        { text: "接口", link: "/backend/golang/interface" },
+        { text: "反射", link: "/backend/golang/reflect" },
+        {
+          text: "并发",
           items: [
-            { text: 'Context', link: '/backend/golang/concurrence/context' },
-            { text: 'Goroutine', link: '/backend/golang/concurrence/goroutine' },
-            { text: 'Channel', link: '/backend/golang/concurrence/channel' }
-          ]
+            { text: "Context", link: "/backend/golang/concurrence/context" },
+            {
+              text: "Goroutine",
+              link: "/backend/golang/concurrence/goroutine",
+            },
+            { text: "Channel", link: "/backend/golang/concurrence/channel" },
+          ],
         },
         { text: "系统", link: "/backend/golang/system" },
         { text: "输入输出", link: "/backend/golang/io" },
@@ -69,13 +86,13 @@ const sidebar = {
     {
       text: "Gorm",
       items: [
-        { text: '入门指南', link: '/backend/gorm/introduction' },
-        { text: 'CURD', link: '/backend/gorm/curd' },
-        { text: '关联', link: '/backend/gorm/assocation' },
-        { text: '教程', link: '/backend/gorm/tutorial' }
-      ]
+        { text: "入门指南", link: "/backend/gorm/introduction" },
+        { text: "CURD", link: "/backend/gorm/curd" },
+        { text: "关联", link: "/backend/gorm/assocation" },
+        { text: "教程", link: "/backend/gorm/tutorial" },
+      ],
     },
-    { text: "Gin", link: "/backend/gin/README"}
+    { text: "Gin", link: "/backend/gin/README" },
   ],
   "/cloud-native/": [
     { text: "Docker", link: "/cloud-native/docker/README" },
@@ -86,26 +103,31 @@ const sidebar = {
         { text: "概述", link: "/cloud-native/kubernetes/README" },
         { text: "安装", link: "/cloud-native/kubernetes/install" },
         { text: "Pod", link: "/cloud-native/kubernetes/workloads/pod" },
-        { text: "控制器", link: "/cloud-native/kubernetes/workloads/controller" },
+        {
+          text: "控制器",
+          link: "/cloud-native/kubernetes/workloads/controller",
+        },
         { text: "策略", link: "/cloud-native/kubernetes/policy/README" },
-        { text: "服务",
+        {
+          text: "服务",
           items: [
-            { text: "Ingress", link: "/cloud-native/kubernetes/services/ingress" }
-          ]
-        }
+            {
+              text: "Ingress",
+              link: "/cloud-native/kubernetes/services/ingress",
+            },
+          ],
+        },
       ],
     },
-    { text: "KubeSphere", link: "/cloud-native/kubeSphere/README" }
+    { text: "KubeSphere", link: "/cloud-native/kubeSphere/README" },
   ],
   "/db/": [
     { text: "Redis", link: "/db/redis/README" },
     {
-      text: 'MySQL',
-      items: [
-        { text: 'Join', link: '/db/mysql/join' }
-      ]
-    }
+      text: "MySQL",
+      items: [{ text: "Join", link: "/db/mysql/join" }],
+    },
   ],
 };
 
-export default sidebar
+export default sidebar;

@@ -22,7 +22,10 @@ features:
     title: 后端
     details: Golang, Gorm, Redis, Mysql
   - icon: ☁️
-    title: 运维
+    title: 云原生
     details: Docker, Compose, K8s
+  - icon: 🇬🇧
+    title: 英语
+    details: 词汇, 语法, 发音
 ---
 
