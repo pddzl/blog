@@ -7,7 +7,13 @@ const sidebar = {
       items: [{ text: "语法", link: "/english/grammar" }],
     },
     {
-      items: [{ text: "新概念", items: [{text: "新概念二", }] link: "/english/NewConcept/Nce2" }],
+      items: [
+        {
+          base: "/english/NewConcept/",
+          text: "新概念",
+          items: [{ text: "第二册", link: "Nce2" }],
+        },
+      ],
     },
   ],
   "/linux/": [
@@ -17,14 +23,8 @@ const sidebar = {
       items: [
         {
           items: [
-            {
-              text: "Date",
-              link: "date",
-            },
-            {
-              text: "Awk",
-              link: "awk",
-            },
+            { text: "Date", link: "date" },
+            { text: "Awk", link: "awk" },
           ],
         },
       ],

@@ -6,7 +6,7 @@ const myNav = [
     items: [
       { text: "音标", link: "/english/phonetic" },
       { text: "语法", link: "/english/grammar" },
-      { text: "新概念", link: "/english/NewConcept" },
+      { text: "新概念", link: "/english/NewConcept/Nce2" },
     ],
   },
   {

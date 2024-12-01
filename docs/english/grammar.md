@@ -4,6 +4,8 @@ outline: deep
 
 # 语法
 
+<img src="./语法体系2.png" alt="语法体系" />
+
 ## 名词
 
 1. 如果名词是以 s 结尾的，变成复数时要加es，如 dress -- dresses。
@@ -25,3 +27,14 @@ outline: deep
   milkman -- milkmen
 
   policewoman -- policewomen
+
+
+## 定语
+
+### 前置定语
+
+### 后置定语
+
+A "gift" to pull a "snow" job on your kids and freeze them in place like an "icicle"
+
+to pull...豆包说这个是后置定语，ChatGPT说不是 是不定式短语
